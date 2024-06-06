@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:12:47 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/06 12:24:04 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:08:31 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	loopfunc(t_data	*data)
 	data->p.rotation_angle += data->p.turn_direction * data->p.rotation_speed;
 	float	x;
 	float	y;
+	
 	float	move_step = data->p.up_down * data->p.move_speed;
 	x = data->p.x + cos(data->p.rotation_angle) * move_step;
 	y = data->p.y + sin(data->p.rotation_angle) * move_step;
