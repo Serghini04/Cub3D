@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/05 22:06:07 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:53:43 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_map(t_data *data, char **arr)
 
 	i = 0;
 	data->map = arr;
-	data->p.move_speed = 2.0;
+	data->p.move_speed = 3.0;
 	data->p.turn_direction = 0;
 	data->p.up_down = 0;
 	data->p.left_right = 0;
@@ -105,8 +105,8 @@ void	draw_player(t_data *data, int color, int pow)
 
  void    draw_line1(int x0, int y0, t_data *data)
 {
-	int x1 = data->p.x + (PLAYER_SIZE / 2) + cos(data->p.rotation_angle) * 40;
-	int y1 = data->p.y + (PLAYER_SIZE / 2) + sin(data->p.rotation_angle) * 40;
+	int x1 = x0 + cos(data->p.rotation_angle) * 40;
+	int y1 = y0 + sin(data->p.rotation_angle) * 40;
     int dx = abs(x1 - x0);
     int dy = abs(y1 - y0);
     int sx = x0 < x1 ? 1 : -1;
@@ -165,11 +165,11 @@ int main ()
 	t_data	*data;
 	char *arr[] = { "11111111111111111111",
 					"10000000100000010001",
-					"10000000100000010001",
+					"100N00000100000010001",
 					"11111100000000000001",
 					"10000000001111110001",
 					"1110001000000010001",
-					"1N100001000000010001",
+					"10100001000000010001",
 					"11111111111111111111", NULL};
 	// char    *arr[] = {
     //     "           1111111111111111111111",

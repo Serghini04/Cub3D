@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:12:47 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/05 20:21:10 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:24:04 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,36 @@ int onrelease(int k, t_data *data)
 	return (0);
 }
 
+bool	is_wall(float x, float y, t_data *data)
+{
+	int	new_x = x / CUBE_SIZE;
+	int	new_y = y / CUBE_SIZE;
+	int new_xx = (x + PLAYER_SIZE) / CUBE_SIZE;
+	int new_yy = (y + PLAYER_SIZE) / CUBE_SIZE;
+	if (new_x < 0 || new_x > data->WIDTH || new_y < 0 || new_y > data->HEIGHT
+		|| new_xx < 0 || new_xx > data->WIDTH || new_yy < 0 || new_yy > data->HEIGHT)
+		return (true);
+	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1'
+		|| data->map[(int)floor(new_yy)][(int)floor(new_xx)] == '1' )
+		return (true);
+	return (false);
+}
+
 int	loopfunc(t_data	*data)
 {
 	data->p.rotation_angle += data->p.turn_direction * data->p.rotation_speed;
+	float	x;
+	float	y;
 	float	move_step = data->p.up_down * data->p.move_speed;
-	data->p.x = data->p.x + cos(data->p.rotation_angle) * move_step;
-	data->p.y = data->p.y + sin(data->p.rotation_angle) * move_step;
-	data->p.x += cos(data->p.rotation_angle + M_PI_2) * data->p.left_right * (data->p.move_speed - 1);
-	data->p.y += sin(data->p.rotation_angle + M_PI_2) * data->p.left_right * (data->p.move_speed - 1);
+	x = data->p.x + cos(data->p.rotation_angle) * move_step;
+	y = data->p.y + sin(data->p.rotation_angle) * move_step;
+	x += cos(data->p.rotation_angle + M_PI_2) * data->p.left_right * (data->p.move_speed - 1);
+	y += sin(data->p.rotation_angle + M_PI_2) * data->p.left_right * (data->p.move_speed - 1);
+	if (!is_wall(x, y , data))
+	{
+		data->p.x = x;
+		data->p.y = y;
+	}
 	draw_wall(data);
 	return (0);
 }
