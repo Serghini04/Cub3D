@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:12:47 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/06 16:25:44 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/06/08 17:03:04 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	onpress(int k, t_data *data)
 {
-	data->keyboard.key = k;
+	printf("%d\n", k);
 	if (k == 53)
 	{
 		mlx_destroy_image(data->mlx, data->img.p_img);

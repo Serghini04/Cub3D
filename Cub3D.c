@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/07 10:48:11 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/06/08 20:31:46 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	init_map(t_data *data, char **arr)
 				data->p.y += (CUBE_SIZE / 2) - (PLAYER_SIZE / 2);
 				data->p.direction = North;
 				data->p.rotation_angle = M_PI_2;
-				data->p.move_speed = 6.0;
 				data->p.rotation_speed = 2 * (M_PI / 180);
 				return ;
 			}
@@ -103,8 +102,10 @@ void	draw_player(t_data *data, int color, int pow)
 	}
 }
 
-void    draw_line1(int x0, int y0, float angle, t_data *data)
+void    draw_line1(float angle, t_data *data)
 {
+	int x0 = data->p.x + (PLAYER_SIZE / 2);
+	int y0 = data->p.y + (PLAYER_SIZE / 2);
     double x1 = x0 + cos(angle) * 40;
     double y1 = y0 + sin(angle) * 40;
     int dx = fabs(round(x1) - x0);
@@ -131,11 +132,35 @@ void    draw_line1(int x0, int y0, float angle, t_data *data)
         }
     }
 }
+void	find_horizontal_intersction(t_data *data, float ray_angle, t_point *a)
+{
+	// find coordinate of the first intersection;
+	t_point	first_inter;
+	t_point	step;
+
+	a->x = data->p.x + (PLAYER_SIZE/ 2);
+	a->y = data->p.y + (PLAYER_SIZE/ 2);
+	printf("(%2.f,%2.f)\n", a->x / CUBE_SIZE, a->y / CUBE_SIZE);
+	first_inter.y = floor(a->y / CUBE_SIZE) * CUBE_SIZE;
+	first_inter.x = a->x + ((a->y - first_inter.y) / tan(ray_angle));
+	step.y = CUBE_SIZE;
+	step.x = step.y / tan(ray_angle);
+	printf(">>(%2.f,%2.f)\n", step.x, step.y);
+	while (!is_wall(a->x, a->y, data))
+	{
+		a->y += step.y;
+		a->x += step.x;
+	}
+	a->y -= step.y;
+	a->x -= step.x;
+	printf("(%2.f,%2.f)\n", a->x, a->y);
+	exit(1);
+}
 
 void	draw_field_of_view(t_data *data)
 {
-	int	i;
-	int	num_rays;
+	int		i;
+	int		num_rays;
 	float	ray_angle;
 
 	i = 0;
@@ -144,7 +169,7 @@ void	draw_field_of_view(t_data *data)
 	ray_angle = data->p.rotation_angle - (FOV_ANGLE / 2);
 	while (i < num_rays)
 	{
-		draw_line1(data->p.x + (PLAYER_SIZE / 2), data->p.y + (PLAYER_SIZE / 2), ray_angle, data);
+		draw_line1(ray_angle, data);
 		ray_angle += FOV_ANGLE / num_rays;
 		i++;
 	}
@@ -172,7 +197,7 @@ int	draw_wall(t_data *data)
 		i += 1;
 	}
 	draw_player(data, RED, PLAYER_SIZE);
-	draw_line1(data->p.x + (PLAYER_SIZE / 2), data->p.y + (PLAYER_SIZE / 2), data->p.rotation_angle, data);
+	draw_line1(data->p.rotation_angle, data);
 	draw_field_of_view(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.p_img, 0, 0);
 	return (0);

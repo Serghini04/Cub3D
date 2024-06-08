@@ -6,13 +6,13 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/07 10:48:20 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/06/08 23:30:51 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef Cub3D_H
 #define Cub3D_H
-
+## backlist ## good movie.
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -26,7 +26,7 @@
 # define CUBE_SIZE 32
 # define PLAYER_SIZE 5
 # define FOV_ANGLE 60 * (M_PI / 180)
-# define WALL_STRIP_WIDTH 5
+# define WALL_STRIP_WIDTH 1
 
 
 # define KEY_A 	0
@@ -65,17 +65,6 @@ typedef struct s_player
 	float	rotation_speed;
 }	t_player;
 
-typedef struct s_keyboard
-{
-	bool	E;
-	bool	W;
-	bool	N;
-	bool	S;
-	bool	L;
-	bool	R;
-	int		key;
-}	t_keyboard;
-
 typedef struct s_img
 {
 	void	*p_img;		//mlx_new_image()
@@ -85,6 +74,13 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+// Point 2D
+typedef struct s_point
+{
+	float	x;
+	float	y;
+} t_point;
+
 typedef struct s_data
 {
 	int			WIDTH;
@@ -93,7 +89,6 @@ typedef struct s_data
 	void		*mlx;		// mlx_init();
 	void		*mlx_win;	//mlx_new_window()
 	t_img		img;		//mlx_new_image()
-	t_keyboard	keyboard;	// keyborad status keys
 	t_player	p;			//data player
 }	t_data;
 
@@ -103,9 +98,10 @@ size_t	ft_strlen(char *s);
 void	free_arr(char **res);
 
 // utils:
+int		loopfunc(t_data	*data);
 int		onpress(int keycode, t_data *data);
 int 	onrelease(int keycode, t_data *data);
-int		loopfunc(t_data	*data);
+bool	is_wall(float x, float y, t_data *data);
 
 int	draw_wall(t_data *data);
 t_data	*start_init_mlx(char **arr);
