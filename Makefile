@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/06/02 14:33:18 by meserghi         ###   ########.fr        #
+#    Updated: 2024/06/13 14:22:30 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,15 @@ lib = lib/ft_strdup.c lib/ft_strlen.c lib/free_arr.c
 
 utils = utils/mlx_hook.c utils/mlx_init.c
 
+ray_casting = ray_casting/ray_casting.c
+
 GREEN = \033[1;32m
 RED = \033[1;31m
 BLUE = \033[1;34m
 YELL = \033[0;33m
 STOP_C = \033[0m
 
-FILE = ${lib} ${utils} Cub3D.c
+FILE = ${lib} ${utils} ${ray_casting} Cub3D.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
@@ -32,11 +34,11 @@ all : ${NAME}
 	@echo "${GREEN}Cub3D has been built ...${STOP_C}"
 
 %.o : %.c Cub3D.h
-	@cc ${FLAGS} -Imlx -c $< -o $@
+	@cc ${FLAGS} -Imlx_linux -O3 -c $< -o $@
 	@echo "${BLUE}$@ has been built${NC}"
 
 ${NAME} : ${FILE_OBJ}
-	cc ${FLAGS} ${FILE_OBJ} -lmlx -framework OpenGL -framework AppKit -o ${NAME}
+	cc ${FLAGS} ${FILE_OBJ} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -o ${NAME}
 
 clean :
 	@rm -f ${FILE_OBJ}

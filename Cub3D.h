@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/09 00:38:12 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:00:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include <mlx.h>
+#include "mlx/mlx.h"
 #include <math.h>
 #include <stdbool.h>
 
@@ -29,14 +29,23 @@
 # define FOV_ANGLE 60 * (M_PI / 180)
 # define WALL_STRIP_WIDTH 1
 
+// # define Key_ECH 53
+// # define KEY_A 	0
+// # define KEY_W	13
+// # define KEY_D	2
+// # define KEY_S	1
 
-# define KEY_A 	0
-# define KEY_W	13
-# define KEY_D	2
-# define KEY_S	1
+// # define KEY_LEFT 	123
+// # define KEY_RIGHT	124
 
-# define KEY_LEFT 	123
-# define KEY_RIGHT	124
+# define Key_ECH 65307
+# define KEY_A 	97
+# define KEY_W	119
+# define KEY_D	100
+# define KEY_S	115
+
+# define KEY_LEFT 	65361
+# define KEY_RIGHT	65363
 
 // Colors:
 # define BLACK 0x000000
@@ -103,7 +112,12 @@ int		loopfunc(t_data	*data);
 int		onpress(int keycode, t_data *data);
 int 	onrelease(int keycode, t_data *data);
 bool	is_wall(float x, float y, t_data *data);
+void    draw_line1(float x1, float y1, t_data *data);
 
+// ray casting
+t_point	ray_casting(float ray_angle, t_data *data);
+
+// main
 int	draw_wall(t_data *data);
 t_data	*start_init_mlx(char **arr);
 
