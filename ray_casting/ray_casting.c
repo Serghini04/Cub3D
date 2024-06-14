@@ -33,10 +33,10 @@ t_point	ray_casting(float ray_angle, t_data *data)
 
 				// find first intercept :
 	// Find the y-coordinate of the closest horizontal grid intersenction
-	first_intercept.y = floor(data->p.y / CUBE_SIZE) * CUBE_SIZE;
+	first_intercept.y = floor((data->p.y + (PLAYER_SIZE / 2)) / CUBE_SIZE) * CUBE_SIZE;
 	first_intercept.y += is_down ? CUBE_SIZE : 0;
 	// Find the x-coordinate of the closest horizontal grid intersection
-	first_intercept.x = data->p.x + (first_intercept.y - data->p.y) / tan(ray_angle);
+	first_intercept.x = (data->p.x + (PLAYER_SIZE / 2)) + (first_intercept.y - (data->p.x + (PLAYER_SIZE / 2))) / tan(ray_angle);
 
 	// Calculate the increment xstep and ystep
 	step.y = CUBE_SIZE;
@@ -53,7 +53,7 @@ t_point	ray_casting(float ray_angle, t_data *data)
 
         // Increment xstep and ystep until we find a wall
         while ((next_hor.x / CUBE_SIZE) >= 0 && (next_hor.x / CUBE_SIZE) <= data->WIDTH && (next_hor.y / CUBE_SIZE) >= 0 && (next_hor.y/ CUBE_SIZE) <= data->HEIGHT) {
-		printf("(%2.f,%2.f)===>(%d,%d)\n", (next_hor.x / CUBE_SIZE), next_hor.y / CUBE_SIZE, data->WIDTH, data->HEIGHT);
+		// printf("(%2.f,%2.f)===>(%d,%d)\n", (next_hor.x / CUBE_SIZE), next_hor.y / CUBE_SIZE, data->WIDTH, data->HEIGHT);
 
 			if (is_wall(next_hor.x, next_hor.y, data)) {                
 				break;

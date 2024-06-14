@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/13 17:42:28 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/14 18:26:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,30 +130,6 @@ void    draw_line1(float x1, float y1, t_data *data)
         }
     }
 }
-void	find_horizontal_intersction(t_data *data, float ray_angle, t_point *a)
-{
-	// find coordinate of the first intersection;
-	t_point	first_inter;
-	t_point	step;
-
-	a->x = data->p.x + (PLAYER_SIZE/ 2);
-	a->y = data->p.y + (PLAYER_SIZE/ 2);
-	printf("(%2.f,%2.f)\n", a->x / CUBE_SIZE, a->y / CUBE_SIZE);
-	first_inter.y = floor(a->y / CUBE_SIZE) * CUBE_SIZE;
-	first_inter.x = a->x + ((a->y - first_inter.y) / tan(ray_angle));
-	step.y = CUBE_SIZE;
-	step.x = step.y / tan(ray_angle);
-	printf(">>(%2.f,%2.f)\n", step.x, step.y);
-	while (!is_wall(a->x, a->y, data))
-	{
-		a->y += step.y;
-		a->x += step.x;
-	}
-	a->y -= step.y;
-	a->x -= step.x;
-	printf("(%2.f,%2.f)\n", a->x, a->y);
-	exit(1);
-}
 
 void	draw_field_of_view(t_data *data)
 {
@@ -165,7 +141,7 @@ void	draw_field_of_view(t_data *data)
 	i = 0;
 	num_rays = data->WIDTH / WALL_STRIP_WIDTH;
 	// start first ray subtracting half of the FOV;
-	ray_angle = data->p.rotation_angle - (FOV_ANGLE / 2);
+	ray_angle = data->p.rotation_angle;
 	while (i < 1)
 	{
 		hit_wall_hor = ray_casting(ray_angle, data);
@@ -197,7 +173,7 @@ int	draw_wall(t_data *data)
 		i += 1;
 	}
 	draw_player(data, RED, PLAYER_SIZE);
-	// draw_line1(data->p.rotation_angle, data);
+	// draw_line1(a.x, a.y, data);
 	draw_field_of_view(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.p_img, 0, 0);
 	return (0);

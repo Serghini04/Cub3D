@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:12:47 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/13 17:41:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/14 18:38:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	onpress(int k, t_data *data)
 {
-	printf("%d\n", k);
 	if (k == Key_ECH)
 	{
 		mlx_destroy_image(data->mlx, data->img.p_img);
@@ -22,10 +21,6 @@ int	onpress(int k, t_data *data)
 		free(data);
 		exit(0);
 	}
-	///     13 /
-	///	0<-    ||	->2
-	///      1 \/
-	/// <- 123 || 124 ->
 	if (k == KEY_W)
 		data->p.up_down = 1;
 	if (k == KEY_S)
@@ -67,7 +62,7 @@ bool	is_wall(float x, float y, t_data *data)
 	if (new_x < 0 || new_x > data->WIDTH || new_y < 0 || new_y > data->HEIGHT
 		|| new_xx < 0 || new_xx > data->WIDTH || new_yy < 0 || new_yy > data->HEIGHT)
 		return (true);
-	printf("(%d,%d)(%d,%d)\n", new_x, new_y, new_xx, new_yy);
+	// printf("(%d,%d)(%d,%d)\n", new_x, new_y, new_xx, new_yy);
 	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1'
 		|| data->map[(int)floor(new_yy)][(int)floor(new_xx)] == '1' )
 		return (true);
@@ -90,5 +85,6 @@ int	loopfunc(t_data	*data)
 		data->p.x = x;
 		data->p.y = y;
 	}
+	draw_wall(data);
 	return (0);
 }

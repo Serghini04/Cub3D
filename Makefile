@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/06/13 14:22:30 by marvin           ###   ########.fr        #
+#    Updated: 2024/06/14 15:24:26 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,11 @@ all : ${NAME}
 	@echo "${GREEN}Cub3D has been built ...${STOP_C}"
 
 %.o : %.c Cub3D.h
-	@cc ${FLAGS} -Imlx_linux -O3 -c $< -o $@
+	@cc ${FLAGS} -Imlx -O3 -c $< -o $@
 	@echo "${BLUE}$@ has been built${NC}"
 
 ${NAME} : ${FILE_OBJ}
-	cc ${FLAGS} ${FILE_OBJ} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -o ${NAME}
+	cc ${FLAGS} ${FILE_OBJ} -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -o ${NAME}
 
 clean :
 	@rm -f ${FILE_OBJ}
