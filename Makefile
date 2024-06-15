@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/06/14 15:24:26 by marvin           ###   ########.fr        #
+#    Updated: 2024/06/15 15:29:27 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ FILE = ${lib} ${utils} ${ray_casting} Cub3D.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+FLAGS =  -fsanitize=address -g
 
 NAME = Cub3D
 

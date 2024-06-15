@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:12:47 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/14 18:38:14 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/15 19:22:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,13 @@ bool	is_wall(float x, float y, t_data *data)
 	int	new_y = y / CUBE_SIZE;
 	int new_xx = (x + PLAYER_SIZE) / CUBE_SIZE;
 	int new_yy = (y + PLAYER_SIZE) / CUBE_SIZE;
-	if (new_x < 0 || new_x > data->WIDTH || new_y < 0 || new_y > data->HEIGHT
-		|| new_xx < 0 || new_xx > data->WIDTH || new_yy < 0 || new_yy > data->HEIGHT)
+	if (new_x < 0 || new_x >= data->WIDTH || new_y < 0 || new_y > data->HEIGHT
+		|| new_xx < 0 || new_xx >= data->WIDTH || new_yy < 0 || new_yy > data->HEIGHT)
 		return (true);
-	// printf("(%d,%d)(%d,%d)\n", new_x, new_y, new_xx, new_yy);
+	if (ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x) || ft_strlen(data->map[(int)floor(new_yy)]) < (int)floor(new_xx))
+		return (true);
 	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1'
-		|| data->map[(int)floor(new_yy)][(int)floor(new_xx)] == '1' )
+		|| data->map[(int)floor(new_yy)][(int)floor(new_xx)] == '1')
 		return (true);
 	return (false);
 }
