@@ -62,14 +62,11 @@ t_point	ray_casting(float ray_angle, t_data *data)
 	next_hor.x = first_intercept.x;
 	next_hor.y = first_intercept.y;
 
-	if (is_up)
-	    next_hor.y--;
-
 	// Increment xstep and ystep until we find a wall
 	while ((next_hor.x / CUBE_SIZE) >= 0 && (next_hor.x / CUBE_SIZE) <= data->WIDTH && (next_hor.y / CUBE_SIZE) >= 0 && (next_hor.y/ CUBE_SIZE) <= data->HEIGHT)
 	{
 		// printf("(%2.f,%2.f)===>(%d,%d)\n", (next_hor.x / CUBE_SIZE), next_hor.y / CUBE_SIZE, data->WIDTH, data->HEIGHT);
-		if (is_wall(next_hor.x, next_hor.y, data)) {              
+		if (is_wall(next_hor.x, next_hor.y - (is_up ? 1 : 0), data)) {              
 			break;
 		}
 		else
@@ -102,14 +99,11 @@ t_point	ray_casting(float ray_angle, t_data *data)
 	next_ver.x = first_intercept.x;
 	next_ver.y = first_intercept.y;
 
-	if (is_left)
-		next_ver.x--;
-
 	// Increment xstep and ystep until we find a wall
 	while ((next_ver.x / CUBE_SIZE) >= 0 && (next_ver.x / CUBE_SIZE) <= data->WIDTH && (next_ver.y / CUBE_SIZE) >= 0 && (next_ver.y/ CUBE_SIZE) <= data->HEIGHT)
 	{
 		// printf("(%2.f,%2.f)===>(%d,%d)\n", (next_ver.x / CUBE_SIZE), next_ver.y / CUBE_SIZE, data->WIDTH, data->HEIGHT);
-		if (is_wall(next_ver.x, next_ver.y, data)) {
+		if (is_wall(next_ver.x - (is_left ? 1 : 0), next_ver.y, data)) {
 			break;
 		}
 		else

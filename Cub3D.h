@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/15 20:18:03 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/17 04:11:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 
 // # define KEY_LEFT 	123
 // # define KEY_RIGHT	124
-
 # define Key_ECH 65307
 # define KEY_A 	97
 # define KEY_W	119
