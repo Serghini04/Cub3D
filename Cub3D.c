@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/20 16:39:10 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:03:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_map(t_data *data, char **arr)
 	data->p.turn_direction = 0;
 	data->p.up_down = 0;
 	data->p.left_right = 0;
-	while (i < data->HEIGHT)
+	while (i < data->HEIGHT / CUBE_SIZE)
 	{
 		j = 0;
 		len = ft_strlen(arr[i]);
@@ -51,10 +51,10 @@ void	init_map(t_data *data, char **arr)
 		{
 			if (arr[i][j] == 'N')
 			{
-				data->p.x = (j * CUBE_SIZE);
-				data->p.y = (i * CUBE_SIZE);
-				data->p.x += (CUBE_SIZE / 2) - (PLAYER_SIZE / 2);
-				data->p.y += (CUBE_SIZE / 2) - (PLAYER_SIZE / 2);
+				data->p.pos.x = (j * CUBE_SIZE);
+				data->p.pos.y = (i * CUBE_SIZE);
+				data->p.pos.x += (CUBE_SIZE / 2) - (PLAYER_SIZE / 2);
+				data->p.pos.y += (CUBE_SIZE / 2) - (PLAYER_SIZE / 2);
 				data->p.direction = North;
 				data->p.rotation_angle = M_PI_2;
 				data->p.rotation_speed = (M_PI / 180);
@@ -96,8 +96,8 @@ void	draw_player(t_data *data, int color, int pow)
 		j = 0;
 		while (j < pow)
 		{
-			//  printf("x0 = %d   ------ y0 = %d\n", data->p.x, data->p.y);
-			my_pixel_put(&data->img, data->p.x + i, data->p.y + j, color, data);
+			//  printf("x0 = %d   ------ y0 = %d\n", data->p.pos.x, data->p.pos.y);
+			my_pixel_put(&data->img, data->p.pos.x + i, data->p.pos.y + j, color, data);
 			j++;
 		}
 		i++;
@@ -106,8 +106,8 @@ void	draw_player(t_data *data, int color, int pow)
 
 void    draw_line1(float x1, float y1, t_data *data)
 {
-	int x0 = data->p.x + (PLAYER_SIZE / 2);
-	int y0 = data->p.y + (PLAYER_SIZE / 2);
+	int x0 = data->p.pos.x + (PLAYER_SIZE / 2);
+	int y0 = data->p.pos.y + (PLAYER_SIZE / 2);
     int dx = fabs(round(x1) - x0);
     int dy = fabs(round(y1) - y0);
     int sx = x0 < round(x1) ? 1 : -1;
@@ -142,14 +142,14 @@ void	draw_field_of_view(t_data *data)
 	t_point	hit_wall_hor;
 
 	i = 0;
-	num_rays = data->WIDTH * WALL_STRIP_WIDTH;
+	num_rays = data->WIDTH / WALL_STRIP_WIDTH;
 	// start first ray subtracting half of the FOV;
 	ray_angle = data->p.rotation_angle - (FOV_ANGLE / 2);
 	while (i < num_rays)
 	{
 		hit_wall_hor = ray_casting(ray_angle, data);
-		// hit_wall_hor.x = data->p.x + (PLAYER_SIZE / 2) + cos(ray_angle) * 40;
-		// hit_wall_hor.y = data->p.y + (PLAYER_SIZE / 2) + sin(ray_angle) * 40;
+		// hit_wall_hor.x = data->p.pos.x + (PLAYER_SIZE / 2) + cos(ray_angle) * 40;
+		// hit_wall_hor.y = data->p.pos.y + (PLAYER_SIZE / 2) + sin(ray_angle) * 40;
 		draw_line1(hit_wall_hor.x, hit_wall_hor.y, data);
 		ray_angle += FOV_ANGLE / num_rays;
 		i++;
@@ -163,7 +163,7 @@ int	draw_wall(t_data *data)
 	int	len;
 
 	i = 0;
-	while (i < data->HEIGHT)
+	while (i < data->HEIGHT / CUBE_SIZE)
 	{
 		j = 0;
 		len = ft_strlen(data->map[i]);
@@ -179,8 +179,8 @@ int	draw_wall(t_data *data)
 	}
 	draw_player(data, RED, PLAYER_SIZE);
 	t_point a;
-	a.x = (data->p.x + (PLAYER_SIZE / 2)) + (cos(data->p.rotation_angle) * 50);
-	a.y = (data->p.y + (PLAYER_SIZE / 2)) + (sin(data->p.rotation_angle) * 50);
+	a.x = (data->p.pos.x + (PLAYER_SIZE / 2)) + (cos(data->p.rotation_angle) * 50);
+	a.y = (data->p.pos.y + (PLAYER_SIZE / 2)) + (sin(data->p.rotation_angle) * 50);
 	draw_line1(a.x, a.y, data);
 	draw_field_of_view(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.p_img, 0, 0);

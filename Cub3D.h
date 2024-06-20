@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/20 16:35:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:01:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define CUBE_SIZE 32
 # define PLAYER_SIZE 1
 # define FOV_ANGLE 60 * (M_PI / 180)
-# define WALL_STRIP_WIDTH 10
+# define WALL_STRIP_WIDTH 1
 
 // # define Key_ECH 53
 // # define KEY_A 	0
@@ -61,10 +61,15 @@ enum e_direction
 	South,
 };
 
-typedef struct s_player
+// Point 2D
+typedef struct s_point
 {
 	float	x;
 	float	y;
+} t_point;
+
+typedef struct s_player
+{
 	int		up_down;
 	int		left_right;
 	int		turn_direction;
@@ -72,6 +77,7 @@ typedef struct s_player
 	float	rotation_angle;
 	float	move_speed;
 	float	rotation_speed;
+	t_point	pos;
 }	t_player;
 
 typedef struct s_img
@@ -83,12 +89,6 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-// Point 2D
-typedef struct s_point
-{
-	float	x;
-	float	y;
-} t_point;
 
 typedef struct s_data
 {

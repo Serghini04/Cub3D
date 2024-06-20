@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:13:52 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/10 17:21:12 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/20 16:53:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,15 @@ t_data	*start_init_mlx(char **arr)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		exit(1);
-	data->HEIGHT = get_height(arr);
-	data->WIDTH = get_long_line(arr);
+	data->HEIGHT = get_height(arr) * CUBE_SIZE;
+	data->WIDTH = get_long_line(arr) * CUBE_SIZE;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		(perror("mlx: "), free(data), exit(1));
-	data->mlx_win = mlx_new_window(data->mlx, data->WIDTH * CUBE_SIZE , data->HEIGHT * CUBE_SIZE, "Cub3D");
+	data->mlx_win = mlx_new_window(data->mlx, data->WIDTH, data->HEIGHT, "Cub3D");
 	if (!data->mlx_win)
 		(perror("mlx: "), my_free(data));
-	data->img.p_img = mlx_new_image(data->mlx, data->WIDTH * CUBE_SIZE, data->HEIGHT * CUBE_SIZE);
+	data->img.p_img = mlx_new_image(data->mlx, data->WIDTH, data->HEIGHT);
 	if (!data->img.p_img)
 	{
 		(perror("mlx: "), mlx_destroy_window(data->mlx, data->mlx_win));
