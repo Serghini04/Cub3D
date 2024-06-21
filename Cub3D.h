@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/20 17:01:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/21 01:40:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@
 
 
 // Size :
-# define CUBE_SIZE 32
+# define CUBE_SIZE 64
 # define PLAYER_SIZE 1
 # define FOV_ANGLE 60 * (M_PI / 180)
 # define WALL_STRIP_WIDTH 1
+# define SIZE_MINI_MAP 0.2
 
 // # define Key_ECH 53
 // # define KEY_A 	0
@@ -37,6 +38,7 @@
 
 // # define KEY_LEFT 	123
 // # define KEY_RIGHT	124
+
 # define Key_ECH 65307
 # define KEY_A 	97
 # define KEY_W	119
@@ -109,15 +111,15 @@ void	free_arr(char **res);
 // utils:
 int		loopfunc(t_data	*data);
 int		onpress(int keycode, t_data *data);
-int 	onrelease(int keycode, t_data *data);
+int		onrelease(int keycode, t_data *data);
 bool	is_wall(float x, float y, t_data *data);
-void    draw_line1(float x1, float y1, t_data *data);
+void	draw_line1(float x1, float y1, t_data *data);
 
 // ray casting
-t_point	ray_casting(float ray_angle, t_data *data);
+t_point	ray_casting(t_point p, float ray_angle, t_data *data);
 
 // main
-int	draw_wall(t_data *data);
+int		draw_wall(t_data *data);
 t_data	*start_init_mlx(char **arr);
 
 #endif

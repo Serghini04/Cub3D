@@ -20,7 +20,7 @@ float	distanceBetweenPoints(float x1,float y1,float x2,float y2) {
     return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 }
 
-t_point	ray_casting(float ray_angle, t_data *data)
+t_point	ray_casting(t_point p, float ray_angle, t_data *data)
 {
 	bool	is_up;
 	bool	is_down;
@@ -47,10 +47,10 @@ t_point	ray_casting(float ray_angle, t_data *data)
 					find first intercept :
 				*/
 	// Find the y-coordinate of the closest horizontal grid intersenction
-	first_intercept.y = floor(data->p.pos.y / CUBE_SIZE) * CUBE_SIZE;
+	first_intercept.y = floor(p.y / CUBE_SIZE) * CUBE_SIZE;
 	first_intercept.y += is_down ? CUBE_SIZE : 0;
 	// Find the x-coordinate of the closest horizontal grid intersection
-	first_intercept.x = data->p.pos.x + (first_intercept.y - data->p.pos.y) / tan(ray_angle);
+	first_intercept.x = p.x + (first_intercept.y - p.y) / tan(ray_angle);
 
 	// Calculate the increment xstep and ystep
 	step.y = CUBE_SIZE;
@@ -83,10 +83,10 @@ t_point	ray_casting(float ray_angle, t_data *data)
 				
 				// find first intercept :
 	// Find the x-coordinate of the closest horizontal grid intersenction
-	first_intercept.x = floor(data->p.pos.x / CUBE_SIZE) * CUBE_SIZE;
+	first_intercept.x = floor(p.x / CUBE_SIZE) * CUBE_SIZE;
 	first_intercept.x += is_right ? CUBE_SIZE : 0;
 	// Find the y-coordinate of the closest horizontal grid intersection
-	first_intercept.y = data->p.pos.y + (first_intercept.x - data->p.pos.x) * tan(ray_angle);
+	first_intercept.y = p.y + (first_intercept.x - p.x) * tan(ray_angle);
 
 	// Calculate the increment xstep and ystep
 	step.x = CUBE_SIZE;
@@ -118,8 +118,8 @@ t_point	ray_casting(float ray_angle, t_data *data)
 	float	distance_hor;
 	float	distance_ver;
 
-	distance_hor = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_hor.x, next_hor.y);
-	distance_ver = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_ver.x, next_ver.y);
+	distance_hor = distanceBetweenPoints(p.x, p.y, next_hor.x, next_hor.y);
+	distance_ver = distanceBetweenPoints(p.x, p.y, next_ver.x, next_ver.y);
 
 	t_point	res;
 
