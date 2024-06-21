@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/21 01:40:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/21 02:13:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ bool	is_wall(float x, float y, t_data *data);
 void	draw_line1(float x1, float y1, t_data *data);
 
 // ray casting
-t_point	ray_casting(t_point p, float ray_angle, t_data *data);
+t_point	ray_casting(float ray_angle, t_data *data);
 
 // main
 int		draw_wall(t_data *data);

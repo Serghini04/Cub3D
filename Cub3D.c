@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/21 01:48:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/21 02:15:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void	draw_field_of_view(t_data *data)
 	ray_angle = data->p.rotation_angle - (FOV_ANGLE / 2);
 	while (i < num_rays)
 	{
-		hit_wall_hor = ray_casting((t_point){data->p.pos.x, data->p.pos.y}, ray_angle, data);
+		hit_wall_hor = ray_casting(ray_angle, data);
 		// hit_wall_hor.x = data->p.pos.x + (PLAYER_SIZE / 2) + cos(ray_angle) * 40;
 		// hit_wall_hor.y = data->p.pos.y + (PLAYER_SIZE / 2) + sin(ray_angle) * 40;
 		draw_line1(hit_wall_hor.x * SIZE_MINI_MAP, hit_wall_hor.y * SIZE_MINI_MAP, data);
