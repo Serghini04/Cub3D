@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/21 02:13:21 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/22 02:07:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,19 @@ typedef struct s_img
 }	t_img;
 
 
+typedef	struct	s_ray
+{
+	t_point	to_hit_wall;
+	float	distance;
+	float	angle;
+}	t_ray;
+
 typedef struct s_data
 {
 	int			WIDTH;
 	int			HEIGHT;
+	int			num_rays;
+	t_ray		*rays;
 	char		**map;
 	void		*mlx;		// mlx_init();
 	void		*mlx_win;	//mlx_new_window()
@@ -116,7 +125,7 @@ bool	is_wall(float x, float y, t_data *data);
 void	draw_line1(float x1, float y1, t_data *data);
 
 // ray casting
-t_point	ray_casting(float ray_angle, t_data *data);
+t_ray	ray_casting(float ray_angle, t_data *data);
 
 // main
 int		draw_wall(t_data *data);

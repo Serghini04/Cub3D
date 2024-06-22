@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/21 02:15:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/22 02:14:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,20 @@ void	init_map(t_data *data, char **arr)
 	int	i;
 	int	j;
 	int len;
+	int	num_rays;
 
 	i = 0;
+	data->num_rays = data->WIDTH / WALL_STRIP_WIDTH;
+	data->rays = malloc(sizeof(t_ray) * data->num_rays);
+	if (!data->rays)
+	{
+		mlx_destroy_image(data->mlx, data->img.p_img);
+		mlx_destroy_window(data->mlx, data->mlx_win);
+		free(data);
+		exit(1);
+	}
 	data->map = arr;
-	data->p.move_speed = 0.2;
+	data->p.move_speed = 0.6;
 	data->p.turn_direction = 0;
 	data->p.up_down = 0;
 	data->p.left_right = 0;
@@ -57,7 +67,7 @@ void	init_map(t_data *data, char **arr)
 				data->p.pos.y += (CUBE_SIZE / 2);
 				data->p.direction = North;
 				data->p.rotation_angle = M_PI_2;
-				data->p.rotation_speed = (M_PI / 180) * 0.2;
+				data->p.rotation_speed = (M_PI / 180) * 3;
 				return ;
 			}
 			j++;
@@ -139,27 +149,41 @@ void    draw_line1(float x1, float y1, t_data *data)
     }
 }
 
-void	draw_field_of_view(t_data *data)
+void	fill_field_of_view(t_data *data)
 {
 	int		i;
-	int		num_rays;
 	float	ray_angle;
-	t_point	hit_wall_hor;
 
 	i = 0;
-	num_rays = data->WIDTH / WALL_STRIP_WIDTH;
 	// start first ray subtracting half of the FOV;
 	ray_angle = data->p.rotation_angle - (FOV_ANGLE / 2);
-	while (i < num_rays)
+	while (i < data->num_rays)
 	{
-		hit_wall_hor = ray_casting(ray_angle, data);
+		data->rays[i] = ray_casting(ray_angle, data);
 		// hit_wall_hor.x = data->p.pos.x + (PLAYER_SIZE / 2) + cos(ray_angle) * 40;
 		// hit_wall_hor.y = data->p.pos.y + (PLAYER_SIZE / 2) + sin(ray_angle) * 40;
-		draw_line1(hit_wall_hor.x * SIZE_MINI_MAP, hit_wall_hor.y * SIZE_MINI_MAP, data);
-		ray_angle += FOV_ANGLE / num_rays;
+		// draw_line1(data->rays[i].to_hit_wall.x * SIZE_MINI_MAP, data->rays[i].to_hit_wall.y * SIZE_MINI_MAP, data);
+		ray_angle += FOV_ANGLE / data->num_rays;
 		i++;
 	}
 }
+
+void	draw_field_of_view(t_data *data)
+{
+	int		i;
+	float	ray_angle;
+
+	i = 0;
+	// start first ray subtracting half of the FOV;
+	ray_angle = data->p.rotation_angle - (FOV_ANGLE / 2);
+	while (i < data->num_rays)
+	{
+		draw_line1(data->rays[i].to_hit_wall.x * SIZE_MINI_MAP, data->rays[i].to_hit_wall.y * SIZE_MINI_MAP, data);
+		ray_angle += FOV_ANGLE / data->num_rays;
+		i++;
+	}
+}
+
 
 void	clr_window(t_data *data)
 {
@@ -172,11 +196,54 @@ void	clr_window(t_data *data)
 		j = 0;
 		while (j < data->WIDTH)
 		{
-			my_pixel_put(&data->img, i, j, BLACK, data);
+			my_pixel_put(&data->img, j, i, BLACK, data);
 			j++;
 		}
 		i++;
 	}
+}
+
+void draw_rect(t_data *data, int x_start, int y_start, int width, int height) {
+    int x_end = x_start + width;
+    int y_end = y_start + height;
+
+    for (int x = x_start; x < x_end; x++) {
+        for (int y = y_start; y < y_end; y++) {
+            my_pixel_put(&data->img, x, y, 0xFF2555, data); // Change 0xFFFFFF to the color you want
+        }
+    }
+}
+
+void	render_3d(t_data *data)
+{
+	int		i;
+	float	distanceProjectPlan;
+	float	wallStripHeight;
+
+	i = 0;
+	fill_field_of_view(data);
+    for (int i = 0; i < data->num_rays; i++) {
+        float perpDistance = data->rays[i].distance * cos(data->rays[i].angle - data->p.rotation_angle);
+        float distanceProjPlane = (data->WIDTH / 2) / tan(FOV_ANGLE / 2);
+        float projectedWallHeight = (CUBE_SIZE / perpDistance) * distanceProjPlane;
+
+        int wallStripHeight = (int)projectedWallHeight;
+
+        int wallTopPixel = (data->HEIGHT / 2) - (wallStripHeight / 2);
+        wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
+
+        int wallBottomPixel = (data->HEIGHT / 2) + (wallStripHeight / 2);
+        wallBottomPixel = wallBottomPixel > data->HEIGHT ? data->HEIGHT : wallBottomPixel;
+
+        // render the wall from wallTopPixel to wallBottomPixel
+        for (int y = wallTopPixel; y < wallBottomPixel; y++) {
+            // colorBuffer[(WINDOW_WIDTH * y) + i] = rays[i].wasHitVertical ? 0xFFFFFFFF : 0xFFCCCCCC;
+			// if (rays[i].wasHitVertical)
+    			my_pixel_put(&data->img, i, y, 0xFFFFFFFF, data);
+			// else
+			// 	my_pixel_put(&data->img, i, y, 0xFFCCCCCC, data);
+		}
+    }
 }
 
 int	draw_wall(t_data *data)
@@ -186,6 +253,7 @@ int	draw_wall(t_data *data)
 	int	len;
 
 	i = 0;
+	render_3d(data);
 	while (i * CUBE_SIZE < data->HEIGHT)
 	{
 		j = 0;
@@ -203,29 +271,38 @@ int	draw_wall(t_data *data)
 		}
 		i++;
 	}
-	draw_player(data, RED, PLAYER_SIZE);
-	t_point a;
-	a.x = (data->p.pos.x + (PLAYER_SIZE / 2)) + (cos(data->p.rotation_angle) * 50);
-	a.y = (data->p.pos.y + (PLAYER_SIZE / 2)) + (sin(data->p.rotation_angle) * 50);
-	a.x *= SIZE_MINI_MAP;
-	a.y *= SIZE_MINI_MAP;
-	draw_line1(a.x, a.y, data);
+	// // draw_player(data, RED, PLAYER_SIZE);
+	// // t_point a;
+	// // a.x = (data->p.pos.x + (PLAYER_SIZE / 2)) + (cos(data->p.rotation_angle) * 50);
+	// // a.y = (data->p.pos.y + (PLAYER_SIZE / 2)) + (sin(data->p.rotation_angle) * 50);
+	// // a.x *= SIZE_MINI_MAP;
+	// // a.y *= SIZE_MINI_MAP;
+	// // draw_line1(a.x, a.y, data);
 	draw_field_of_view(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.p_img, 0, 0);
+	clr_window(data);
 	return (0);
 }
 
 int main ()
 {
 	t_data	*data;
-	char *arr[] = { "11111111111111111111",
-					"10000000100000010001",
-					"1000000010000001001",
-					"11111100000000000N01",
-					"10000000001111110001",
-					"11100010000000100001",
-					"10100001000000010001",
-					"11111111111111111111", NULL};
+	char *arr[] = {
+    "11111111111111111111",
+    "10000000000000000001",
+    "10000000000000000001",
+    "10001010101010101001",
+    "100000N000000000001",
+    "10000000000000001001",
+    "10000000000000001001",
+    "10000110000000001001",
+    "10001000011111111001",
+    "10000000011110000001",
+    "10000000011110000001",
+    "10000000000000000001",
+    "11111111111111111111",
+	NULL
+};
 	// char    *arr[] = {
     //     "           1111111111111111111111",
     //     "11100011111110000000000001",

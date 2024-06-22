@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:12:47 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/20 22:03:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/21 16:23:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	onpress(int k, t_data *data)
 	{
 		mlx_destroy_image(data->mlx, data->img.p_img);
 		mlx_destroy_window(data->mlx, data->mlx_win);
+		free(data->rays);
 		free(data);
-		exit(0);
+		exit(1);
 	}
 	if (k == KEY_W)
 		data->p.up_down = 1;

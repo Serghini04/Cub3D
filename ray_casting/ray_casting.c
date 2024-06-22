@@ -20,12 +20,13 @@ float	distanceBetweenPoints(float x1,float y1,float x2,float y2) {
     return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 }
 
-t_point	ray_casting(float ray_angle, t_data *data)
+t_ray	ray_casting(float ray_angle, t_data *data)
 {
 	bool	is_up;
 	bool	is_down;
 	bool	is_right;
 	bool	is_left;
+	t_ray	res;
 	t_point	step;
 	t_point	next_hor;
 	t_point	first_intercept;
@@ -121,9 +122,9 @@ t_point	ray_casting(float ray_angle, t_data *data)
 	distance_hor = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_hor.x, next_hor.y);
 	distance_ver = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_ver.x, next_ver.y);
 
-	t_point	res;
-
-	res.x = (distance_hor < distance_ver) ? next_hor.x : next_ver.x;
-	res.y = (distance_hor < distance_ver) ? next_hor.y : next_ver.y;
+	res.to_hit_wall.x = (distance_hor < distance_ver) ? next_hor.x : next_ver.x;
+	res.to_hit_wall.y = (distance_hor < distance_ver) ? next_hor.y : next_ver.y;
+	res.distance = (distance_hor < distance_ver) ? distance_hor : distance_ver;
+	res.angle = ray_angle;
 	return (res);
 }
