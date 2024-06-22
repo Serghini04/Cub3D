@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/22 02:07:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/22 19:00:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 
 // Size :
-# define CUBE_SIZE 64
+# define CUBE_SIZE 32
 # define PLAYER_SIZE 1
 # define FOV_ANGLE 60 * (M_PI / 180)
 # define WALL_STRIP_WIDTH 1

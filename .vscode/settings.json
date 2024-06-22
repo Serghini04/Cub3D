@@ -1,7 +1,8 @@
 {
   "files.associations": {
     "complex": "c",
-    "math.h": "c"
+    "math.h": "c",
+    "cmath": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
