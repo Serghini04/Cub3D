@@ -6,6 +6,7 @@ int	onpress(int k, t_data *data)
 	{
 		mlx_destroy_image(data->mlx, data->img.p_img);
 		mlx_destroy_window(data->mlx, data->mlx_win);
+		// you need to free data textures.
 		free(data->rays);
 		free(data);
 		exit(1);
@@ -64,8 +65,9 @@ int	loopfunc(t_data	*data)
 {
 	float	x;
 	float	y;
-	float	move_step = data->p.up_down * data->p.move_speed;
-
+	float	move_step;
+	
+	move_step = data->p.up_down * data->p.move_speed;
 	data->p.rotation_angle += data->p.turn_direction * data->p.rotation_speed;
 	x = data->p.pos.x + cos(data->p.rotation_angle) * move_step;
 	y = data->p.pos.y + sin(data->p.rotation_angle) * move_step;

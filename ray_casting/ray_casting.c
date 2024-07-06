@@ -11,13 +11,13 @@ float check_angle(float angle)
     return (valid_angle);
 }
 
-float	calcul_distance(t_point	a, t_point b)
+float	calcul_distance(t_vec	a, t_vec b)
 {
 	return (sqrt(pow(2, b.x - a.x) + pow(2, b.y - a.y)));
 }
 
 float	distanceBetweenPoints(float x1,float y1,float x2,float y2) {
-    return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
 t_ray	ray_casting(float ray_angle, t_data *data)
@@ -27,9 +27,9 @@ t_ray	ray_casting(float ray_angle, t_data *data)
 	bool	is_right;
 	bool	is_left;
 	t_ray	res;
-	t_point	step;
-	t_point	next_hor;
-	t_point	first_intercept;
+	t_vec	step;
+	t_vec	next_hor;
+	t_vec	first_intercept;
 
 				// horisontal
 				// init var :
@@ -42,7 +42,6 @@ t_ray	ray_casting(float ray_angle, t_data *data)
 	//this.isRayFacingRight = this.rayAngle < 0.5 * Math.PI || this.rayAngle > 1.5 * Math.PI;
 	is_right = (ray_angle < 0.5 * M_PI || ray_angle > 1.5 * M_PI);
 	is_left = !is_right;
-    
 
 				/*
 					find first intercept :
@@ -67,20 +66,21 @@ t_ray	ray_casting(float ray_angle, t_data *data)
 	while ((next_hor.x / CUBE_SIZE) >= 0 && (next_hor.x / CUBE_SIZE) <= data->WIDTH && (next_hor.y / CUBE_SIZE) >= 0 && (next_hor.y/ CUBE_SIZE) <= data->HEIGHT)
 	{
 		// printf("(%2.f,%2.f)===>(%d,%d)\n", (next_hor.x / CUBE_SIZE), next_hor.y / CUBE_SIZE, data->WIDTH, data->HEIGHT);
-		if (is_wall(next_hor.x, next_hor.y - (is_up ? 1 : 0), data)) {              
+		if (is_wall(next_hor.x, next_hor.y - (is_up ? 1 : 0), data))              
 			break;
-		}
 		else
 		{
 			next_hor.x += step.x;
 			next_hor.y += step.y;
 		}
 	}
+
 			/*
 				vertical :
 			*/
+
 	// find first intersction point : (the same). 
-	t_point	next_ver;
+	t_vec	next_ver;
 				
 				// find first intercept :
 	// Find the x-coordinate of the closest horizontal grid intersenction
@@ -116,15 +116,32 @@ t_ray	ray_casting(float ray_angle, t_data *data)
 	
 
 	// cmp :
-	float	distance_hor;
-	float	distance_ver;
+	// float	distance_hor;
+	// float	distance_ver;
 
-	distance_hor = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_hor.x, next_hor.y);
-	distance_ver = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_ver.x, next_ver.y);
+	// distance_hor = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_hor.x, next_hor.y);
+	// distance_ver = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_ver.x, next_ver.y);
 
-	res.to_hit_wall.x = (distance_hor < distance_ver) ? next_hor.x : next_ver.x;
-	res.to_hit_wall.y = (distance_hor < distance_ver) ? next_hor.y : next_ver.y;
-	res.distance = (distance_hor < distance_ver) ? distance_hor : distance_ver;
+	// res.to_hit_wall.x = (distance_hor < distance_ver) ? next_hor.x : next_ver.x;
+	// res.to_hit_wall.y = (distance_hor < distance_ver) ? next_hor.y : next_ver.y;
+	// res.distance = (distance_hor < distance_ver) ? distance_hor : distance_ver;
+	// res.is_ver = (distance_ver< distance_hor) ? 1 : 0;
+
+	double horzdist = hypot(data->p.pos.x - next_hor.x, data->p.pos.y - next_hor.y);
+	double vertdist = hypot(data->p.pos.x - next_ver.x, data->p.pos.y - next_ver.y);
+	if (vertdist < horzdist)
+	{
+		res.distance = vertdist * cos(ray_angle - data->p.rotation_angle);
+		res.to_hit_wall = next_ver;
+		res.is_ver = 1;
+	}
+	else
+	{
+		res.distance = horzdist * cos(ray_angle - data->p.rotation_angle);
+		res.to_hit_wall = next_hor;
+		res.is_ver = 0;
+	}
+
 	res.angle = ray_angle;
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/22 18:59:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/07/06 16:52:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	init_map(t_data *data, char **arr)
 	data->p.turn_direction = 0;
 	data->p.up_down = 0;
 	data->p.left_right = 0;
+	init_textures(data);
 	while (i < data->HEIGHT / CUBE_SIZE)
 	{
 		j = 0;
@@ -67,7 +68,7 @@ void	init_map(t_data *data, char **arr)
 				data->p.pos.y += (CUBE_SIZE / 2);
 				data->p.direction = North;
 				data->p.rotation_angle = M_PI_2;
-				data->p.rotation_speed = (M_PI / 180) * 3;
+				data->p.rotation_speed = 0.8 * (M_PI / 180);
 				return ;
 			}
 			j++;
@@ -98,7 +99,7 @@ void	draw_player(t_data *data, int color, int pow)
 {
 	int		i;
 	int		j;
-	t_point	p;
+	t_vec	p;
 
 	i = 0;
 
@@ -130,8 +131,7 @@ void    draw_line1(float x1, float y1, t_data *data)
     int err = dx - dy;
 
     while (1)
-    {
-		// printf("(%d,%d)==>(%d,%d)\n", x0 / CUBE_SIZE, y0 / CUBE_SIZE, data->WIDTH, data->HEIGHT);
+	{
         my_pixel_put(&data->img, x0, y0, RED, data);
         if (x0 == round(x1) && y0 == round(y1))
             break;
@@ -213,34 +213,96 @@ void draw_rect(t_data *data, int x_start, int y_start, int width, int height) {
         }
     }
 }
+	// float	distance_Projection;
+	// float	wall_strip_Height;
+	// float	y;
+	// float	top_wall;
+	// float	bottom_wall;
+		// distance_Projection = (data->WIDTH / 2) / tan(FOV_ANGLE / 2);
+		// wall_strip_Height = (CUBE_SIZE / (data->rays[i].distance * cos(data->rays[i].angle - data->p.rotation_angle))) * distance_Projection;
+
+		// // find top & bottom6
+		// top_wall = (data->HEIGHT / 2) - (wall_strip_Height / 2);
+		// top_wall = top_wall < 0 ? 0 : top_wall;
+		// bottom_wall = (data->HEIGHT / 2) + (wall_strip_Height / 2);
+		// bottom_wall = bottom_wall > data->HEIGHT ? data->HEIGHT : bottom_wall;
+		// y = top_wall;
+
+float	radconvert(float degree)
+{
+	float	rad;
+
+	rad = degree * M_PI / 180;
+	return (rad);
+}
+
+float	max(float a, float b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+int get_color(t_data *data, int type, t_vec *pos)
+{
+
+	int of = ((int)data->tex[type].WIDTH *
+						(int)pos->y + (int)pos->x);
+	if ((int)pos->x >= 0 && (int)pos->x < data->tex[type].WIDTH &&
+			(int)pos->y >= 0 && (int)pos->y < data->tex[type].HEIGHT)
+	{
+		return (*(data->tex[type].add + of));
+	}
+	return (0x0);
+}
+
+void	set_pos(t_vec *pos, float x, float y)
+{
+	pos->x = x;
+	pos->y = y;
+}
 
 void	render_3d(t_data *data)
 {
-	float	distance_Projection;
-	float	wall_strip_Height;
-	float	y;
-	float	top_wall;
-	float	bottom_wall;
 	int		i;
+	float	dist;
+	t_vec	start;
+	t_vec	index_img;
+	float	wall_height;
+	t_vec	tex;
+	int		color;
+	float	y;
+	float	a = CUBE_SIZE;
 
 	i = 0;
 	fill_field_of_view(data);
-	
-	while (i < data->num_rays)
+	int index;
+	while (i < data->WIDTH)
 	{
-		distance_Projection = (data->WIDTH / 2) / tan(FOV_ANGLE / 2);
-		wall_strip_Height = (CUBE_SIZE / (data->rays[i].distance * cos(data->rays[i].angle - data->p.rotation_angle))) * distance_Projection;
+		int		color;
+		t_vec	pos[3];
+		float	dist_to_camera;
+		float	wall_height;
 
-		// find top & bottom6
-		top_wall = (data->HEIGHT / 2) - (wall_strip_Height / 2);
-		top_wall = top_wall < 0 ? 0 : top_wall;
-		bottom_wall = (data->HEIGHT / 2) + (wall_strip_Height / 2);
-		bottom_wall = bottom_wall > data->HEIGHT ? data->HEIGHT : bottom_wall;
-		y = top_wall;
-		while (y < bottom_wall)
+		dist_to_camera = (data->WIDTH / 2) / tan(FOV_ANGLE / 2);
+		wall_height = a * dist_to_camera / data->rays[i].distance;
+		set_pos(&pos[0], data->WIDTH, data->HEIGHT);
+		set_pos(&pos[1], i,
+			max(0, pos[0].y / 2 - wall_height / 2));
+		pos[2].x = data->rays[i].is_ver ?
+		(int)fmod(data->rays[i].to_hit_wall.y, a) / a
+		* 64:
+		(int)fmod(data->rays[i].to_hit_wall.x, a) / a
+		* 64;
+		index = -1;
+		while (++index < wall_height && ++pos[1].y < pos[0].y)
 		{
-			my_pixel_put(&data->img, i, y, WHITE, data);
-			y++;
+			// restrain_pos(&pos[1], &pos[0]);
+			pos[2].y = (pos[1].y - (pos[0].y / 2 - wall_height / 2))
+				/ wall_height * 64;
+			color = get_color(data, North, &pos[2]);
+			if (color)
+				my_pixel_put(&data->img, pos[1].x, pos[1].y, color, data);
 		}
 		i++;
 	}
@@ -254,6 +316,7 @@ int	draw_wall(t_data *data)
 
 	i = 0;
 	render_3d(data);
+	// WALL MINI MAP.
 	while (i * CUBE_SIZE < data->HEIGHT)
 	{
 		j = 0;
@@ -272,12 +335,12 @@ int	draw_wall(t_data *data)
 		i++;
 	}
 	draw_player(data, RED, PLAYER_SIZE);
-	// // t_point a;
-	// // a.x = (data->p.pos.x + (PLAYER_SIZE / 2)) + (cos(data->p.rotation_angle) * 50);
-	// // a.y = (data->p.pos.y + (PLAYER_SIZE / 2)) + (sin(data->p.rotation_angle) * 50);
-	// // a.x *= SIZE_MINI_MAP;
-	// // a.y *= SIZE_MINI_MAP;
-	// // draw_line1(a.x, a.y, data);
+	// t_vec a;
+	// a.x = (data->p.pos.x + (PLAYER_SIZE / 2)) + (cos(data->p.rotation_angle) * 50);
+	// a.y = (data->p.pos.y + (PLAYER_SIZE / 2)) + (sin(data->p.rotation_angle) * 50);
+	// a.x *= SIZE_MINI_MAP;
+	// a.y *= SIZE_MINI_MAP;
+	// draw_line1(a.x, a.y, data);
 	draw_field_of_view(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.p_img, 0, 0);
 	clr_window(data);

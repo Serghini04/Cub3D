@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/06/21 19:02:47 by marvin           ###   ########.fr        #
+#    Updated: 2024/07/04 18:55:18 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-lib = lib/ft_strdup.c lib/ft_strlen.c lib/free_arr.c
+lib = lib/ft_strdup.c lib/ft_strlen.c lib/free_arr.c lib/ft_memset.c
 
-utils = utils/mlx_hook.c utils/mlx_init.c
+utils = utils/mlx_hook.c utils/mlx_init.c utils/init_textures.c
 
 ray_casting = ray_casting/ray_casting.c
 

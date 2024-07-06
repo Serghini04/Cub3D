@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/22 19:00:02 by marvin           ###   ########.fr       */
+/*   Updated: 2024/07/06 17:03:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 #include "mlx/mlx.h"
 #include <math.h>
 #include <stdbool.h>
-
+#include <string.h>
 
 // Size :
-# define CUBE_SIZE 32
+# define CUBE_SIZE 30
 # define PLAYER_SIZE 1
 # define FOV_ANGLE 60 * (M_PI / 180)
 # define WALL_STRIP_WIDTH 1
@@ -64,11 +64,11 @@ enum e_direction
 };
 
 // Point 2D
-typedef struct s_point
+typedef struct s_vec
 {
 	float	x;
 	float	y;
-} t_point;
+} t_vec;
 
 typedef struct s_player
 {
@@ -79,7 +79,7 @@ typedef struct s_player
 	float	rotation_angle;
 	float	move_speed;
 	float	rotation_speed;
-	t_point	pos;
+	t_vec	pos;
 }	t_player;
 
 typedef struct s_img
@@ -94,15 +94,25 @@ typedef struct s_img
 
 typedef	struct	s_ray
 {
-	t_point	to_hit_wall;
+	t_vec	to_hit_wall;
+	bool	is_ver;
 	float	distance;
 	float	angle;
 }	t_ray;
+
+typedef	struct s_textures
+{
+	int			WIDTH;
+	int			HEIGHT;
+	int			*add;
+}	t_textures;
+
 
 typedef struct s_data
 {
 	int			WIDTH;
 	int			HEIGHT;
+	int			tile;
 	int			num_rays;
 	t_ray		*rays;
 	char		**map;
@@ -110,12 +120,15 @@ typedef struct s_data
 	void		*mlx_win;	//mlx_new_window()
 	t_img		img;		//mlx_new_image()
 	t_player	p;			//data player
+	char		**path_imgs;
+	t_textures	*tex;
 }	t_data;
 
 // lib:
 char	*ft_strdup(char *s1);
 size_t	ft_strlen(char *s);
 void	free_arr(char **res);
+void	*ft_memset(void *b, int c, size_t len);
 
 // utils:
 int		loopfunc(t_data	*data);
@@ -123,6 +136,7 @@ int		onpress(int keycode, t_data *data);
 int		onrelease(int keycode, t_data *data);
 bool	is_wall(float x, float y, t_data *data);
 void	draw_line1(float x1, float y1, t_data *data);
+void	init_textures(t_data *data);
 
 // ray casting
 t_ray	ray_casting(float ray_angle, t_data *data);
