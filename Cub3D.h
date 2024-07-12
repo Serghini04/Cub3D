@@ -6,31 +6,28 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/12 08:32:59 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:40:19 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef Cub3D_H
-#define Cub3D_H
-// backlist ## good movie.
-// House of the Dragon
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include "mlx/mlx.h"
-#include <math.h>
-#include <stdbool.h>
-#include <string.h>
-
+#ifndef CUB3D_H
+# define CUB3D_H
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include "mlx/mlx.h"
+# include <math.h>
+# include <stdbool.h>
+# include <string.h>
 // Size :
-# define CUBE_SIZE 30
+# define CUBE_SIZE 32
 # define PLAYER_SIZE 1
-# define FOV_ANGLE 60 * (M_PI / 180)
+# define FOV 1.04
 # define WALL_STRIP_WIDTH 1
 # define SIZE_MINI_MAP 0.2
 
-# define Key_ECH 53
+# define KEY_ECH 53
 # define KEY_A 	0
 # define KEY_W	13
 # define KEY_D	2
@@ -63,21 +60,20 @@ enum e_direction
 	North,
 	South,
 };
-
 // Point 2D
 typedef struct s_vec
 {
 	float	x;
 	float	y;
-} t_vec;
+}	t_vec;
 
 typedef struct s_player
 {
 	int		up_down;
 	int		left_right;
-	int		turn_direction;
+	int		turn_dir;
 	int		direction;
-	float	rotation_angle;
+	float	angle;
 	float	move_speed;
 	float	rotation_speed;
 	t_vec	pos;
@@ -92,27 +88,29 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-
-typedef	struct	s_ray
+typedef struct s_ray
 {
-	t_vec	to_hit_wall;
-	bool	is_ver;
-	float	distance;
 	float	angle;
+	bool	is_up;
+	bool	is_ver;
+	bool	is_down;
+	bool	is_left;
+	bool	is_right;
+	float	distance;
+	t_vec	to_hit_wall;
 }	t_ray;
 
-typedef	struct s_textures
+typedef struct s_textures
 {
-	int			WIDTH;
-	int			HEIGHT;
-	int			*add;
+	int	*add;
+	int	width;
+	int	height;
 }	t_textures;
-
 
 typedef struct s_data
 {
-	int			WIDTH;
-	int			HEIGHT;
+	int			width;
+	int			height;
 	int			tile;
 	int			num_rays;
 	t_ray		*rays;
@@ -126,24 +124,28 @@ typedef struct s_data
 }	t_data;
 
 // lib:
-char	*ft_strdup(char *s1);
 size_t	ft_strlen(char *s);
+char	*ft_strdup(char *s1);
 void	free_arr(char **res);
 void	*ft_memset(void *b, int c, size_t len);
 
 // utils:
+float	max(float a, float b);
 int		loopfunc(t_data	*data);
+void	init_textures(t_data *data);
 int		onpress(int keycode, t_data *data);
 int		onrelease(int keycode, t_data *data);
+void	set_vec(t_vec *vec, float x, float y);
 bool	is_wall(float x, float y, t_data *data);
-void	draw_line1(float x1, float y1, t_data *data);
-void	init_textures(t_data *data);
+void	draw_line(float x1, float y1, t_data *data);
+void	my_pixel_put(t_img *img, int x, int y, int color, t_data *data);
 
 // ray casting
+void	fill_field_of_view(t_data *data);
 t_ray	ray_casting(float ray_angle, t_data *data);
 
 // main
-int		draw_wall(t_data *data);
 t_data	*start_init_mlx(char **arr);
+int		start_rendering(t_data *data);
 
 #endif

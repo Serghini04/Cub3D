@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/12 11:33:50 by meserghi          #+#    #+#             */
+/*   Updated: 2024/07/12 11:33:50 by meserghi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Cub3D.h"
 
 float check_angle(float angle)
@@ -11,137 +23,130 @@ float check_angle(float angle)
     return (valid_angle);
 }
 
-float	calcul_distance(t_vec	a, t_vec b)
+float	distance_two_points(t_vec a, t_vec b)
 {
-	return (sqrt(pow(2, b.x - a.x) + pow(2, b.y - a.y)));
+	return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 }
 
-float	distanceBetweenPoints(float x1,float y1,float x2,float y2) {
-    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+t_ray	get_redirection_ray(float angle)
+{
+	t_ray	res;
+
+    // the normalizeAngle function is used to keep the rayAngle within a predictable and standard range.
+    res.angle = check_angle(angle);
+	res.is_down = (res.angle > 0 && res.angle < M_PI);
+	res.is_up = !res.is_down;
+	res.is_right = (res.angle < 0.5 * M_PI || res.angle > 1.5 * M_PI);
+	res.is_left = !res.is_right;
+	return (res);
+}
+
+t_vec	find_hor_intersection(t_ray	res, t_data *data)
+{
+	t_vec	hor;
+	t_vec	step;
+
+	// find first intercept:
+	hor.y = floor(data->p.pos.y / CUBE_SIZE) * CUBE_SIZE;
+	hor.y += (res.is_down == 1) * CUBE_SIZE;
+	hor.x = data->p.pos.x + (hor.y - data->p.pos.y) / tan(res.angle);
+
+	// Calculate the increment xstep and ystep
+	step.y = CUBE_SIZE;
+	if (res.is_up)
+		step.y *= -1;
+	step.x = step.y / tan(res.angle);
+	if (res.is_left && step.x > 0)
+		step.x *= -1;
+	if (res.is_right && step.x < 0)
+		step.x *= -1;
+	while ((hor.x / CUBE_SIZE) >= 0 && (hor.x / CUBE_SIZE) <= data->width && (hor.y / CUBE_SIZE) >= 0 && (hor.y/ CUBE_SIZE) <= data->height)
+	{
+		if (is_wall(hor.x, hor.y - (res.is_up == 1), data))
+			break;
+		else
+		{
+			hor.x += step.x;
+			hor.y += step.y;
+		}
+	}
+	return (hor);
+}
+
+
+t_vec	find_ver_intersection(t_ray res, t_data *data)
+{
+	t_vec	ver;
+	t_vec	step;
+
+		// find first intercept :
+	ver.x = floor(data->p.pos.x / CUBE_SIZE) * CUBE_SIZE;
+	ver.x += (res.is_right == 1) * CUBE_SIZE;
+	ver.y = data->p.pos.y + (ver.x - data->p.pos.x) * tan(res.angle);
+
+	step.x = CUBE_SIZE;
+	step.x *= res.is_left ? -1 : 1;
+
+	step.y = CUBE_SIZE * tan(res.angle);
+	step.y *= (res.is_up && step.y > 0) ? -1 : 1;
+	step.y *= (res.is_down && step.y < 0) ? -1 : 1;
+	while ((ver.x / CUBE_SIZE) >= 0 && (ver.x / CUBE_SIZE) <= data->width && (ver.y / CUBE_SIZE) >= 0 && (ver.y/ CUBE_SIZE) <= data->height)
+	{
+		if (is_wall(ver.x - (res.is_left == 1), ver.y, data)) {
+			break;
+		}
+		else
+		{
+			ver.x += step.x;
+			ver.y += step.y;
+		}
+	}
+	return (ver);
 }
 
 t_ray	ray_casting(float ray_angle, t_data *data)
 {
-	bool	is_up;
-	bool	is_down;
-	bool	is_right;
-	bool	is_left;
 	t_ray	res;
-	t_vec	step;
-	t_vec	next_hor;
-	t_vec	first_intercept;
-
-				// horisontal
-				// init var :
-    // the normalizeAngle function is used to keep the rayAngle within a predictable and standard range.
-    ray_angle = check_angle(ray_angle);
-    // data->p.rotation_angle = check_angle(ray_angle);
-    //this.isRayFacingDown = this.rayAngle > 0 && this.rayAngle < Math.PI;
-	is_down = (ray_angle > 0 && ray_angle < M_PI);
-	is_up = !is_down;
-	//this.isRayFacingRight = this.rayAngle < 0.5 * Math.PI || this.rayAngle > 1.5 * Math.PI;
-	is_right = (ray_angle < 0.5 * M_PI || ray_angle > 1.5 * M_PI);
-	is_left = !is_right;
-
-				/*
-					find first intercept :
-				*/
-	// Find the y-coordinate of the closest horizontal grid intersenction
-	first_intercept.y = floor(data->p.pos.y / CUBE_SIZE) * CUBE_SIZE;
-	first_intercept.y += is_down ? CUBE_SIZE : 0;
-	// Find the x-coordinate of the closest horizontal grid intersection
-	first_intercept.x = data->p.pos.x + (first_intercept.y - data->p.pos.y) / tan(ray_angle);
-
-	// Calculate the increment xstep and ystep
-	step.y = CUBE_SIZE;
-	step.y *= is_up ? -1 : 1;
-	step.x = CUBE_SIZE / tan(ray_angle);
-	step.x *= (is_left && step.x > 0) ? -1 : 1;
-	step.x *= (is_right && step.x < 0) ? -1 : 1;
-
-	next_hor.x = first_intercept.x;
-	next_hor.y = first_intercept.y;
-
-	// Increment xstep and ystep until we find a wall
-	while ((next_hor.x / CUBE_SIZE) >= 0 && (next_hor.x / CUBE_SIZE) <= data->WIDTH && (next_hor.y / CUBE_SIZE) >= 0 && (next_hor.y/ CUBE_SIZE) <= data->HEIGHT)
-	{
-		// printf("(%2.f,%2.f)===>(%d,%d)\n", (next_hor.x / CUBE_SIZE), next_hor.y / CUBE_SIZE, data->WIDTH, data->HEIGHT);
-		if (is_wall(next_hor.x, next_hor.y - (is_up ? 1 : 0), data))              
-			break;
-		else
-		{
-			next_hor.x += step.x;
-			next_hor.y += step.y;
-		}
-	}
-
-			/*
-				vertical :
-			*/
-
-	// find first intersction point : (the same). 
+	float	horzdist;
+	float	vertdist;
 	t_vec	next_ver;
-				
-				// find first intercept :
-	// Find the x-coordinate of the closest horizontal grid intersenction
-	first_intercept.x = floor(data->p.pos.x / CUBE_SIZE) * CUBE_SIZE;
-	first_intercept.x += is_right ? CUBE_SIZE : 0;
-	// Find the y-coordinate of the closest horizontal grid intersection
-	first_intercept.y = data->p.pos.y + (first_intercept.x - data->p.pos.x) * tan(ray_angle);
+	t_vec	next_hor;
 
-	// Calculate the increment xstep and ystep
-	step.x = CUBE_SIZE;
-	step.x *= is_left ? -1 : 1;
-	
-	step.y = CUBE_SIZE * tan(ray_angle);
-	step.y *= (is_up && step.y > 0) ? -1 : 1;
-	step.y *= (is_down && step.y < 0) ? -1 : 1;
-
-	next_ver.x = first_intercept.x;
-	next_ver.y = first_intercept.y;
-
-	// Increment xstep and ystep until we find a wall
-	while ((next_ver.x / CUBE_SIZE) >= 0 && (next_ver.x / CUBE_SIZE) <= data->WIDTH && (next_ver.y / CUBE_SIZE) >= 0 && (next_ver.y/ CUBE_SIZE) <= data->HEIGHT)
-	{
-		// printf("(%2.f,%2.f)===>(%d,%d)\n", (next_ver.x / CUBE_SIZE), next_ver.y / CUBE_SIZE, data->WIDTH, data->HEIGHT);
-		if (is_wall(next_ver.x - (is_left ? 1 : 0), next_ver.y, data)) {
-			break;
-		}
-		else
-		{
-			next_ver.x += step.x;
-			next_ver.y += step.y;
-		}
-	}
-	
-
+	// get rediraction :
+	res = get_redirection_ray(ray_angle);
+	next_hor = find_hor_intersection(res, data);
+	// (the same).
+	next_ver = find_ver_intersection(res, data);
 	// cmp :
-	// float	distance_hor;
-	// float	distance_ver;
-
-	// distance_hor = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_hor.x, next_hor.y);
-	// distance_ver = distanceBetweenPoints(data->p.pos.x, data->p.pos.y, next_ver.x, next_ver.y);
-
-	// res.to_hit_wall.x = (distance_hor < distance_ver) ? next_hor.x : next_ver.x;
-	// res.to_hit_wall.y = (distance_hor < distance_ver) ? next_hor.y : next_ver.y;
-	// res.distance = (distance_hor < distance_ver) ? distance_hor : distance_ver;
-	// res.is_ver = (distance_ver< distance_hor) ? 1 : 0;
-
-	double horzdist = hypot(data->p.pos.x - next_hor.x, data->p.pos.y - next_hor.y);
-	double vertdist = hypot(data->p.pos.x - next_ver.x, data->p.pos.y - next_ver.y);
+	horzdist = distance_two_points(data->p.pos, next_hor);
+	vertdist = distance_two_points(data->p.pos, next_ver);
 	if (vertdist < horzdist)
 	{
-		res.distance = vertdist * cos(ray_angle - data->p.rotation_angle);
+		res.distance = vertdist * cos(res.angle - data->p.angle);
 		res.to_hit_wall = next_ver;
 		res.is_ver = 1;
 	}
 	else
 	{
-		res.distance = horzdist * cos(ray_angle - data->p.rotation_angle);
+		res.distance = horzdist * cos(res.angle - data->p.angle);
 		res.to_hit_wall = next_hor;
 		res.is_ver = 0;
 	}
-
-	res.angle = ray_angle;
 	return (res);
+}
+
+void	fill_field_of_view(t_data *data)
+{
+	int		i;
+	float	ray_angle;
+
+	i = 0;
+	// start first ray subtracting half of the FOV;
+	ray_angle = data->p.angle - (FOV / 2);
+	while (i < data->num_rays)
+	{
+		data->rays[i] = ray_casting(ray_angle, data);
+		ray_angle += FOV / data->num_rays;
+		i++;
+	}
 }

@@ -6,13 +6,13 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/07/12 08:33:15 by meserghi         ###   ########.fr        #
+#    Updated: 2024/07/12 09:45:57 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 lib = lib/ft_strdup.c lib/ft_strlen.c lib/free_arr.c lib/ft_memset.c
 
-utils = utils/mlx_hook.c utils/mlx_init.c utils/init_textures.c
+utils = utils/mlx_hook.c utils/mlx_init.c utils/init_textures.c utils/rendering.c
 
 ray_casting = ray_casting/ray_casting.c
 
