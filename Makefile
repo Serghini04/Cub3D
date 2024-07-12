@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/07/04 18:55:18 by meserghi         ###   ########.fr        #
+#    Updated: 2024/07/12 08:33:15 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,11 @@ FILE_OBJ = ${FILE:.c=.o}
 
 FLAGS = -O3 -fsanitize=address -g
 
+# Linux :
+# FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm
+
+FMLX = -lmlx -framework OpenGL -framework AppKit
+
 NAME = Cub3D
 
 all : ${NAME}
@@ -38,7 +43,7 @@ all : ${NAME}
 	@echo "${BLUE}$@ has been built${NC}"
 
 ${NAME} : ${FILE_OBJ}
-	cc ${FLAGS} ${FILE_OBJ} -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -o ${NAME}
+	cc ${FLAGS} ${FILE_OBJ} ${FMLX} -o ${NAME}
 
 clean :
 	@rm -f ${FILE_OBJ}

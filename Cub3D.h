@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/06 17:03:41 by marvin           ###   ########.fr       */
+/*   Updated: 2024/07/12 08:32:59 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,24 @@
 # define WALL_STRIP_WIDTH 1
 # define SIZE_MINI_MAP 0.2
 
-// # define Key_ECH 53
-// # define KEY_A 	0
-// # define KEY_W	13
-// # define KEY_D	2
-// # define KEY_S	1
+# define Key_ECH 53
+# define KEY_A 	0
+# define KEY_W	13
+# define KEY_D	2
+# define KEY_S	1
 
-// # define KEY_LEFT 	123
-// # define KEY_RIGHT	124
+# define KEY_LEFT 	123
+# define KEY_RIGHT	124
 
-# define Key_ECH 65307
-# define KEY_A 	97
-# define KEY_W	119
-# define KEY_D	100
-# define KEY_S	115
+// linux :
+// # define Key_ECH 65307
+// # define KEY_A 	97
+// # define KEY_W	119
+// # define KEY_D	100
+// # define KEY_S	115
 
-# define KEY_LEFT 	65361
-# define KEY_RIGHT	65363
+// # define KEY_LEFT 	65361
+// # define KEY_RIGHT	65363
 
 // Colors:
 # define BLACK 0x000000
