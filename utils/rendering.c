@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/12 12:08:14 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/13 08:42:29 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,6 @@ int get_color(t_data *data, int type, t_vec *pos)
 void	render_3d(t_data *data)
 {
 	int		i;
-	float	dist;
-	t_vec	start;
-	t_vec	index_img;
-	float	wall_height;
-	t_vec	tex;
-	int		color;
-	float	y;
-	float	a = CUBE_SIZE;
 
 	i = 0;
 	fill_field_of_view(data);
@@ -72,11 +64,11 @@ void	render_3d(t_data *data)
 		float	wall_height;
 
 		dist_to_camera = (data->width / 2) / tan(FOV / 2);
-		wall_height = a * dist_to_camera / data->rays[i].distance;
+		wall_height = (float)CUBE_SIZE * dist_to_camera / data->rays[i].distance;
 		set_vec(&pos[0], data->width, data->height);
 		set_vec(&pos[1], i,
 			max(0, pos[0].y / 2 - wall_height / 2));
-		pos[2].x = data->rays[i].is_ver ? (int)fmod(data->rays[i].to_hit_wall.y, a) / a * 64 : (int)fmod(data->rays[i].to_hit_wall.x, a) / a * 64;
+		pos[2].x = data->rays[i].is_ver ? (int)fmod(data->rays[i].to_hit_wall.y, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64 : (int)fmod(data->rays[i].to_hit_wall.x, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64;
 		index = -1;
 		while (++index < wall_height && ++pos[1].y < pos[0].y)
 		{
@@ -90,6 +82,34 @@ void	render_3d(t_data *data)
 		i++;
 	}
 }
+
+// void	render_3d(t_data *data)
+// {
+// 	fill_field_of_view(data);
+// 	int	i = 0;
+// 	while (i < data->num_rays)
+// 	{
+// 		int	wall_height = (data->height / data->rays[i].distance) * 30.0;
+// 		int	top = (data->height / 2) - (wall_height / 2);
+// 		int	btm = top + wall_height;
+// 		int px = data->rays[i].to_hit_wall.x / (float)CUBE_SIZE;
+// 		int	tex_off_x = (int)(px * (floor(data->width) / CUBE_SIZE)) % ((int)floor(data->width) / CUBE_SIZE);
+// 		int	y = top;
+// 		if (y < 0)
+// 			y += -top;
+// 		if (btm > data->height)
+// 			btm = data->height;
+// 		while (y < btm)
+// 		{
+// 			float	proportion = (float)(y - top) / wall_height;
+// 			int	tex_off_y = (int)(proportion * (floor(data->height) / CUBE_SIZE)) % ((int)floor(data->height) / CUBE_SIZE);
+// 			int c = get_color(data, North, &(t_vec){tex_off_x, tex_off_y});
+// 			my_pixel_put(&data->img, i, y, c, data);
+// 			y++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 void	put_color(t_data *data, int x, int y, int color, int pow)
 {

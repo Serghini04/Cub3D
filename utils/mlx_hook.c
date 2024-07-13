@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/12 09:41:38 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/13 08:43:26 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ bool	is_wall(float x, float y, t_data *data)
 	int	new_x;
 	int	new_y;
 
-	new_x = x / CUBE_SIZE;
-	new_y = y / CUBE_SIZE;
+    new_x = (int)floor(x / CUBE_SIZE);
+    new_y = (int)floor(y / CUBE_SIZE);
 	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
 		return (true);
-	if (ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
+	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
 		return (true);
 	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1')
 		return (true);

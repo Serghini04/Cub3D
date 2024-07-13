@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/12 10:20:11 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/13 08:45:18 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	init_map(t_data *data, char **arr)
 	int	i;
 	int	j;
 	int len;
-	int	num_rays;
 
 	i = 0;
 	data->num_rays = data->width / WALL_STRIP_WIDTH;
@@ -30,7 +29,7 @@ void	init_map(t_data *data, char **arr)
 		exit(1);
 	}
 	data->map = arr;
-	data->p.move_speed = 0.6;
+	data->p.move_speed = 5;
 	data->p.turn_dir = 0;
 	data->p.up_down = 0;
 	data->p.left_right = 0;
@@ -49,7 +48,7 @@ void	init_map(t_data *data, char **arr)
 				data->p.pos.y += (CUBE_SIZE / 2);
 				data->p.direction = North;
 				data->p.angle = M_PI_2;
-				data->p.rotation_speed = 0.8 * (M_PI / 180);
+				data->p.rotation_speed = 0.03;
 				return ;
 			}
 			j++;

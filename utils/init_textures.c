@@ -49,7 +49,7 @@ void	init_textures(t_data *data)
 	}
 	data->path_imgs[0] = NULL;
 	data->path_imgs[1] = NULL;
-	data->path_imgs[North] = ft_strdup("textures/n.xpm");
+	data->path_imgs[North] = ft_strdup("textures/bricks.xpm");
 	data->path_imgs[3] = NULL;
 	data->path_imgs[4] = NULL;
 	data->tex = malloc(sizeof(t_textures) * 5);
