@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/12 20:31:36 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/13 10:57:42 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@
 // data structure :
 enum e_direction
 {
-	East,
-	West,
 	North,
+	West,
+	East,
 	South,
 };
 // Point 2D
@@ -96,6 +96,7 @@ typedef struct s_ray
 	bool	is_down;
 	bool	is_left;
 	bool	is_right;
+	int		dir;
 	float	distance;
 	t_vec	to_hit_wall;
 }	t_ray;

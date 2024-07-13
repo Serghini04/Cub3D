@@ -132,6 +132,15 @@ t_ray	ray_casting(float ray_angle, t_data *data)
 		res.to_hit_wall = next_hor;
 		res.is_ver = 0;
 	}
+	// find side :
+	if (res.is_down && !res.is_ver)
+		res.dir = North;
+	else if (res.is_up && !res.is_ver)
+		res.dir = South;
+	else if (res.is_left && res.is_ver)
+		res.dir = East;
+	else
+		res.dir = West;
 	return (res);
 }
 

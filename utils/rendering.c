@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/13 08:42:29 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/13 10:56:43 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,13 @@ int get_color(t_data *data, int type, t_vec *pos)
 		return (*(data->tex[type].add + of));
 	return (0);
 }
-	// float	distance_Projection;
-	// float	wall_strip_height;
-	// float	y;
-	// float	top_wall;
-	// float	bottom_wall;
-	// distance_Projection = (data->width / 2) / tan(FOV / 2);
-	// wall_strip_height = (CUBE_SIZE / (data->rays[i].distance * cos(data->rays[i].angle - data->p.angle))) * distance_Projection;
-
-	// // find top & bottom6
-	// top_wall = (data->height / 2) - (wall_strip_height / 2);
-	// top_wall = top_wall < 0 ? 0 : top_wall;
-	// bottom_wall = (data->height / 2) + (wall_strip_height / 2);
-	// bottom_wall = bottom_wall > data->height ? data->height : bottom_wall;
-	// y = top_wall;
 
 void	render_3d(t_data *data)
 {
+	int		color;
+	t_vec	pos[3];
+	float	dist_to_camera;
+	float	wall_height;
 	int		i;
 
 	i = 0;
@@ -58,58 +48,26 @@ void	render_3d(t_data *data)
 	int index;
 	while (i < data->num_rays)
 	{
-		int		color;
-		t_vec	pos[3];
-		float	dist_to_camera;
-		float	wall_height;
 
 		dist_to_camera = (data->width / 2) / tan(FOV / 2);
 		wall_height = (float)CUBE_SIZE * dist_to_camera / data->rays[i].distance;
 		set_vec(&pos[0], data->width, data->height);
-		set_vec(&pos[1], i,
-			max(0, pos[0].y / 2 - wall_height / 2));
-		pos[2].x = data->rays[i].is_ver ? (int)fmod(data->rays[i].to_hit_wall.y, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64 : (int)fmod(data->rays[i].to_hit_wall.x, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64;
+		set_vec(&pos[1], i, max(0, pos[0].y / 2 - wall_height / 2));
+		pos[2].x = data->rays[i].is_ver ? (int)fmod(data->rays[i].to_hit_wall.y, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64
+		: (int)fmod(data->rays[i].to_hit_wall.x, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64;
 		index = -1;
 		while (++index < wall_height && ++pos[1].y < pos[0].y)
 		{
 			// restrain_pos(&pos[1], &pos[0]);
 			pos[2].y = (pos[1].y - (pos[0].y / 2 - wall_height / 2))
 				/ wall_height * 64;
-			color = get_color(data, North, &pos[2]);
+			color = get_color(data, data->rays[i].dir, &pos[2]);
 			if (color)
 				my_pixel_put(&data->img, pos[1].x, pos[1].y, color, data);
 		}
 		i++;
 	}
 }
-
-// void	render_3d(t_data *data)
-// {
-// 	fill_field_of_view(data);
-// 	int	i = 0;
-// 	while (i < data->num_rays)
-// 	{
-// 		int	wall_height = (data->height / data->rays[i].distance) * 30.0;
-// 		int	top = (data->height / 2) - (wall_height / 2);
-// 		int	btm = top + wall_height;
-// 		int px = data->rays[i].to_hit_wall.x / (float)CUBE_SIZE;
-// 		int	tex_off_x = (int)(px * (floor(data->width) / CUBE_SIZE)) % ((int)floor(data->width) / CUBE_SIZE);
-// 		int	y = top;
-// 		if (y < 0)
-// 			y += -top;
-// 		if (btm > data->height)
-// 			btm = data->height;
-// 		while (y < btm)
-// 		{
-// 			float	proportion = (float)(y - top) / wall_height;
-// 			int	tex_off_y = (int)(proportion * (floor(data->height) / CUBE_SIZE)) % ((int)floor(data->height) / CUBE_SIZE);
-// 			int c = get_color(data, North, &(t_vec){tex_off_x, tex_off_y});
-// 			my_pixel_put(&data->img, i, y, c, data);
-// 			y++;
-// 		}
-// 		i++;
-// 	}
-// }
 
 void	put_color(t_data *data, int x, int y, int color, int pow)
 {
