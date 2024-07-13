@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/13 08:43:26 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/13 10:36:19 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,46 @@ bool	is_wall(float x, float y, t_data *data)
 	int	new_x;
 	int	new_y;
 
-    new_x = (int)floor(x / CUBE_SIZE);
-    new_y = (int)floor(y / CUBE_SIZE);
+    new_x = x / CUBE_SIZE;
+    new_y = y / CUBE_SIZE;
 	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
 		return (true);
 	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
 		return (true);
 	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1')
+		return (true);
+	return (false);
+}
+
+bool	is_wall2(float x, float y, t_data *data)
+{
+	int	new_x;
+	int	new_y;
+
+    new_x = x / CUBE_SIZE;
+    new_y = y / CUBE_SIZE;
+	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
+		return (true);
+	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
+		return (true);
+	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1' || data->map[(int)floor(data->p.pos.y/CUBE_SIZE)][(int)floor(new_x)] == '1' || data->map[(int)floor(new_y)][(int)floor(data->p.pos.x/CUBE_SIZE)] == '1')
+		return (true);
+	return (false);
+}
+
+bool	is_wall1(float x, float y, t_data *data)
+{
+	int new_x = x / CUBE_SIZE;
+	int new_y = y / CUBE_SIZE;
+	int new_xx = (x + PLAYER_SIZE) / CUBE_SIZE;
+	int new_yy = (y + PLAYER_SIZE) / CUBE_SIZE;
+	if (new_x < 0 || new_x >= data->width || new_y < 0 || new_y >= data->height
+		|| new_xx < 0 || new_xx >= data->width || new_yy < 0 || new_yy >= data->height)
+		return (true);
+	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x) || (int)ft_strlen(data->map[(int)floor(new_yy)]) < (int)floor(new_xx))
+		return (true);
+	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1'
+		|| data->map[(int)floor(new_yy)][(int)floor(new_xx)] == '1')
 		return (true);
 	return (false);
 }
@@ -85,7 +118,7 @@ int	loopfunc(t_data	*data)
 									* (data->p.move_speed - 1);
 	y += sin(data->p.angle + M_PI_2) * data->p.left_right \
 									* (data->p.move_speed - 1);
-	if (!is_wall(x, y, data))
+	if (!is_wall2(x, y, data))
 	{
 		data->p.pos.x = x;
 		data->p.pos.y = y;
