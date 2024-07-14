@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/13 12:08:58 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/14 18:33:59 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ void	render_3d(t_data *data)
 		pos[2].x = data->rays[i].is_ver ? (int)fmod(data->rays[i].to_hit_wall.y, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64
 		: (int)fmod(data->rays[i].to_hit_wall.x, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64;
 		index = -1;
+		int y = 0;
+		while (y < pos[1].y)
+		{
+			my_pixel_put(&data->img, i, y, data->c, data);
+			y++;
+		}
 		while (++index < wall_height && ++pos[1].y < pos[0].y)
 		{
 			// restrain_pos(&pos[1], &pos[0]);
@@ -64,6 +70,11 @@ void	render_3d(t_data *data)
 			color = get_color(data, data->rays[i].dir, &pos[2]);
 			if (color)
 				my_pixel_put(&data->img, pos[1].x, pos[1].y, color, data);
+		}
+		while (pos[1].y < pos[0].y)
+		{
+			my_pixel_put(&data->img, i, pos[1].y, data->f, data);
+			pos[1].y++;
 		}
 		i++;
 	}
@@ -143,7 +154,7 @@ void	rendering_minimap(t_data *data)
 			int y = ceil((i * CUBE_SIZE) * SIZE_MINI_MAP);
 			int size = ceil(CUBE_SIZE * SIZE_MINI_MAP);
 			if (data->map[i][j] == '1')
-			    put_color(data, x, y, WHITE, size);
+			    put_color(data, x, y, WHEAT, size);
 			else
 			    put_color(data, x, y, BLACK, size);
 			j++;

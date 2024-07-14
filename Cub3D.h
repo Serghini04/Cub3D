@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/13 10:57:42 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/14 18:31:03 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,23 @@
 // Colors:
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
+# define CORN_SILK 0xFFF8DC
 # define RED 0xFF0000
+# define ORANGE 0xFFA500
+# define LIME 0x00FF00
+# define BLUE 0x87CEEB
+# define YELLOW 0xFFFF00
+# define CYAN 0x00FFFF
+# define MAGENTA 0xFF00FF
+# define SILVER 0xC0C0C0
+# define GRAY 0x808080
+# define MAROON 0x800000
+# define OLIVE 0x808000
+# define GREEN 0x008000
 # define PURPLE 0x800080
+# define TEAL 0x008080
+# define NAVY 0x000080
+# define WHEAT 0xF5DEB3
 
 // data structure :
 enum e_direction
@@ -111,6 +126,8 @@ typedef struct s_textures
 typedef struct s_data
 {
 	int			width;
+	int			f;
+	int			c;
 	int			height;
 	int			tile;
 	int			num_rays;
