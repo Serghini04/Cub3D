@@ -6,11 +6,12 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/07/13 08:43:09 by meserghi         ###   ########.fr        #
+#    Updated: 2024/07/14 19:54:17 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-lib = lib/ft_strdup.c lib/ft_strlen.c lib/free_arr.c lib/ft_memset.c
+lib = lib/ft_strdup.c lib/ft_strlen.c lib/free_arr.c lib/ft_memset.c \
+	lib/ft_strjoin.c lib/ft_itoa.c
 
 utils = utils/mlx_hook.c utils/mlx_init.c utils/init_textures.c utils/rendering.c
 

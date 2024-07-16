@@ -47,10 +47,10 @@ void	init_textures(t_data *data)
 		free(data);
 		exit(1);
 	}
-	data->path_imgs[South] = ft_strdup("textures/top.xpm");
-	data->path_imgs[East] = ft_strdup("textures/all.xpm");
+	data->path_imgs[South] = ft_strdup("textures/egy.xpm");
+	data->path_imgs[East] = ft_strdup("textures/new.xpm");
 	data->path_imgs[North] = ft_strdup("textures/new1.xpm");
-	data->path_imgs[West] = ft_strdup("textures/bricks.xpm");
+	data->path_imgs[West] = ft_strdup("textures/wall.xpm");
 	data->path_imgs[4] = NULL;
 	data->tex = malloc(sizeof(t_textures) * 5);
 	if (!data->tex)
