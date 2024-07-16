@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/15 21:54:39 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:10:39 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 # include <stdbool.h>
 # include <string.h>
 // Size :
-# define CUBE_SIZE 64
+# define W 2176
+# define H 832
+# define CUBE_SIZE 32
 # define PLAYER_SIZE 1
 # define FOV 1.04
 # define WALL_STRIP_WIDTH 1

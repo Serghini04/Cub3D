@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/16 13:52:05 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:57:10 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	my_pixel_put(t_img *img, int x, int y, int color, t_data *data)
 {
 	int	pos;
+	(void)data;
 
-	if (x < 0 || y < 0 || x >= data->width || y >= data->height)
+	if (x < 0 || y < 0 || x >= W || y >= H)
 		return ;
 	pos = (img->len * y) + (x * (img->bit_pixel / 8));
 	*(int *)(img->p_pixel + pos) = color;
@@ -34,6 +35,46 @@ int get_color(t_data *data, int type, t_vec *pos)
 		return (*(data->tex[type].add + of));
 	return (0);
 }
+// void    put_wall(t_data *data, int i)
+// {
+//     // int wallHeight = (WIN_HEIGHT / data->rays[i].distance) * TILE_SIZE;
+//     // int    top = (WIN_HEIGHT / 2) - (wallHeight / 2);
+//     // int btm = top + wallHeight;
+//     int wallHeight = (double)(WIN_HEIGHT / data->rays[i].distance) * 30.0; // 30.0 is the scale of the walls -- recommanded to create a macro for it
+//     int    top = (WIN_HEIGHT / 2) - (wallHeight / 2);
+//     int btm = top + wallHeight;
+//     // if (btm > WIN_HEIGHT)
+//     //     btm = WIN_HEIGHT;
+//     // if (top < 0)
+//     //     top = 0;
+//     draw_line(&data->scene_layer, 0x79c0ff, (t_vector2) {i, 0}, (t_vector2) {i, top});
+//     if (data->rays[i].side == HORIZONTAL)
+//     {
+//         t_image t = data->texture_so;
+//         if (data->rays[i].direction == NORTH)
+//             t = data->texture_no;
+//         float px = data->rays[i].intersept_point.x / (float)TILE_SIZE;
+//         int texture_offset_X = (int)(px * t.sizex) % t.sizex;
+//         int y = top;
+//         if (y < 0)
+//             y += -top;
+//         if (btm > WIN_HEIGHT)
+//             btm = WIN_HEIGHT;
+//         while (y < btm)
+//         {
+//             // if (y > WIN_HEIGHT)
+//             //     break ;
+//             float proportion = (float)(y - top) / wallHeight;
+//             int texture_offset_Y = (int)(proportion * t.sizey) % t.sizey;
+//             int c = t.buffer[texture_offset_Y * t.sizex + texture_offset_X];
+
+//             t_image_update_pixel(&data->scene_layer, i, y, c);
+//             y++;
+//         }
+//     }
+//     draw_line(&data->scene_layer, 0xe5c359, (t_vector2) {i, btm}, (t_vector2) {i, WIN_HEIGHT});
+
+// }
 
 void	render_3d(t_data *data)
 {
@@ -51,7 +92,7 @@ void	render_3d(t_data *data)
 
 		dist_to_camera = (data->width / 2) / tan(FOV / 2);
 		wall_height = (float)CUBE_SIZE * dist_to_camera / data->rays[i].distance;
-		set_vec(&pos[0], data->width, data->height);
+		set_vec(&pos[0], W, H);
 		set_vec(&pos[1], i, max(0, pos[0].y / 2 - wall_height / 2));
 		pos[2].x = data->rays[i].is_ver ? (int)fmod(data->rays[i].to_hit_wall.y, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64
 		: (int)fmod(data->rays[i].to_hit_wall.x, (float)CUBE_SIZE) / (float)CUBE_SIZE * 64;
@@ -165,10 +206,10 @@ void	clr_window(t_data *data)
 	int	j;
 
 	i = 0;
-	while (i < data->height)
+	while (i < data->height / CUBE_SIZE)
 	{
 		j = 0;
-		while (j < data->width)
+		while (j < data->width / CUBE_SIZE)
 		{
 			my_pixel_put(&data->img, j, i, BLACK, data);
 			j++;
@@ -198,7 +239,7 @@ int	start_rendering(t_data *data)
 			data->index_weapon = 0;
 	}
 	i = data->index_weapon;
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->weapon[i], (data->width - 1000) / 2, (data->height - 50) / 2);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->weapon[i], (W - 1000) / 2, (H - 50) / 2);
 	clr_window(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:13:52 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/12 09:16:46 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:38:07 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ t_data	*start_init_mlx(char **arr)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		(perror("mlx: "), free(data), exit(1));
-	data->mlx_win = mlx_new_window(data->mlx, data->width, data->height, "Cub3D");
+	data->mlx_win = mlx_new_window(data->mlx, W, H, "Cub3D");
 	if (!data->mlx_win)
 		(perror("mlx: "), my_free(data));
-	data->img.p_img = mlx_new_image(data->mlx, data->width, data->height);
+	data->img.p_img = mlx_new_image(data->mlx, W, H);
 	if (!data->img.p_img)
 	{
 		(perror("mlx: "), mlx_destroy_window(data->mlx, data->mlx_win));
