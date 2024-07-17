@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_textures.c                                    :+:      :+:    :+:   */
+/*   init_textures_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 11:28:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:43:53 by meserghi         ###   ########.fr       */
+/*   Created: 2024/07/17 21:27:01 by meserghi          #+#    #+#             */
+/*   Updated: 2024/07/17 21:27:03 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 int	*copy_img(t_data *data, t_img res, int i, int bytes_per_pixel)
 {
@@ -56,7 +56,6 @@ int	*convert_xpm_to_arr(t_data *data, char *path_img, int i)
 	return (copy_img(data, res, i, bytes_per_pixel));
 }
 
-// you need to free data textures.
 void	init_textures(t_data *data)
 {
 	int	i;

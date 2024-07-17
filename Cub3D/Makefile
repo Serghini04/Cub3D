@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/07/17 14:55:30 by meserghi         ###   ########.fr        #
+#    Updated: 2024/07/17 21:11:56 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address -g
 # MacOS :
 FMLX = -lmlx -framework OpenGL -framework AppKit
 
-NAME = Cub3D
+NAME = cub3D
 
 all : ${NAME}
 	@echo "${GREEN}Cub3D has been built ...${STOP_C}"

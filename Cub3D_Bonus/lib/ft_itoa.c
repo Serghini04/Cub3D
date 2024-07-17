@@ -6,11 +6,11 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 19:53:30 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/14 19:53:57 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:29:42 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 static int	len_res(int n)
 {

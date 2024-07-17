@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_hook.c                                         :+:      :+:    :+:   */
+/*   mlx_hook_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:43:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:32:21 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
-// you need to free data textures.
 int	onpress(int k, t_data *data)
 {
 	if (k == KEY_ECH)
@@ -23,6 +22,8 @@ int	onpress(int k, t_data *data)
 		free(data);
 		exit(1);
 	}
+	if (k == KEY_Q)
+		data->p.key_weopan = 1;
 	if (k == KEY_W)
 		data->p.up_down = 1;
 	if (k == KEY_S)
@@ -55,20 +56,6 @@ int	onrelease(int k, t_data *data)
 	return (0);
 }
 
-bool	is_wall_mandatory(float x, float y, t_data *data)
-{
-	int	new_x;
-	int	new_y;
-
-	new_x = x / CUBE_SIZE;
-	new_y = y / CUBE_SIZE;
-	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
-		return (true);
-	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
-		return (true);
-	return (false);
-}
-
 bool	is_wall(float x, float y, t_data *data)
 {
 	int	new_x;
@@ -81,6 +68,25 @@ bool	is_wall(float x, float y, t_data *data)
 	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
 		return (true);
 	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1')
+		return (true);
+	return (false);
+}
+
+bool	is_wall2(float x, float y, t_data *data)
+{
+	int	new_x;
+	int	new_y;
+
+	new_x = x / CUBE_SIZE;
+	new_y = y / CUBE_SIZE;
+	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
+		return (true);
+	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
+		return (true);
+	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1' || \
+	data->map[(int)floor(data->p.pos.y / CUBE_SIZE)][(int)floor(new_x)] == '1' \
+	|| data->map[(int)floor(new_y)][(int)floor(data->p.pos.x / \
+	CUBE_SIZE)] == '1')
 		return (true);
 	return (false);
 }
@@ -99,7 +105,7 @@ int	loopfunc(t_data	*data)
 									* (data->p.move_speed - 1);
 	y += sin(data->p.angle + M_PI_2) * data->p.left_right \
 									* (data->p.move_speed - 1);
-	if (!is_wall_mandatory(x, y, data))
+	if (!is_wall2(x, y, data))
 	{
 		data->p.pos.x = x;
 		data->p.pos.y = y;

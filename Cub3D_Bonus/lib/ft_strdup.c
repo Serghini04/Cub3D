@@ -6,11 +6,11 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 10:00:47 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/02 10:01:04 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:08:08 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 char	*ft_strdup(char *s1)
 {
