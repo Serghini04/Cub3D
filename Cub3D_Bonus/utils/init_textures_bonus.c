@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:27:01 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:27:03 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/20 14:35:23 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	*convert_xpm_to_arr(t_data *data, char *path_img, int i)
 	res.p_img = mlx_xpm_file_to_image(data->mlx, path_img, \
 							&data->tex[i].width, &data->tex[i].height);
 	if (!res.p_img)
-		exit (1);
+		(puts(path_img), exit (1));
 	res.p_pixel = mlx_get_data_addr(res.p_img, &res.bit_pixel, \
 												&res.len, &res.endian);
 	if (!res.p_pixel)
@@ -65,9 +65,9 @@ void	init_textures(t_data *data)
 	if (!data->path_imgs)
 		exit(1);
 	data->path_imgs[South] = ft_strdup("textures/SO.xpm");
-	data->path_imgs[East] = ft_strdup("textures/new.xpm");
-	data->path_imgs[North] = ft_strdup("textures/new1.xpm");
-	data->path_imgs[West] = ft_strdup("textures/wall.xpm");
+	data->path_imgs[East] = ft_strdup("textures/wall1.xpm");
+	data->path_imgs[North] = ft_strdup("textures/egy.xpm");
+	data->path_imgs[West] = ft_strdup("textures/new1.xpm");
 	data->path_imgs[4] = NULL;
 	data->tex = malloc(sizeof(t_textures) * 5);
 	if (!data->tex)

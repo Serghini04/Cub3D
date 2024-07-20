@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:42:33 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/20 10:13:54 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,8 @@ int	main(void)
 	data = start_init_mlx(arr);
 	init_game(data, arr);
 	mlx_loop_hook(data->mlx, loopfunc, data);
-	mlx_hook(data->mlx_win, 2, 1L << 0, onpress, data);
-	mlx_hook(data->mlx_win, 3, 1L << 1, onrelease, data);
+	mlx_hook(data->mlx_win, 2, 1, onpress, data);
+	mlx_hook(data->mlx_win, 3, 2, onrelease, data);
 	mlx_loop(data->mlx);
 	return (0);
 }

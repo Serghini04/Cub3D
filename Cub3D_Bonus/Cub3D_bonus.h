@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:38:03 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:07:58 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int		onpress(int keycode, t_data *data);
 int		onrelease(int keycode, t_data *data);
 void	set_vec(t_vec *vec, float x, float y);
 bool	is_wall(float x, float y, t_data *data);
-int get_color(t_data *data, int type, t_vec *pos);
+int 	get_color(t_data *data, int type, t_vec *pos);
 void	draw_line(float x1, float y1, t_data *data);
 void	my_pixel_put(t_img *img, int x, int y, int color);
 
