@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/07/17 21:36:45 by meserghi         ###   ########.fr        #
+#    Updated: 2024/07/22 19:50:01 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,12 @@ FILE = ${lib} ${utils} ${ray_casting} Cub3D_bonus.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address -g
+FLAGS = -O3 -fsanitize=address -g
 
 # Linux :
 # FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm
 # MacOS :
-FMLX = -lmlx -framework OpenGL -framework AppKit
+FMLX = mlx/libmlx.a  -framework OpenGL -framework AppKit
 
 NAME = cub3D_bonus
 

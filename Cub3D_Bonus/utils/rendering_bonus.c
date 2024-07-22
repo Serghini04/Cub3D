@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/20 12:15:16 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/22 20:00:34 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,26 @@ void	put_color(t_data *data, int x, int y, int color, int pow)
 	}
 }
 
-void	draw_player(t_data *data, int color, int pow)
+void	draw_player(t_data *data, int color, int player_x, int player_y)
 {
-	int		i;
-	int		j;
-	t_vec	p;
+    int		i;
+    int		j;
+    t_vec	p;
 
-	i = 0;
+    i = 0;
 
-	p.x = data->p.pos.x * SIZE_MINI_MAP;
-	p.y = data->p.pos.y * SIZE_MINI_MAP;
-	while (i < pow)
-	{
-		j = 0;
-		while (j < pow)
-		{
-			my_pixel_put(&data->img, p.x + i, p.y + j, color);
-			j++;
-		}
-		i++;
-	}
+    p.x = player_x;
+    p.y = player_y;
+    while (i < PLAYER_SIZE)
+    {
+        j = 0;
+        while (j < PLAYER_SIZE)
+        {
+            my_pixel_put(&data->img, p.x + i, p.y + j, color);
+            j++;
+        }
+        i++;
+    }
 }
 
 void	draw_field_of_view(t_data *data)
@@ -107,36 +107,84 @@ void	draw_field_of_view(t_data *data)
 		i++;
 	}
 }
+// void	rendering_minimap(t_data *data)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	len;
 
+// 	i = 0;
+
+// 	while (i * CUBE_SIZE < data->height)
+// 	{
+// 		j = 0;
+//     	len = ft_strlen(data->map[i]);
+// 		while (j < len)
+// 		{
+// 			int x = ceil((j * CUBE_SIZE) * SIZE_MINI_MAP);
+// 			int y = ceil((i * CUBE_SIZE) * SIZE_MINI_MAP);
+// 			int size = ceil(CUBE_SIZE * SIZE_MINI_MAP);
+// 			if (data->map[i][j] == '1')
+// 			    put_color(data, x, y, WHEAT, size);
+// 			else if (data->map[i][j] != ' ')
+// 			    put_color(data, x, y, BLACK, size);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	draw_player(data, RED, 1);
+// 	draw_field_of_view(data);
+// }
+
+
+int  min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
 void	rendering_minimap(t_data *data)
 {
-	int	i;
-	int	j;
-	int	len;
+    int	i;
+    int	j;
 
-	i = 0;
+    // Define the size of the field of view around the player
+    int field_of_view = 5;
 
-	while (i * CUBE_SIZE < data->height)
-	{
-		j = 0;
-    	len = ft_strlen(data->map[i]);
-		while (j < len)
-		{
-			int x = ceil((j * CUBE_SIZE) * SIZE_MINI_MAP);
-			int y = ceil((i * CUBE_SIZE) * SIZE_MINI_MAP);
-			int size = ceil(CUBE_SIZE * SIZE_MINI_MAP);
-			if (data->map[i][j] == '1')
-			    put_color(data, x, y, WHEAT, size);
-			else if (data->map[i][j] != ' ')
-			    put_color(data, x, y, BLACK, size);
-			j++;
-		}
-		i++;
-	}
-	draw_player(data, RED, 1);
-	draw_field_of_view(data);
+    // Calculate the player's position in the map
+    int player_x = data->p.pos.x / CUBE_SIZE;
+    int player_y = data->p.pos.y / CUBE_SIZE;
+
+    // Calculate the start and end points for the loop
+    int start_i = max(0, player_y - field_of_view);
+    int end_i = min(data->height / CUBE_SIZE, player_y + field_of_view);
+    int start_j, end_j;
+
+    for (i = start_i; i < end_i; i++)
+    {
+        start_j = max(0, player_x - field_of_view);
+        end_j = min(ft_strlen(data->map[i]), player_x + field_of_view);
+
+        for (j = start_j; j < end_j; j++)
+        {
+            // Adjust the x and y coordinates to be relative to the top-left corner of the minimap
+            int x = ceil(((j - start_j) * CUBE_SIZE) * SIZE_MINI_MAP);
+            int y = ceil(((i - start_i) * CUBE_SIZE) * SIZE_MINI_MAP);
+            int size = ceil(CUBE_SIZE * SIZE_MINI_MAP);
+            if (data->map[i][j] == '1')
+                put_color(data, x, y, WHEAT, size);
+            else if (data->map[i][j] != ' ')
+                put_color(data, x, y, BLACK, size);
+        }
+    }
+
+    // Calculate the player's position relative to the minimap
+    int minimap_player_x = ceil((player_x - start_j) * CUBE_SIZE * SIZE_MINI_MAP);
+    int minimap_player_y = ceil((player_y - start_i) * CUBE_SIZE * SIZE_MINI_MAP);
+
+    // Draw the player at their position on the minimap
+    draw_player(data, RED, minimap_player_x, minimap_player_y);
 }
-
 void	clr_window(t_data *data)
 {
 	int	i;

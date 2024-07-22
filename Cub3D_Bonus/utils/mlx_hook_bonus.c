@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/20 10:06:46 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:00:07 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,17 @@ int	onrelease(int k, t_data *data)
 	if (k == KEY_A)
 		data->p.left_right = 0;
 	return (0);
+}
+
+int	mouse(int x, int y, t_data *data)
+{
+	(void)y;
+    if (x < W / 2)
+        data->p.angle += -0.03;
+    else if (x > W / 2)
+        data->p.angle += 0.03;
+	mlx_mouse_move(data->mlx_win, W / 2, H / 2);
+    return (0);
 }
 
 bool	is_wall(float x, float y, t_data *data)

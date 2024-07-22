@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/20 12:07:58 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:59:06 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include <mlx.h>
+# include "mlx/mlx.h"
 # include <math.h>
 # include <stdbool.h>
 # include <string.h>
 // Size :
-# define W 2176
+# define W 1176
 # define H 832
 # define CUBE_SIZE 32
-# define PLAYER_SIZE 1
+# define PLAYER_SIZE 5
 # define FOV 1.04
 # define WALL_STRIP_WIDTH 1
-# define SIZE_MINI_MAP 0.2
+# define SIZE_MINI_MAP 0.5
 
 # define KEY_ECH 53
 # define KEY_A 	0
@@ -147,23 +147,24 @@ typedef struct s_data
 }	t_data;
 
 // lib:
-size_t	ft_strlen(char *s);
-char	*ft_strdup(char *s1);
-void	free_arr(char **res);
-void	*ft_memset(void *b, int c, size_t len);
-char	*ft_strjoin(char *s1, char *s2);
 char	*ft_itoa(int n);
+size_t	ft_strlen(char *s);
+void	free_arr(char **res);
+char	*ft_strdup(char *s1);
+char	*ft_strjoin(char *s1, char *s2);
+void	*ft_memset(void *b, int c, size_t len);
 
 // utils:
 float	max(float a, float b);
 int		loopfunc(t_data	*data);
 void	init_textures(t_data *data);
+int		mouse(int x, int y, t_data *data);
 int		onpress(int keycode, t_data *data);
 int		onrelease(int keycode, t_data *data);
 void	set_vec(t_vec *vec, float x, float y);
 bool	is_wall(float x, float y, t_data *data);
-int 	get_color(t_data *data, int type, t_vec *pos);
 void	draw_line(float x1, float y1, t_data *data);
+int 	get_color(t_data *data, int type, t_vec *pos);
 void	my_pixel_put(t_img *img, int x, int y, int color);
 
 // ray casting
@@ -171,6 +172,7 @@ float	check_angle(float angle);
 void	fill_field_of_view(t_data *data);
 t_ray	get_redirection_ray(float angle);
 float	distance_two_points(t_vec a, t_vec b);
+bool	is_wall2(float x, float y, t_data *data);
 t_ray	ray_casting(float ray_angle, t_data *data);
 t_vec	find_hor_intersection(t_ray	res, t_data *data);
 t_vec	find_ver_intersection(t_ray res, t_data *data);
