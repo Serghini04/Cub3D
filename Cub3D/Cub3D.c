@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/20 09:22:31 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/19 12:49:36 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	init_game(t_data *data, char **arr)
 	data->p.key_weopan = 0;
 	data->p.left_right = 0;
 	data->index_weapon = 0;
-	data->c = TEAL;
-	data->f = SILVER;
+	data->c = (int)3791650815;
+	data->f = 255;
 	init_textures(data);
 	while (i < data->height / CUBE_SIZE)
 	{
@@ -73,10 +73,10 @@ void	set_vec(t_vec *vec, float x, float y)
 	vec->y = y;
 }
 
-void	f(void)
-{
-	system("leaks Cub3D");
-}
+// void	f(void)
+// {
+// 	system("leaks Cub3D");
+// }
 
 // char	*arr[] = {
 // 	"1111111111111111111111111111111111",
@@ -95,9 +95,22 @@ void	f(void)
 // 	NULL
 // };
 
-int	main(void)
+int	main(int ac, char *av[])
 {
 	t_data	*data;
+	(void)ac;
+	(void)av;
+	if (ac != 2)
+	{
+		printf("Number of argummet not valid !!\n");
+		return (1);
+	}
+	else if (ft_handel_input(av))
+	{
+		
+		return (1);
+	}
+	exit (1);
 	char	*arr[] = {
 		"           1111111111111111111111",
 		"11100011111110000000000001",
@@ -132,7 +145,7 @@ int	main(void)
 		"   1111111111111111111111111111",
 		NULL
 	};
-	atexit(f);
+	// // atexit(f);
 	data = start_init_mlx(arr);
 	init_game(data, arr);
 	mlx_loop_hook(data->mlx, loopfunc, data);

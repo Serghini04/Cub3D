@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:28:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:43:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/17 10:02:07 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,12 @@ int	*convert_xpm_to_arr(t_data *data, char *path_img, int i)
 		return (NULL);
 	res.p_img = mlx_xpm_file_to_image(data->mlx, path_img, \
 							&data->tex[i].width, &data->tex[i].height);
+	//////////check this and free all allocation /////////
 	if (!res.p_img)
+	{
+		printf("invalid PNGPATH !!\n");
 		exit (1);
+	}
 	res.p_pixel = mlx_get_data_addr(res.p_img, &res.bit_pixel, \
 												&res.len, &res.endian);
 	if (!res.p_pixel)
@@ -56,7 +60,7 @@ int	*convert_xpm_to_arr(t_data *data, char *path_img, int i)
 	return (copy_img(data, res, i, bytes_per_pixel));
 }
 
-// you need to free data textures.
+// you need to free data textures./////
 void	init_textures(t_data *data)
 {
 	int	i;
@@ -67,7 +71,7 @@ void	init_textures(t_data *data)
 		exit(1);
 	data->path_imgs[South] = ft_strdup("textures/SO.xpm");
 	data->path_imgs[East] = ft_strdup("textures/new.xpm");
-	data->path_imgs[North] = ft_strdup("textures/new1.xpm");
+	data->path_imgs[North] = ft_strdup("./textures/new1.xpm");
 	data->path_imgs[West] = ft_strdup("textures/wall.xpm");
 	data->path_imgs[4] = NULL;
 	data->tex = malloc(sizeof(t_textures) * 5);

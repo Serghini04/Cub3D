@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 15:05:19 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:19:47 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <mlx.h>
+# include <limits.h>
 # include <math.h>
 # include <stdbool.h>
 # include <string.h>
@@ -25,6 +26,7 @@
 # define H 832
 # define CUBE_SIZE 32
 # define PLAYER_SIZE 1
+#  define BUFFER_SIZE 200
 # define FOV 1.04
 # define WALL_STRIP_WIDTH 1
 # define SIZE_MINI_MAP 0.2
@@ -145,12 +147,25 @@ typedef struct s_data
 	t_textures	*tex;
 }	t_data;
 
+typedef struct s_map
+{
+	unsigned int	floor;
+	unsigned int	ceil;
+	char			*tex_no;
+	char			*tex_so;
+	char			*tex_we;
+	char			*tex_ea;
+	char			**tab_map;
+}	t_map;
+
 // lib:
-size_t	ft_strlen(char *s);
+int		ft_atoi(const char *str);
+size_t	ft_strlen(const char *s);
 char	*ft_strdup(char *s1);
 void	free_arr(char **res);
 void	*ft_memset(void *b, int c, size_t len);
 char	*ft_strjoin(char *s1, char *s2);
+char	**ft_split(char const *s, char c);
 
 // utils:
 float	max(float a, float b);
@@ -175,5 +190,18 @@ t_vec	find_ver_intersection(t_ray res, t_data *data);
 // main
 t_data	*start_init_mlx(char **arr);
 int		start_rendering(t_data *data);
+
+// parce
+
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*get_next_line(int fd);
+char	*str_dup(char *s1);
+char	*str_chr(char *s, int c);
+char	*str_join(char *s1, char *s2);
+char	*premier_ligne(char *ptr_of_bfr2);
+char	*found_line(int fd, char **s_ptr);
+void	*mem_cpy(void *dst, void *src, size_t n);
+size_t	str_len(const char *s, char c);
+int 	ft_handel_input(char **av);
 
 #endif
