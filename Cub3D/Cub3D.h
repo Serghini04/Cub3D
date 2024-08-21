@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/19 16:19:47 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:06:36 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ void	free_arr(char **res);
 void	*ft_memset(void *b, int c, size_t len);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
+char	*ft_strchr(char *s, int c);
 
 // utils:
 float	max(float a, float b);

@@ -6,12 +6,12 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/08/17 13:21:21 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/08/21 11:11:22 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 lib = lib/ft_strdup.c lib/ft_strlen.c lib/free_arr.c lib/ft_strjoin.c lib/ft_split.c\
-	lib/ft_atoi.c
+	lib/ft_atoi.c 
 
 utils = utils/mlx_hook.c utils/mlx_init.c utils/init_textures.c utils/rendering.c\
 		utils/get_color.c
