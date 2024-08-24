@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/08/23 16:08:36 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/08/24 12:17:13 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,13 +398,45 @@ void  check_firstlastline(t_map *map,char **arr, int len)
     }
     
 }
+void    ft_check(t_map *map, char **arr, int i, int j)
+{
+    if((arr[i][j] == '0' && ( arr[i + 1][j] == ' ' || arr[i][j + 1] == ' ' || arr[i][j + 1] == '\n')) || arr[i][0] == '0')  
+            {
+                free_myallocation(map);
+                printf ("0Invalid map\n");
+                exit(EXIT_SUCCESS);
+            }
+            else if (arr[i][j] == ' ' && (arr[i + 1][j] == '0' || arr[i][j + 1] == '0' || is_player(arr[i + 1][j])))
+            {
+                if (is_player(arr[i + 1][j]))
+                    printf("&&Invalid position of player !\n");
+                else
+                    printf ("1Invalid map\n");
+                free_myallocation(map);
+                exit(EXIT_SUCCESS);
+                
+            }
+            else if (is_player(arr[i][j]) && (j == 0 || arr[i][j + 1] == ' ' || arr[i + 1][j] == ' ' || arr[i][j + 1] == '\n'))
+            {
+                free_myallocation(map);
+                printf("00Invalid position of player !\n");
+                exit(EXIT_SUCCESS);
+            }
+            else if ((is_player(arr[i][j + 1])) && (arr[i][j] == ' ' || arr[i + 1][j + 1] == ' '))
+            {
+                free_myallocation(map);
+                printf("11Invalid position of player !\n");
+                exit(EXIT_SUCCESS);
+            }
+
+}
 void check_arrmap(t_map *map, int len)
 {
     int     i;
     int     j;
     char    **arr;
 
-    i = 0;
+    i = 1;
     arr = map->tab_map;
     check_firstlastline(map, arr, len);
     while (i < len - 1)
@@ -412,73 +444,45 @@ void check_arrmap(t_map *map, int len)
        j = 0;
        while (arr[i][j] && arr[i + 1][j])
        {
-            if((arr[i][j] == '0' && arr[i + 1][j] == ' ') || arr[i][0] == '0')
-            {
-                free_myallocation(map);
-                printf ("0Invalid map\n");
-                exit(EXIT_SUCCESS);
-            }
-            else if (arr[i][j] == ' ' && arr[i + 1][j] == '0')
-            {
-                free_myallocation(map);
-                printf ("1Invalid map\n");
-                exit(EXIT_SUCCESS);
-                
-            }
-            else if (arr[i][j + 1] == ' ' && arr[i][j] == '0'  )
-            {
-                free_myallocation(map);
-                printf ("2Invalid map\n");
-                exit(EXIT_SUCCESS);
-                
-            }
-            else if (arr[i][j] == ' ' && (arr[i][j + 1] == '0' || is_player(arr[i + 1][j])))
-            {
-                if (is_player(arr[i + 1][j]))
-                    printf ("Invalid position of player !\n");
-                else
-                    printf ("3Invalid map\n");
-                free_myallocation(map);
-                exit(EXIT_SUCCESS);
-            }
-            else if (arr[i][j] == '0' && (arr[i][j + 1] == '\0' || arr[i][j + 1] == ' ' || arr[i][j + 1] == '\n'))
-            {
-                free_myallocation(map);
-                printf ("4Invalid map\n");
-                exit(EXIT_SUCCESS);
-            }
-            else if ((is_player(arr[i][j])) && (j == 0 || arr[i][j + 1] == ' ' || arr[i + 1][j] == ' ' || arr[i][j + 1] == '\n'))
-            {
-                free_myallocation(map);
-                printf("Invalid position of player !\n");
-                exit(EXIT_SUCCESS);
-            }
-            else if ((is_player(arr[i][j + 1])) && (arr[i][j] == ' ' || arr[i + 1][j + 1] == ' ' || arr[i][j + 1] == '\n'))
-            {
-                free_myallocation(map);
-                printf("Invalid position of player !\n");
-                exit(EXIT_SUCCESS);
-            }
-
+            ft_check(map, arr, i, j);
             j++;
        }
-       while (arr[i + 1][j])
+       if (arr[i][j] != '\0')
        {
+            j-= 1;
+            while (arr[i][j])
+             {
+                 if ((arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ') || is_player(arr[i][j]))
+                {
+                     if (is_player(arr[i][j]))
+                      printf("**Invalid position of player !\n");
+                    else
+                      printf ("5Invalid map\n");
+                  free_myallocation(map);
+                  exit(EXIT_SUCCESS);
+              }
+              j++;
+         }
+       }
+      else if (arr[i + 1][j] )
+      {
         
-            if ((arr[i + 1][j] != '1' && arr[i + 1][j] != '\n' && arr[i + 1][j] != ' ') || is_player(arr[i + 1][j]))
+        j-= 1;
+        while (arr[i + 1][j])
             {
-                if (is_player(arr[i + 1][j]))
-                    printf("**Invalid position of player !\n");
-                else
-                    printf ("5Invalid map\n");
-                free_myallocation(map);
-                exit(EXIT_SUCCESS);
+            
+                 if ((arr[i + 1][j] != '1' && arr[i + 1][j] != '\n' && arr[i + 1][j] != ' ') || is_player(arr[i + 1][j]))
+                 {
+                     if (is_player(arr[i + 1][j]))
+                         printf("**Invalid position of player !\n");
+                     else
+                         printf ("6Invalid map\n");
+                     free_myallocation(map);
+                     exit(EXIT_SUCCESS);
+                 }
+                 j++;
             }
-            j++;
-       }
-       {
-        
-       }
+      }
        i++;
     }
     
