@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/08/24 12:17:13 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:06:56 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int is_space(char c)
         return (1);
     return (0);
 }
-void    free_myallocation(t_map *map)
+void    free_myallocation(t_map *map, int index)
 {
     char    **arr;
     int     i;
@@ -33,8 +33,14 @@ void    free_myallocation(t_map *map)
     map->tex_we = NULL;
     free(map->tex_ea);
     map->tex_ea = NULL;
-    while (arr[++i])
-        free(arr[i]);
+    if (index)
+    {
+        while (++i < index && arr[i])
+            free(arr[i]);
+    }
+    else
+        while (arr[++i])
+            free(arr[i]);
     free(arr);
     map->tab_map = NULL;
 }
@@ -309,20 +315,10 @@ int ft_lenmap(t_map *map , const char *path_map)
     }
     return (len);
 }
-
-int check_valid_map(char **av, t_map *map)
+int    ft_allocmap(t_map *map, char **av)
 {
-    int     fd;
-    int     i;
-    int     j;
-    int     index_line;
-    char    *line;
-    int     len_map;
-    
-    i = 0;
-    j = 0;
-    index_line = 1;
-    check_namemap(map, av[1]);
+    int len_map;
+
     len_map = ft_lenmap(map, av[1]) - 6;
     map->tab_map = malloc((len_map + 1) * sizeof(char *));
     if (!map->tab_map)
@@ -331,14 +327,19 @@ int check_valid_map(char **av, t_map *map)
         free(map);
         exit(EXIT_FAILURE);
     }
-    fd = open(av[1],  O_RDONLY , 0644);
-    if (fd == -1)
-    {
-        printf ("open() failed ! maby Pathfile_map {%s} is not exist\n", av[1]);
-        free_arr(map->tab_map);
-        free(map);
-       exit(EXIT_FAILURE);
-    }
+    map->tab_map[len_map] = NULL;
+    return (len_map);
+}
+void    read_lines(t_map *map, int fd, int len_map)
+{
+    char    *line;
+    int     index_line;
+    int     i;
+    int     j;
+
+    i = 0;
+    j = 0;
+    index_line = 1;
     line = get_next_line(fd);
     while (line)
     {
@@ -351,84 +352,127 @@ int check_valid_map(char **av, t_map *map)
             }
             i++;
         }
-        else if (i >= 6 && line && line[0] != '\n' && (ft_strchr(line, '0') || ft_strchr(line, '1')))
+        else if (i >= 6 && line && line[0] != '\n' && !ft_emptyline(line))
         {
             map->tab_map[j] = ft_strdup(line);
             j++;
+            i++;
+        }
+        else if (line  && i > 6 && i < len_map + 6 && ft_emptyline(line))
+        {
+            printf ("Empty line in the map !\n");
+            free_myallocation(map, j);
+            exit(EXIT_SUCCESS);
         }
         free (line);   
         line = get_next_line(fd);
         index_line++;
     }
-    map->tab_map[len_map] = NULL;
+}
+
+int check_valid_map(char **av, t_map *map)
+{
+    int     fd;
+    int     len_map;
+    
+    check_namemap(map, av[1]);
+    len_map = ft_allocmap(map, av);
+    fd = open(av[1],  O_RDONLY , 0644);
+    if (fd == -1)
+    {
+        printf ("open() failed ! maby Pathfile_map {%s} is not exist\n", av[1]);
+        free_arr(map->tab_map);
+        free(map);
+       exit(EXIT_FAILURE);
+    }
+    read_lines(map, fd, len_map);
     return (len_map);
 }
 
 void  check_firstlastline(t_map *map,char **arr, int len)
 {
     int i;
+    int j;
     
     i = 0;
-    while(arr[0] && arr[0][i])
+    while (1)
     {
-        if (arr[0][i] != '1' && arr[0][i] != '\n' && !is_space(arr[0][i]))
+        j = 0;
+        while(arr[i] && arr[i][j])
         {
-            if (is_player(arr[0][i]))
-                printf("Invalid posotin of player !\n");
-            else
-                printf("Invalid map\n");
-            free_myallocation(map);
-            exit(EXIT_SUCCESS);
+            if (arr[i][j] != '1' && arr[i][j] != '\n' && !is_space(arr[i][j]))
+            {
+                if (is_player(arr[i][j]))
+                    printf("Invalid posotin of player !\n");
+                else
+                    printf("Invalid map\n");
+                free_myallocation(map, 0);
+                exit(EXIT_SUCCESS);
+            }
+            j++;
         }
-        i++;
+        if ( i == len - 1)
+            break ;
+        i = len - 1;
     }
-    i = 0;
-    while(arr[len -1] && arr[len -1][i])
+}
+void    check_spand0(char **arr, int *flag, int i, int j)
+{
+      if((arr[i][j] == '0' && ( arr[i + 1][j] == ' ' ||\
+        arr[i][j + 1] == ' ' || arr[i][j + 1] == '\n')) || arr[i][0] == '0') 
+        *flag = 0;
+    else if (arr[i][j] == ' ' && (arr[i + 1][j] == '0' ||\
+        arr[i][j + 1] == '0' || is_player(arr[i + 1][j])))
     {
-        if (arr[len - 1][i] != '1' && arr[len - 1][i] != '\n' && !is_space(arr[len - 1][i]))
-        {   
-            if (is_player(arr[len - 1][i]))
-                printf("Invalid posotin of player !\n");
-            else
-                printf("Invalid map\n");
-            free_myallocation(map);
-            exit(EXIT_SUCCESS);
-        }
-        i++;
+        if (is_player(arr[i + 1][j]))
+            *flag = -1;
+        else
+            *flag = 0;
     }
-    
+}
+void    check_player(char **arr, int *flag, int i, int j)
+{
+    if (is_player(arr[i][j]) && (j == 0 || arr[i][j + 1] == ' ' || arr[i + 1][j] == ' ' ||\
+        arr[i][j + 1] == '\n'))
+        *flag = -1;
+    else if ((is_player(arr[i][j + 1])) && (arr[i][j] == ' ' || arr[i + 1][j + 1] == ' '))
+        *flag = -1;
 }
 void    ft_check(t_map *map, char **arr, int i, int j)
 {
-    if((arr[i][j] == '0' && ( arr[i + 1][j] == ' ' || arr[i][j + 1] == ' ' || arr[i][j + 1] == '\n')) || arr[i][0] == '0')  
-            {
-                free_myallocation(map);
-                printf ("0Invalid map\n");
-                exit(EXIT_SUCCESS);
-            }
-            else if (arr[i][j] == ' ' && (arr[i + 1][j] == '0' || arr[i][j + 1] == '0' || is_player(arr[i + 1][j])))
-            {
-                if (is_player(arr[i + 1][j]))
-                    printf("&&Invalid position of player !\n");
-                else
-                    printf ("1Invalid map\n");
-                free_myallocation(map);
-                exit(EXIT_SUCCESS);
-                
-            }
-            else if (is_player(arr[i][j]) && (j == 0 || arr[i][j + 1] == ' ' || arr[i + 1][j] == ' ' || arr[i][j + 1] == '\n'))
-            {
-                free_myallocation(map);
-                printf("00Invalid position of player !\n");
-                exit(EXIT_SUCCESS);
-            }
-            else if ((is_player(arr[i][j + 1])) && (arr[i][j] == ' ' || arr[i + 1][j + 1] == ' '))
-            {
-                free_myallocation(map);
-                printf("11Invalid position of player !\n");
-                exit(EXIT_SUCCESS);
-            }
+    int flag;
 
+    flag = 1;
+    check_spand0(arr, &flag, i, j);
+    check_player(arr, &flag, i, j);
+    if (flag <= 0)
+    {
+        if (flag == -1)
+            printf("Invalid position of player !\n");
+        else
+            printf ("Invalid map\n");
+        free_myallocation(map, 0);
+        exit(EXIT_SUCCESS);
+    }
+
+}
+void    check_line(t_map *map, char **arr, int i, int j)
+{
+    j-= 1;
+    while (arr[i][j])
+     {
+         if ((arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')\
+            || is_player(arr[i][j]))
+        {
+             if (is_player(arr[i][j]))
+              printf("Invalid position of player !\n");
+            else
+              printf ("Invalid map\n");
+          free_myallocation(map, 0);
+          exit(EXIT_SUCCESS);
+      }
+      j++;
+    }
 }
 void check_arrmap(t_map *map, int len)
 {
@@ -436,7 +480,7 @@ void check_arrmap(t_map *map, int len)
     int     j;
     char    **arr;
 
-    i = 1;
+    i = 0;
     arr = map->tab_map;
     check_firstlastline(map, arr, len);
     while (i < len - 1)
@@ -447,42 +491,10 @@ void check_arrmap(t_map *map, int len)
             ft_check(map, arr, i, j);
             j++;
        }
-       if (arr[i][j] != '\0')
-       {
-            j-= 1;
-            while (arr[i][j])
-             {
-                 if ((arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ') || is_player(arr[i][j]))
-                {
-                     if (is_player(arr[i][j]))
-                      printf("**Invalid position of player !\n");
-                    else
-                      printf ("5Invalid map\n");
-                  free_myallocation(map);
-                  exit(EXIT_SUCCESS);
-              }
-              j++;
-         }
-       }
+       if (arr[i][j])
+        check_line(map, arr, i, j);
       else if (arr[i + 1][j] )
-      {
-        
-        j-= 1;
-        while (arr[i + 1][j])
-            {
-            
-                 if ((arr[i + 1][j] != '1' && arr[i + 1][j] != '\n' && arr[i + 1][j] != ' ') || is_player(arr[i + 1][j]))
-                 {
-                     if (is_player(arr[i + 1][j]))
-                         printf("**Invalid position of player !\n");
-                     else
-                         printf ("6Invalid map\n");
-                     free_myallocation(map);
-                     exit(EXIT_SUCCESS);
-                 }
-                 j++;
-            }
-      }
+        check_line(map, arr, i + 1, j);
        i++;
     }
     
