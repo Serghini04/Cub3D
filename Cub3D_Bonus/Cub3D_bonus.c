@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/22 16:10:13 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:50:15 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ void	init_weapon(t_data *data)
 	int	y;
 
 	i = 0;
-	while (i < 36)
+	while (i < 42)
 	{
+		char *res= ft_strjoin("textures/cs2/", ft_strjoin(ft_itoa(i), ".xpm"));
+		if (!res)
+			exit(1);
 		data->weapon[i] = mlx_xpm_file_to_image(data->mlx, \
-		ft_strjoin("textures/test/t", ft_strjoin(ft_itoa(i + 1), ".xpm")), \
+		res, \
 		&x, &y);
 		if (!data->weapon[i])
 			exit(1);
@@ -52,7 +55,6 @@ void	init_game(t_data *data, char **arr)
 	data->p.up_down = 0;
 	data->p.key_weopan = 0;
 	data->p.left_right = 0;
-	data->index_weapon = 0;
 	data->c = TEAL;
 	data->f = SILVER;
 	init_weapon(data);
@@ -142,11 +144,11 @@ int	main(void)
 		"      1111110111     1100011",
 		"11111111111101011101010010001",
 		"110000001101010111000000100011111111111111111111",
-		"101000N00000000001100000000000000000000000000001",
+		"101000000000000001100000000000000000000000000001",
 		"101000000001000001100000000000000000000000000001",
 		"1010000000100000011000000000000000000000000000011111111",
 		"1010000000000000011P00000000000000000000000000000000001",
-		"1010000000000000011000000000000000000000000000011111111",
+		"101000000000N000011000000000000000000000000000011111111",
 		"101000000000000001100000000000000000000000000001",
 		"110000001101010111000000100011111111111111111111",
 		"101000000000000001100000000001",
@@ -183,6 +185,7 @@ int	main(void)
 	mlx_mouse_move(data->mlx_win, 0, 0);
 	mlx_mouse_hide();
 	init_game(data, arr);
+	data->index_weapon = 0;
 	mlx_loop_hook(data->mlx, loopfunc, data);
 	mlx_hook(data->mlx_win, 6, 0, mouse, data);
 	mlx_hook(data->mlx_win, 2, 1, onpress, data);

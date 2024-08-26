@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/22 19:59:06 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:45:52 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdbool.h>
 # include <string.h>
 // Size :
-# define W 1176
-# define H 832
+# define W 1776
+# define H 1032
 # define CUBE_SIZE 32
 # define PLAYER_SIZE 5
 # define FOV 1.04
@@ -130,7 +130,7 @@ typedef struct s_textures
 typedef struct s_data
 {
 	int			width;
-	void		*weapon[37];
+	void		*weapon[43];
 	int			index_weapon;
 	int			f;
 	int			c;

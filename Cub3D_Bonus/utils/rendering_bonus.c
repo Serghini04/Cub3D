@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/22 20:00:34 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:01:29 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	draw_player(t_data *data, int color, int player_x, int player_y)
 
     i = 0;
 
-    p.x = player_x;
-    p.y = player_y;
+    p.x = player_x + (CUBE_SIZE / 2);
+    p.y = player_y + (CUBE_SIZE / 2);
     while (i < PLAYER_SIZE)
     {
         j = 0;
@@ -143,48 +143,53 @@ int  min(int a, int b)
 		return (a);
 	return (b);
 }
-void	rendering_minimap(t_data *data)
+#define MINIMAP_SIZE 7 // Fixed size of the minimap (7x7 tiles)
+
+void render_minimap(t_data *data)
 {
-    int	i;
-    int	j;
+    int i, j;
 
-    // Define the size of the field of view around the player
-    int field_of_view = 5;
+    // Calculate the player's position in terms of map tiles
+    int player_tile_x = data->p.pos.x / CUBE_SIZE;
+    int player_tile_y = data->p.pos.y / CUBE_SIZE;
 
-    // Calculate the player's position in the map
-    int player_x = data->p.pos.x / CUBE_SIZE;
-    int player_y = data->p.pos.y / CUBE_SIZE;
+    // Determine the top-left corner of the minimap (centered on the player)
+    int start_i = max(0, player_tile_y - MINIMAP_SIZE / 2);
+    int start_j = max(0, player_tile_x - MINIMAP_SIZE / 2);
 
-    // Calculate the start and end points for the loop
-    int start_i = max(0, player_y - field_of_view);
-    int end_i = min(data->height / CUBE_SIZE, player_y + field_of_view);
-    int start_j, end_j;
-
-    for (i = start_i; i < end_i; i++)
+    // Loop through each tile in the minimap area
+    for (i = 0; i < MINIMAP_SIZE; i++)
     {
-        start_j = max(0, player_x - field_of_view);
-        end_j = min(ft_strlen(data->map[i]), player_x + field_of_view);
-
-        for (j = start_j; j < end_j; j++)
+        for (j = 0; j < MINIMAP_SIZE; j++)
         {
-            // Adjust the x and y coordinates to be relative to the top-left corner of the minimap
-            int x = ceil(((j - start_j) * CUBE_SIZE) * SIZE_MINI_MAP);
-            int y = ceil(((i - start_i) * CUBE_SIZE) * SIZE_MINI_MAP);
-            int size = ceil(CUBE_SIZE * SIZE_MINI_MAP);
-            if (data->map[i][j] == '1')
-                put_color(data, x, y, WHEAT, size);
-            else if (data->map[i][j] != ' ')
-                put_color(data, x, y, BLACK, size);
+            // Determine the actual map coordinates of the current minimap tile
+            int map_tile_x = start_j + j;
+            int map_tile_y = start_i + i;
+
+            // Calculate the screen coordinates of where to draw the tile on the minimap
+            int screen_x = j * CUBE_SIZE;
+            int screen_y = i * CUBE_SIZE;
+
+            // Determine the color to draw: WHEAT for walls ('1'), BLACK for empty spaces
+            if (map_tile_y < data->height &&
+                map_tile_x < ft_strlen(data->map[map_tile_y]) &&
+                data->map[map_tile_y][map_tile_x] == '1')
+                put_color(data, screen_x, screen_y, WHEAT, CUBE_SIZE);
+            else
+                put_color(data, screen_x, screen_y, BLACK, CUBE_SIZE);
         }
     }
 
-    // Calculate the player's position relative to the minimap
-    int minimap_player_x = ceil((player_x - start_j) * CUBE_SIZE * SIZE_MINI_MAP);
-    int minimap_player_y = ceil((player_y - start_i) * CUBE_SIZE * SIZE_MINI_MAP);
+    // Calculate player's position on the minimap
+    int minimap_player_x = (player_tile_x - start_j) * CUBE_SIZE;
+    int minimap_player_y = (player_tile_y - start_i) * CUBE_SIZE;
 
-    // Draw the player at their position on the minimap
+    // Draw the player on the minimap
     draw_player(data, RED, minimap_player_x, minimap_player_y);
 }
+
+
+
 void	clr_window(t_data *data)
 {
 	int	i;
@@ -205,38 +210,28 @@ void	clr_window(t_data *data)
 
 int	start_rendering(t_data *data)
 {
-	int				i;
 	static int	index = 0;
 	static int	count = 0;
 
 	count++;
 	render_3d(data);
-	rendering_minimap(data);
+	render_minimap(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.p_img, 0, 0);
-	if (count % 10 == 0)
-	{
-		if (!data->p.up_down)
-			data->index_weapon = 0;
-		else if (data->p.up_down && data->index_weapon == 0)
-			data->index_weapon = 34;
-		else if (data->p.up_down && data->index_weapon == 34)
-			data->index_weapon = 35;
-		else if (data->p.up_down && data->index_weapon == 35)
-			data->index_weapon = 0;
-	}
-	i = data->index_weapon;
 	if (data->p.key_weopan)
 	{
-		mlx_put_image_to_window(data->mlx, data->mlx_win, data->weapon[index], (W - 1000) / 2, (H - 50) / 2);
-		index++;
-		if (index == 35)
+		mlx_put_image_to_window(data->mlx, data->mlx_win, data->weapon[index], (W - 2400) / 2, (H - 1100) / 2);
+        if (count % 2 == 0)
+		    index++;
+		if (index == 42)
 		{
 			data->p.key_weopan = 0;
 			index = 0;
 		}
 	}
 	else
-		mlx_put_image_to_window(data->mlx, data->mlx_win, data->weapon[i], (W - 1000) / 2, (H - 50) / 2);
+		mlx_put_image_to_window(data->mlx, data->mlx_win, data->weapon[0], (W - 2400) / 2, (H - 1100) / 2);
+        // if (i == 60)
+        //     i = 43;
 	clr_window(data);
 	return (0);
 }
