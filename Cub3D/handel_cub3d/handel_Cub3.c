@@ -18,6 +18,18 @@ int is_space(char c)
 		return (1);
 	return (0);
 }
+
+int ft_emptyline(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13)))
+		i++;
+	if(!line[i] || line[i] == '\n')
+		return (1);
+	return(0);
+}
 void	free_myallocation(t_map *map, int index)
 {
 	char	**arr;
@@ -122,7 +134,7 @@ int chift_coolor(unsigned int R, unsigned int G, unsigned int B)
 {
 	return (R << 24 | G << 16 | B << 8 | (unsigned int)255);
 }
-//this ===>
+
 void	check_colloers(char *line, t_map *map, int ret, int index_line) 
 {
 	char			**ptr;
@@ -208,9 +220,12 @@ int ft_check_line(char *line, int index_line, t_map *map)
 	while (line[j] && line[j] != '\n')
 		j++;
 	line[j] = '\0';
-	if (!ft_stor_line(&line[i], map, ret, index_line))
+	if ( ft_emptyline(&line[i])|| !ft_stor_line(&line[i], map, ret, index_line))
 	{
-		printf ("malloc failed !!\n");
+		if (ft_emptyline(&line[i]))
+			printf ("missing input for line !!\n");
+		else
+			printf ("malloc failed !!\n");
 		free (map);
 		exit(EXIT_FAILURE);
 	}
@@ -250,17 +265,6 @@ void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 	}
 }
 
-int ft_emptyline(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i] && (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13)))
-		i++;
-	if(!line[i] || line[i] == '\n')
-		return (1);
-	return(0);
-}
 int ft_readline(t_map *map, char *line, int fd, int *flag)
 {
 	int len;
@@ -285,6 +289,12 @@ int ft_readline(t_map *map, char *line, int fd, int *flag)
 		free(line);
 		line = get_next_line(fd);
 		index_line++;
+	}
+	if (!line && len < 6)
+	{
+		free(map);
+		printf("missing sum input in file_mapp !\n");
+		exit(EXIT_FAILURE);
 	}
 	return (len);
 }
@@ -345,7 +355,7 @@ void	read_lines(t_map *map, int fd, int len_map)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (i < 6 && line && line[0] != '\n')
+		if (i < 6 && line && !ft_emptyline(line))
 		{
 			if (!ft_check_line(line, index_line, map))
 			{
@@ -462,6 +472,7 @@ void	ft_check(t_map *map, char **arr, int i, int j)
 }
 void	check_line(t_map *map, char **arr, int i, int j)
 {
+	j--;
 	while (arr[i][j])
 	{
 		if ((arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')\
