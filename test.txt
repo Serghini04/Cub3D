@@ -1,15 +1,3 @@
-
-SO ./textures/Wheat_Field.png      
-
-WE ./textures/the_tower_of_babel.png  
-
-NO ./textures/girl_with_a_pearl_earring.png  
-
-EA ./textures/Mona_Lisa.png
-
-F 1,1,1
-C 00,,000
-
           1
 1111111111S1111111111111111                
 1110011111110000000001111111
@@ -28,3 +16,9 @@ C 00,,000
    10001111111111111111111111111111
    1000111111111011111111111111111 
    111111111111111111111111
+
+
+
+
+C 00,,000
+No //empty path path

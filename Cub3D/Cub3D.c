@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/19 12:49:36 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:32:36 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ int	main(int ac, char *av[])
 	else if (ft_handel_input(av))
 	{
 		
-		return (1);
+		return (0);
 	}
-	exit (1);
+	exit (0);
 	char	*arr[] = {
 		"           1111111111111111111111",
 		"11100011111110000000000001",
