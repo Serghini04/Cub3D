@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/21 16:45:52 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:45:46 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 # include <math.h>
 # include <stdbool.h>
 # include <string.h>
+
 // Size :
 # define W 1776
 # define H 1032
 # define CUBE_SIZE 32
 # define PLAYER_SIZE 5
 # define FOV 1.04
-# define WALL_STRIP_WIDTH 1
-# define SIZE_MINI_MAP 0.5
+# define MINIMAP_SIZE 7
 
 # define KEY_ECH 53
 # define KEY_A 	0
@@ -35,6 +35,7 @@
 # define KEY_D	2
 # define KEY_S	1
 # define KEY_Q	12
+# define KEY_M 46
 
 # define KEY_LEFT 	123
 # define KEY_RIGHT	124
@@ -85,6 +86,12 @@ typedef struct s_vec
 	float	y;
 }	t_vec;
 
+typedef struct s_vec_int
+{
+	int	x;
+	int	y;
+}	t_vec_int;
+
 typedef struct s_player
 {
 	int		up_down;
@@ -134,6 +141,7 @@ typedef struct s_data
 	int			index_weapon;
 	int			f;
 	int			c;
+	bool		mouse_enable;
 	int			height;
 	int			num_rays;
 	t_ray		*rays;

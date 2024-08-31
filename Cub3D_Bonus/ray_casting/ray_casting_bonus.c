@@ -40,13 +40,13 @@ t_ray	ray_casting(float ray_angle, t_data *data)
 	vertdist = distance_two_points(data->p.pos, next_ver);
 	if (vertdist < horzdist)
 	{
-		res.distance = vertdist * cos(res.angle - data->p.angle);
+		res.distance = vertdist;
 		res.to_hit_wall = next_ver;
 		res.is_ver = 1;
 	}
 	else
 	{
-		res.distance = horzdist * cos(res.angle - data->p.angle);
+		res.distance = horzdist;
 		res.to_hit_wall = next_hor;
 		res.is_ver = 0;
 	}

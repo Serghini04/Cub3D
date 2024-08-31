@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/07/22 19:50:01 by meserghi         ###   ########.fr        #
+#    Updated: 2024/08/31 14:38:48 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ FILE_OBJ = ${FILE:.c=.o}
 FLAGS = -O3 -fsanitize=address -g
 
 # Linux :
-# FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm
+# FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lmmm
 # MacOS :
 FMLX = mlx/libmlx.a  -framework OpenGL -framework AppKit
 

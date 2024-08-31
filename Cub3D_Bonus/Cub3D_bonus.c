@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/21 16:50:15 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:46:03 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_game(t_data *data, char **arr)
 	int	len;
 
 	i = 0;
-	data->num_rays = W / WALL_STRIP_WIDTH;
+	data->num_rays = W;
 	data->rays = malloc(sizeof(t_ray) * data->num_rays);
 	if (!data->rays)
 	{
@@ -55,6 +55,7 @@ void	init_game(t_data *data, char **arr)
 	data->p.up_down = 0;
 	data->p.key_weopan = 0;
 	data->p.left_right = 0;
+	data->mouse_enable = 0;
 	data->c = TEAL;
 	data->f = SILVER;
 	init_weapon(data);
@@ -82,36 +83,36 @@ void	init_game(t_data *data, char **arr)
 	}
 }
 
-void	draw_line(float x1, float y1, t_data *data)
-{
-	int x0 = data->p.pos.x + (PLAYER_SIZE / 2);
-	int y0 = data->p.pos.y + (PLAYER_SIZE / 2);
-	x0 *= SIZE_MINI_MAP;
-	y0 *= SIZE_MINI_MAP;
-    int dx = fabs(round(x1) - x0);
-    int dy = fabs(round(y1) - y0);
-    int sx = x0 < round(x1) ? 1 : -1;
-    int sy = y0 < round(y1) ? 1 : -1;
-    int err = dx - dy;
+// void	draw_line(float x1, float y1, t_data *data)
+// {
+// 	int x0 = data->p.pos.x + (PLAYER_SIZE / 2);
+// 	int y0 = data->p.pos.y + (PLAYER_SIZE / 2);
+// 	x0 *= SIZE_MINI_MAP;
+// 	y0 *= SIZE_MINI_MAP;
+//     int dx = fabs(round(x1) - x0);
+//     int dy = fabs(round(y1) - y0);
+//     int sx = x0 < round(x1) ? 1 : -1;
+//     int sy = y0 < round(y1) ? 1 : -1;
+//     int err = dx - dy;
 
-    while (1)
-	{
-        my_pixel_put(&data->img, x0, y0, CORN_SILK);
-        if (x0 == round(x1) && y0 == round(y1))
-            break;
-        int e2 = 2 * err;
-        if (e2 > -dy)
-        {
-            err -= dy;
-            x0 += sx;
-        }
-        if (e2 < dx)
-        {
-            err += dx;
-            y0 += sy;
-        }
-    }
-}
+//     while (1)
+// 	{
+//         my_pixel_put(&data->img, x0, y0, CORN_SILK);
+//         if (x0 == round(x1) && y0 == round(y1))
+//             break;
+//         int e2 = 2 * err;
+//         if (e2 > -dy)
+//         {
+//             err -= dy;
+//             x0 += sx;
+//         }
+//         if (e2 < dx)
+//         {
+//             err += dx;
+//             y0 += sy;
+//         }
+//     }
+// }
 
 float	max(float a, float b)
 {
@@ -183,7 +184,6 @@ int	main(void)
 	// atexit(f);
 	data = start_init_mlx(arr);
 	mlx_mouse_move(data->mlx_win, 0, 0);
-	mlx_mouse_hide();
 	init_game(data, arr);
 	data->index_weapon = 0;
 	mlx_loop_hook(data->mlx, loopfunc, data);

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/20 09:22:31 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/31 09:04:03 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_game(t_data *data, char **arr)
 		exit(1);
 	}
 	data->map = arr;
-	data->p.move_speed = 8;
+	data->p.move_speed = 10;
 	data->p.turn_dir = 0;
 	data->p.up_down = 0;
 	data->p.key_weopan = 0;

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/19 18:26:31 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:48:26 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	onpress(int k, t_data *data)
 		data->p.left_right = 1;
 	if (k == KEY_A)
 		data->p.left_right = -1;
+	if (k == KEY_M)
+		data->mouse_enable = (data->mouse_enable == 0) * 1;
 	return (0);
 }
 
@@ -59,6 +61,8 @@ int	onrelease(int k, t_data *data)
 int	mouse(int x, int y, t_data *data)
 {
 	(void)y;
+	if (!data->mouse_enable)
+		return (0);
     if (x < W / 2)
         data->p.angle += -0.03;
     else if (x > W / 2)
@@ -108,6 +112,10 @@ int	loopfunc(t_data	*data)
 	float	y;
 	float	move_step;
 
+	if (data->mouse_enable)
+		mlx_mouse_show();
+	else
+		mlx_mouse_hide();
 	move_step = data->p.up_down * data->p.move_speed;
 	data->p.angle += data->p.turn_dir * data->p.rotation_speed;
 	x = data->p.pos.x + cos(data->p.angle) * move_step;

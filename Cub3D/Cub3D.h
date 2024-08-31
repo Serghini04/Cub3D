@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 15:05:19 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/31 09:08:18 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdbool.h>
 # include <string.h>
 // Size :
-# define W 2176
-# define H 832
+# define W 1776
+# define H 1032
 # define CUBE_SIZE 32
 # define PLAYER_SIZE 1
 # define FOV 1.04
@@ -35,6 +35,7 @@
 # define KEY_D	2
 # define KEY_S	1
 # define KEY_Q	12
+# define KEY_M	46
 
 # define KEY_LEFT 	123
 # define KEY_RIGHT	124
