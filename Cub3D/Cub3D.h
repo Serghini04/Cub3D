@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/21 11:06:36 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/08/31 09:50:53 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,9 @@ typedef struct s_map
 {
 	unsigned int	floor;
 	unsigned int	ceil;
+	int				pos_x;
+	int				pos_y;
+	char			angle_view;
 	char			*tex_no;
 	char			*tex_so;
 	char			*tex_we;

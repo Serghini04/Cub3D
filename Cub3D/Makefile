@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/08/21 11:11:22 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/08/31 11:57:48 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ FILE = ${lib} ${utils} ${ray_casting} ${handel_input} Cub3D.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -O3 #-fsanitize=address -g
 
 # Linux :
 # FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm

@@ -12,6 +12,14 @@
 
 #include "../Cub3D.h"
 
+
+int is_avalidchar(char c)
+{
+	if (c == ' ' || c == '0' || c == '1' || c == '\n')
+		return (1);
+	return (0);
+}
+
 int is_space(char c)
 {
 	if (c == ' ' || (c >= 9 && c <= 13))
@@ -64,9 +72,9 @@ int is_player(char c)
 	return (0);
 }
 
-void	check_namemap(t_map *map, char *name_map)
+void	check_namefile(t_map *map, char *name_map)
 {
-	int	 i;
+	int		i;
 	char	*ptr;
 
 	i = 0;
@@ -107,25 +115,25 @@ int ft_check_maxcollor(int R, int G, int B)
 
 void	check_syntax(t_map *map, char *line, int index_line)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
+	int	counter;
 
-	len = ft_strlen(line); 
 	i = 0;
-	if((line[0] < '0' || line[0] > '9') || line[len - 1] < '0' || line[len - 1] > '9')
+	counter = 0;
+	len = ft_strlen(line);
+	while (line[i] && line[i] != '\n')
 	{
-		printf ("Error file input_map in the line %d\n", index_line);
-		free(map);
-		exit(EXIT_FAILURE);
-	}
-	while (line[i])
-	{
-		if ((line[i] < '0' || line[i] > '9') && line[i] != ',')
-		{
-			printf ("Error file input_map in the line %d chara %c\n", index_line, line[i]);
-			free(map);
-			exit(EXIT_FAILURE);
-		}
+		if (line[i] == ',')
+			counter++;
+		if (line[i] != ' ' && line[i] != '\t')
+			if (((line[i] < '0' || line[i] > '9') && line[i] != ',') || counter > 2)
+			{
+				printf ("Error: \nInvalid Syntax in the line %d\n", index_line);
+				free(map->tab_map);
+				free(map);
+				exit(EXIT_FAILURE);
+			}
 		i++;
 	}
 }
@@ -143,9 +151,17 @@ void	check_colloers(char *line, t_map *map, int ret, int index_line)
 	unsigned int	B;
 
 	(void)map;
+	ptr = NULL;
 	check_syntax(map, line, index_line);
 	ptr = ft_split(line, ',');
-	if (ptr && *ptr)
+	if (!ptr)
+	{
+		free(map->tab_map);
+		free(map);
+		printf ("malloc failed !!\n");
+		exit(EXIT_FAILURE);
+	}
+	if (ptr && *ptr && *(ptr + 1)&& *(ptr + 2))
 	{
 		R = ft_atoi(ptr[0]);
 		G = ft_atoi(ptr[1]);
@@ -164,8 +180,15 @@ void	check_colloers(char *line, t_map *map, int ret, int index_line)
 	}
 	else
 	{
+		free(map->tab_map);
+		free(map->tex_ea);
+		free(map->tex_so);
+		free(map->tex_no);
+		free(map->tex_we);
+		free(ptr);
 		free(map);
-		printf ("malloc failed !!\n");
+		printf ("%p", ptr);
+		printf ("Error input in the line %d !\n", index_line);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -209,35 +232,39 @@ int ft_check_line(char *line, int index_line, t_map *map)
 
 	i = 2;
 	ret = check_beginning(line);
-	if (!ret)
-	{
-		printf ("Missing element's input of file_map in line %d\n", index_line);
-		return (0);
-	}
-	while (line[i] && (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13)))
+	while (line[i] && line[i] == ' ')
 		i++;
 	j = i;
 	while (line[j] && line[j] != '\n')
+	{
+
+		if (line[j] == '\t')
+		{
+			free(map->tex_ea);
+			free(map->tex_we);
+			free(map->tex_no);
+			free(map->tex_so);
+			free(map->tab_map);
+			free(map);
+			printf("Invalide line input in line : %d\n", index_line);
+			exit(EXIT_SUCCESS);
+		}
 		j++;
+	}
 	line[j] = '\0';
-	if ( ft_emptyline(&line[i])|| !ft_stor_line(&line[i], map, ret, index_line))
+	if (!ft_stor_line(&line[i], map, ret, index_line))
 	{
 		if (ft_emptyline(&line[i]))
-			printf ("missing input for line !!\n");
+			printf ("missing input in file !!\n");
 		else
 			printf ("malloc failed !!\n");
+		free(map->tab_map);
 		free (map);
 		exit(EXIT_FAILURE);
 	}
 	return (1);
 }
 
-int is_avalidchar(char c)
-{
-	if (c == ' ' || c == '0' || c == '1' || c == '\n')
-		return (1);
-	return (0);
-}
 void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 {
 	int i;
@@ -247,19 +274,21 @@ void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 	{
 		if (is_player(line[i]) && !*flag)
 		{
+			map->angle_view = line[i];
+			map->pos_x = i;
+			map->pos_y = index_line;
 			*flag = 1;
 		}
 		else if (is_player(line[i]) && *flag)
 		{
 			free(map);
 			printf ("At least one player must exist in the map\n");
-			printf("exist other player in line %d collone %d\n", index_line, i + 1);
 			exit(EXIT_SUCCESS);
 		}
 		if (!is_player(line[i]) && !is_avalidchar(line[i]))
 		{
 			free(map); 
-			printf("Error input_map {l :%d c :%d}\n", index_line, i + 1);
+			printf("Invalide character in map line : %d\n", index_line);
 			exit(EXIT_SUCCESS);
 		}
 	}
@@ -267,10 +296,12 @@ void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 
 int ft_readline(t_map *map, char *line, int fd, int *flag)
 {
-	int len;
-	int index_line;
+	int	len;
+	int	index_line;
+	int	l_flag;
 
 	len = 0;
+	l_flag = 0;
 	index_line = 1;
 	if (!line)
 	{
@@ -280,20 +311,31 @@ int ft_readline(t_map *map, char *line, int fd, int *flag)
 	}
 	while (line)
 	{
-		if (!ft_emptyline(line))
+		if (line[0] != '\n')
 		{
 			len++;
 			if (len > 6)
+			{
+				l_flag = 1;
 				check_linemap(map, line, index_line, flag);
+			}
+			else if(!check_beginning(line))
+			{
+				printf ("Invalide line in the file map!!\n");
+				printf ("OR missing elements in the file map, line");
+				printf (" : %d\n", index_line);
+				free (map);
+				exit(EXIT_FAILURE);
+			}
 		}
 		free(line);
 		line = get_next_line(fd);
 		index_line++;
 	}
-	if (!line && len < 6)
+	if (!l_flag)
 	{
 		free(map);
-		printf("missing sum input in file_mapp !\n");
+		printf("The map not exist in the file_map!!\n");
 		exit(EXIT_FAILURE);
 	}
 	return (len);
@@ -311,17 +353,16 @@ int ft_lenmap(t_map *map , const char *path_map)
 	fd = open(path_map,  O_RDONLY , 0644);
 	if (fd == -1)
 	{
-		printf ("open() failed{check path_filemap, ...}\n");
+		printf ("open() failed{check path_filemap, ..!}\n");
 		free(map);
 		exit(EXIT_FAILURE);
 	}
 	line = get_next_line(fd);
 	len = ft_readline(map, line, fd, &flag);
 	close(fd);
-	if (!flag || !len)
+	if (!flag)
 	{
-		printf("Invalid map !!\n");
-		printf("check existance of player or elements of file map.\n");
+		printf("The player Not existance in the map !\n");
 		free (map);
 		exit(EXIT_FAILURE);
 	}
@@ -342,7 +383,7 @@ int	ft_allocmap(t_map *map, char **av)
 	map->tab_map[len_map] = NULL;
 	return (len_map);
 }
-void	read_lines(t_map *map, int fd, int len_map)
+void	read_linesmap(t_map *map, int fd, int len_map)
 {
 	char	*line;
 	int		index_line;
@@ -353,51 +394,57 @@ void	read_lines(t_map *map, int fd, int len_map)
 	j = 0;
 	index_line = 1;
 	line = get_next_line(fd);
+	if (!line)
+	{
+		free(map->tab_map);
+		free(map);
+		printf("get_next_line() failed !\n");
+	}
 	while (line)
 	{
-		if (i < 6 && line && !ft_emptyline(line))
+		if (i < 6 && line[0] != '\n')
 		{
 			if (!ft_check_line(line, index_line, map))
 			{
 				free(map);
 				exit(EXIT_SUCCESS);
 			}
-		i++;
+			i++;
 		}
-		else if (i >= 6 && line && line[0] != '\n' && !ft_emptyline(line))
+		else if (i >= 6 && line && line[0] != '\n')
 		{
 			map->tab_map[j] = ft_strdup(line);
 			j++;
 			i++;
 		}
-		else if (line  && i > 6 && i < len_map + 6 && ft_emptyline(line))
+		else if (line  && i > 6 && i < len_map + 6 && line[0]== '\n')
 		{
 			printf ("Empty line in the map !\n");
 			free_myallocation(map, j);
 			exit(EXIT_SUCCESS);
 		}
-		free (line);   
+		free (line);
 		line = get_next_line(fd);
 		index_line++;
 	}
 }
 
-int	check_valid_map(char **av, t_map *map)
+int	 check_input(char **av, t_map *map)
 {
 	int	fd;
 	int	len_map;
 
-	check_namemap(map, av[1]);
+	check_namefile(map, av[1]);
 	len_map = ft_allocmap(map, av);
 	fd = open(av[1],  O_RDONLY , 0644);
 	if (fd == -1)
 	{
-		printf ("open() failed ! maby Pathfile_map {%s} is not exist\n", av[1]);
+		printf ("open() failed ! maby Pathfile_map {%s}not existed!\n", av[1]);
 		free_arr(map->tab_map);
 		free(map);
 		exit(EXIT_FAILURE);
 	}
-	read_lines(map, fd, len_map);
+	read_linesmap(map, fd, len_map);
 	return (len_map);
 }
 
@@ -525,7 +572,11 @@ int ft_handel_input(char **av)
 		printf("malloc failed !!\n");
 		exit(EXIT_FAILURE);
 	}
-	len_map = check_valid_map(av, map);
+	map->tex_so = NULL;
+	map->tex_ea = NULL;
+	map->tex_we = NULL;
+	map->tex_no = NULL;
+	len_map = check_input(av, map);
 	check_arrmap(map, len_map);
 	return (1);
 }

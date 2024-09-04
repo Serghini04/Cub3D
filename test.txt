@@ -20,5 +20,6 @@
 
 
 
-C 00,,000
-No //empty path path
+C 00,,,,000
+F 1://sigfault
+spaces in map is valide;

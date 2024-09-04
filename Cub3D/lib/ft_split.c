@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:49:51 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/08/17 12:26:31 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:41:30 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	free_all(char **p)
 	size_t	i;
 
 	i = 0;
+	printf ("hhhh\n");
 	while (p[i])
 	{
 		free (p[i]);

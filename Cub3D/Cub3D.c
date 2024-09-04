@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/25 14:32:36 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/01 10:03:35 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,13 @@ void	set_vec(t_vec *vec, float x, float y)
 // 	"1111111111111111111111111111111111",
 // 	NULL
 // };
-
+void	kkk()
+{
+	system("leaks cub3D");
+}
 int	main(int ac, char *av[])
 {
+	// atexit(kkk);
 	t_data	*data;
 	(void)ac;
 	(void)av;
