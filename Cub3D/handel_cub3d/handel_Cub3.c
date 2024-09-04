@@ -20,13 +20,6 @@ int is_avalidchar(char c)
 	return (0);
 }
 
-int is_space(char c)
-{
-	if (c == ' ' || (c >= 9 && c <= 13))
-		return (1);
-	return (0);
-}
-
 int ft_emptyline(char *line)
 {
 	int i;
@@ -53,12 +46,12 @@ void	free_myallocation(t_map *map, int index)
 	map->tex_we = NULL;
 	free(map->tex_ea);
 	map->tex_ea = NULL;
-	if (index)
+	if (index > 0)
 	{
 		while (++i < index && arr[i])
 		free(arr[i]);
 	}
-	else
+	else if (!index)
 		while (arr[++i])
 			free(arr[i]);
 	free(arr);
@@ -116,24 +109,22 @@ int ft_check_maxcollor(int R, int G, int B)
 void	check_syntax(t_map *map, char *line, int index_line)
 {
 	int	i;
-	int	len;
 	int	counter;
 
-	i = 0;
+	i = 1;
 	counter = 0;
-	len = ft_strlen(line);
+	while (line[i] && line[i] == ' ')
+		i++;
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == ',')
 			counter++;
-		if (line[i] != ' ' && line[i] != '\t')
-			if (((line[i] < '0' || line[i] > '9') && line[i] != ',') || counter > 2)
-			{
-				printf ("Error: \nInvalid Syntax in the line %d\n", index_line);
-				free(map->tab_map);
-				free(map);
-				exit(EXIT_FAILURE);
-			}
+		if ((!(line[i] >= '0' && line[i] <= '9') && line[i] != ',') || counter > 2)
+		{
+			printf ("Error: \nInvalid Syntax in the line %d\n", index_line);
+			free_myallocation(map, -1);
+			exit(EXIT_FAILURE);
+		}
 		i++;
 	}
 }
@@ -154,43 +145,39 @@ void	check_colloers(char *line, t_map *map, int ret, int index_line)
 	ptr = NULL;
 	check_syntax(map, line, index_line);
 	ptr = ft_split(line, ',');
-	if (!ptr)
+	if (!ptr || !*ptr || !*(ptr + 1) || !*(ptr + 2))
 	{
-		free(map->tab_map);
-		free(map);
-		printf ("malloc failed !!\n");
+		free_arr(ptr);
+		free_myallocation(map, -1);
+		printf ("Unvalide line : %d\n", index_line);
+		printf ("EXE :(F or C) 255,255,255\n");
 		exit(EXIT_FAILURE);
 	}
-	if (ptr && *ptr && *(ptr + 1)&& *(ptr + 2))
+	else if (ptr[0][0] == '\n' || ptr[1][0] == '\n' || ptr[2][0] == '\n')
 	{
-		R = ft_atoi(ptr[0]);
-		G = ft_atoi(ptr[1]);
-		B = ft_atoi(ptr[2]);
-	if (ft_check_maxcollor(R, G, B) || ptr[3])
+		
+		free_arr(ptr);
+		free_myallocation(map, -1);
+		printf ("Unvalide line : %d\n", index_line);
+		printf ("EXE :(F or C) 255,255,255\n");
+		exit(EXIT_FAILURE);
+	}
+	R = ft_atoi(ptr[0]);
+	G = ft_atoi(ptr[1]);
+	B = ft_atoi(ptr[2]);
+	if (ft_check_maxcollor(R, G, B))
 	{
-		printf ("Invalid input_map in line %d\n", index_line);
-		free(map);
+		free_arr(ptr);
+		free_myallocation(map, -1);
+		printf ("There are no colours that match your input ");
+		printf("RGB in line %d\n", index_line);
 		exit(EXIT_FAILURE);
 	}
 	if (ret == 5)
 		map->ceil = chift_coolor(R, G, B);
 	else if (ret == 6)
 		map->floor = chift_coolor(R, G, B);
-		free_arr(ptr);
-	}
-	else
-	{
-		free(map->tab_map);
-		free(map->tex_ea);
-		free(map->tex_so);
-		free(map->tex_no);
-		free(map->tex_we);
-		free(ptr);
-		free(map);
-		printf ("%p", ptr);
-		printf ("Error input in the line %d !\n", index_line);
-		exit(EXIT_FAILURE);
-	}
+	free_arr(ptr);
 }
 
 int ft_stor_line(char *line, t_map *map, int ret, int index_line)
@@ -199,7 +186,7 @@ int ft_stor_line(char *line, t_map *map, int ret, int index_line)
 	{
 		map->tex_no = ft_strdup(line);
 		if (!map->tex_no)
-			return (0);  
+			return (0);
 	}
 	else if (ret == 2)
 	{
@@ -224,45 +211,31 @@ int ft_stor_line(char *line, t_map *map, int ret, int index_line)
 	return (1);
 }
 
-int ft_check_line(char *line, int index_line, t_map *map)
+void ft_check_line(char *line, int index_line, t_map *map)
 {
 	int i;
-	int j;
 	int ret;
+	char 	*tmp;
 
 	i = 2;
 	ret = check_beginning(line);
-	while (line[i] && line[i] == ' ')
+	while (line && line[i] && line[i] == ' ')
 		i++;
-	j = i;
-	while (line[j] && line[j] != '\n')
+	tmp = &line[i];
+	while (line && line[i] && line[i] != ' ' && !(line[i] >= 9 && line[i] <= 13))
+		i++;
+	if (line[i] != '\0' && line[i] != '\n')
 	{
-
-		if (line[j] == '\t')
-		{
-			free(map->tex_ea);
-			free(map->tex_we);
-			free(map->tex_no);
-			free(map->tex_so);
-			free(map->tab_map);
-			free(map);
-			printf("Invalide line input in line : %d\n", index_line);
-			exit(EXIT_SUCCESS);
-		}
-		j++;
+		free_myallocation(map, -1);
+		printf("Invalide line input in line : %d\n", index_line);
+		exit(EXIT_SUCCESS);
 	}
-	line[j] = '\0';
-	if (!ft_stor_line(&line[i], map, ret, index_line))
+	if (!ft_stor_line(tmp, map, ret, index_line))
 	{
-		if (ft_emptyline(&line[i]))
-			printf ("missing input in file !!\n");
-		else
-			printf ("malloc failed !!\n");
-		free(map->tab_map);
-		free (map);
+		printf ("malloc failed !!\n");
+		free_myallocation(map, -1);
 		exit(EXIT_FAILURE);
 	}
-	return (1);
 }
 
 void	check_linemap(t_map *map, char *line, int index_line, int *flag)
@@ -288,7 +261,7 @@ void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 		if (!is_player(line[i]) && !is_avalidchar(line[i]))
 		{
 			free(map); 
-			printf("Invalide character in map line : %d\n", index_line);
+			printf("Invalide character in the map line : %d\n", index_line);
 			exit(EXIT_SUCCESS);
 		}
 	}
@@ -383,7 +356,7 @@ int	ft_allocmap(t_map *map, char **av)
 	map->tab_map[len_map] = NULL;
 	return (len_map);
 }
-void	read_linesmap(t_map *map, int fd, int len_map)
+void	read_lines(t_map *map, int fd, int len_map)
 {
 	char	*line;
 	int		index_line;
@@ -404,20 +377,16 @@ void	read_linesmap(t_map *map, int fd, int len_map)
 	{
 		if (i < 6 && line[0] != '\n')
 		{
-			if (!ft_check_line(line, index_line, map))
-			{
-				free(map);
-				exit(EXIT_SUCCESS);
-			}
+			ft_check_line(line, index_line, map);
 			i++;
 		}
-		else if (i >= 6 && line && line[0] != '\n')
+		else if (i >= 6 && line[0] != '\n')
 		{
 			map->tab_map[j] = ft_strdup(line);
 			j++;
 			i++;
 		}
-		else if (line  && i > 6 && i < len_map + 6 && line[0]== '\n')
+		else if (i > 6 && i < len_map + 6 && line[0]== '\n')
 		{
 			printf ("Empty line in the map !\n");
 			free_myallocation(map, j);
@@ -429,7 +398,7 @@ void	read_linesmap(t_map *map, int fd, int len_map)
 	}
 }
 
-int	 check_input(char **av, t_map *map)
+int	check_input(char **av, t_map *map)
 {
 	int	fd;
 	int	len_map;
@@ -444,35 +413,37 @@ int	 check_input(char **av, t_map *map)
 		free(map);
 		exit(EXIT_FAILURE);
 	}
-	read_linesmap(map, fd, len_map);
+	read_lines(map, fd, len_map);
 	return (len_map);
 }
 
-void  check_firstlastline(t_map *map,char **arr, int len)
+void	check_firstlastline(t_map *map,char **arr, int len)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (1)
+	while (i < len)
 	{
 		j = 0;
 		while(arr[i] && arr[i][j])
 		{
-			if (arr[i][j] != '1' && arr[i][j] != '\n' && !is_space(arr[i][j]))
+			if (arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')
 			{
 				if (is_player(arr[i][j]))
 					printf("Invalid posotin of player !\n");
+				else if (i)
+					printf("Last line in the map is Invalid !\n");
 				else
-					printf("Invalid map\n");
+					printf("First line in the map is Invalid !\n");
 				free_myallocation(map, 0);
 				exit(EXIT_SUCCESS);
 			}
 			j++;
 		}
-		if ( i == len - 1)
+		if (i == len - 1)
 			break ;
-		i = len - 1;
+		i += len - 1;
 	}
 }
 
@@ -511,7 +482,7 @@ void	ft_check(t_map *map, char **arr, int i, int j)
 		if (flag == -1)
 			printf("Invalid position of player !\n");
 		else
-			printf ("Invalid map\n");
+			printf ("Invalid map !!\n check line N: %d in the map\n", i + 1);
 		free_myallocation(map, 0);
 		exit(EXIT_SUCCESS);
 	}
@@ -519,7 +490,6 @@ void	ft_check(t_map *map, char **arr, int i, int j)
 }
 void	check_line(t_map *map, char **arr, int i, int j)
 {
-	j--;
 	while (arr[i][j])
 	{
 		if ((arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')\
@@ -535,19 +505,23 @@ void	check_line(t_map *map, char **arr, int i, int j)
 		j++;
 	}
 }
-void check_arrmap(t_map *map, int len)
+void	check_arrmap(t_map *map, int len)
 {
 	int		i;
 	int		j;
+	char	*posnew_line;
 	char	**arr;
 
 	i = 0;
 	arr = map->tab_map;
 	check_firstlastline(map, arr, len);
-	while (i < len - 1)
+	while (i <= len - 1)
 	{
 		j = 0;
-		while (arr[i][j] && arr[i + 1][j])
+		posnew_line = ft_strchr(arr[i], '\n');
+		if(posnew_line)
+			*(--posnew_line) = '\0';
+		while (arr[i][j] && arr[i +1] && arr[i + 1][j])
 		{
 			ft_check(map, arr, i, j);
 			j++;
