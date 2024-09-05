@@ -65,7 +65,7 @@ int is_player(char c)
 	return (0);
 }
 
-void	check_namefile(t_map *map, char *name_map)
+void	check_namefile(char *name_map)
 {
 	int		i;
 	char	*ptr;
@@ -76,10 +76,9 @@ void	check_namefile(t_map *map, char *name_map)
 	ptr = &name_map[i - 4];
 	if (ft_strncmp(ptr, ".cub", 4))
 	{
-		free (map);
 		printf("Name of file_map Unvalide!\n");
 		printf("EXE : PATH/filename.cub\n");
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
 }
 int check_beginning(char *line)
@@ -155,7 +154,6 @@ void	check_colloers(char *line, t_map *map, int ret, int index_line)
 	}
 	else if (ptr[0][0] == '\n' || ptr[1][0] == '\n' || ptr[2][0] == '\n')
 	{
-		
 		free_arr(ptr);
 		free_myallocation(map, -1);
 		printf ("Unvalide line : %d\n", index_line);
@@ -170,7 +168,7 @@ void	check_colloers(char *line, t_map *map, int ret, int index_line)
 		free_arr(ptr);
 		free_myallocation(map, -1);
 		printf ("There are no colours that match your input ");
-		printf("RGB in line %d\n", index_line);
+		printf("RGB in line : %d\n", index_line);
 		exit(EXIT_FAILURE);
 	}
 	if (ret == 5)
@@ -182,6 +180,11 @@ void	check_colloers(char *line, t_map *map, int ret, int index_line)
 
 int ft_stor_line(char *line, t_map *map, int ret, int index_line)
 {
+	char	*tmp;
+
+	tmp = ft_strchr(line, '\n');
+	if (tmp)
+		*(--tmp) = '\0';
 	if (ret == 1)
 	{
 		map->tex_no = ft_strdup(line);
@@ -215,22 +218,12 @@ void ft_check_line(char *line, int index_line, t_map *map)
 {
 	int i;
 	int ret;
-	char 	*tmp;
 
 	i = 2;
 	ret = check_beginning(line);
 	while (line && line[i] && line[i] == ' ')
 		i++;
-	tmp = &line[i];
-	while (line && line[i] && line[i] != ' ' && !(line[i] >= 9 && line[i] <= 13))
-		i++;
-	if (line[i] != '\0' && line[i] != '\n')
-	{
-		free_myallocation(map, -1);
-		printf("Invalide line input in line : %d\n", index_line);
-		exit(EXIT_SUCCESS);
-	}
-	if (!ft_stor_line(tmp, map, ret, index_line))
+	if (!ft_stor_line(&line[i], map, ret, index_line))
 	{
 		printf ("malloc failed !!\n");
 		free_myallocation(map, -1);
@@ -241,26 +234,26 @@ void ft_check_line(char *line, int index_line, t_map *map)
 void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 {
 	int i;
+	static int	line_y;
 
 	i = -1;
+	line_y++;
 	while (line && line[++i])
 	{
 		if (is_player(line[i]) && !*flag)
 		{
 			map->angle_view = line[i];
 			map->pos_x = i;
-			map->pos_y = index_line;
+			map->pos_y = line_y;
 			*flag = 1;
 		}
 		else if (is_player(line[i]) && *flag)
 		{
-			free(map);
 			printf ("At least one player must exist in the map\n");
 			exit(EXIT_SUCCESS);
 		}
 		if (!is_player(line[i]) && !is_avalidchar(line[i]))
 		{
-			free(map); 
 			printf("Invalide character in the map line : %d\n", index_line);
 			exit(EXIT_SUCCESS);
 		}
@@ -279,7 +272,6 @@ int ft_readline(t_map *map, char *line, int fd, int *flag)
 	if (!line)
 	{
 		printf("Empty file_map !!\n");
-		free(map);
 		exit(EXIT_SUCCESS);
 	}
 	while (line)
@@ -297,7 +289,6 @@ int ft_readline(t_map *map, char *line, int fd, int *flag)
 				printf ("Invalide line in the file map!!\n");
 				printf ("OR missing elements in the file map, line");
 				printf (" : %d\n", index_line);
-				free (map);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -307,7 +298,6 @@ int ft_readline(t_map *map, char *line, int fd, int *flag)
 	}
 	if (!l_flag)
 	{
-		free(map);
 		printf("The map not exist in the file_map!!\n");
 		exit(EXIT_FAILURE);
 	}
@@ -327,7 +317,6 @@ int ft_lenmap(t_map *map , const char *path_map)
 	if (fd == -1)
 	{
 		printf ("open() failed{check path_filemap, ..!}\n");
-		free(map);
 		exit(EXIT_FAILURE);
 	}
 	line = get_next_line(fd);
@@ -350,7 +339,6 @@ int	ft_allocmap(t_map *map, char **av)
 	if (!map->tab_map)
 	{
 		printf("malloc failed !!\n");
-		free(map);
 		exit(EXIT_FAILURE);
 	}
 	map->tab_map[len_map] = NULL;
@@ -367,12 +355,6 @@ void	read_lines(t_map *map, int fd, int len_map)
 	j = 0;
 	index_line = 1;
 	line = get_next_line(fd);
-	if (!line)
-	{
-		free(map->tab_map);
-		free(map);
-		printf("get_next_line() failed !\n");
-	}
 	while (line)
 	{
 		if (i < 6 && line[0] != '\n')
@@ -386,7 +368,7 @@ void	read_lines(t_map *map, int fd, int len_map)
 			j++;
 			i++;
 		}
-		else if (i > 6 && i < len_map + 6 && line[0]== '\n')
+		else if (j && i < len_map + 6 && line[0]== '\n')
 		{
 			printf ("Empty line in the map !\n");
 			free_myallocation(map, j);
@@ -403,17 +385,17 @@ int	check_input(char **av, t_map *map)
 	int	fd;
 	int	len_map;
 
-	check_namefile(map, av[1]);
+	check_namefile(av[1]);
 	len_map = ft_allocmap(map, av);
 	fd = open(av[1],  O_RDONLY , 0644);
 	if (fd == -1)
 	{
 		printf ("open() failed ! maby Pathfile_map {%s}not existed!\n", av[1]);
 		free_arr(map->tab_map);
-		free(map);
 		exit(EXIT_FAILURE);
 	}
 	read_lines(map, fd, len_map);
+	close(fd);
 	return (len_map);
 }
 
@@ -441,7 +423,7 @@ void	check_firstlastline(t_map *map,char **arr, int len)
 			}
 			j++;
 		}
-		if (i == len - 1)
+		if (i < len - 1)
 			break ;
 		i += len - 1;
 	}
@@ -450,7 +432,7 @@ void	check_firstlastline(t_map *map,char **arr, int len)
 void	check_spand0(char **arr, int *flag, int i, int j)
 {
 	if((arr[i][j] == '0' && ( arr[i + 1][j] == ' ' ||\
-		arr[i][j + 1] == ' ' || arr[i][j + 1] == '\n')) || arr[i][0] == '0') 
+		arr[i][j + 1] == ' ' || arr[i][j + 1] == '\0')) || arr[i][0] == '0') 
 		*flag = 0;
 	else if (arr[i][j] == ' ' && (arr[i + 1][j] == '0' ||\
 		arr[i][j + 1] == '0' || is_player(arr[i + 1][j])))
@@ -465,7 +447,7 @@ void	check_spand0(char **arr, int *flag, int i, int j)
 void	check_player(char **arr, int *flag, int i, int j)
 {
 	if (is_player(arr[i][j]) && (j == 0 || arr[i][j + 1] == ' ' || arr[i + 1][j] == ' ' ||\
-		arr[i][j + 1] == '\n'))
+		arr[i][j + 1] == '\0'))
 		*flag = -1;
 	else if ((is_player(arr[i][j + 1])) && (arr[i][j] == ' ' || arr[i + 1][j + 1] == ' '))
 		*flag = -1;
@@ -498,7 +480,7 @@ void	check_line(t_map *map, char **arr, int i, int j)
 			if (is_player(arr[i][j]))
 				printf("Invalid position of player !\n");
 			else
-				printf ("Invalid map\n");
+				printf ("Invalid map !\n In the line : %d\n", i + 1);
 			free_myallocation(map, 0);
 			exit(EXIT_SUCCESS);
 		}
@@ -535,17 +517,10 @@ void	check_arrmap(t_map *map, int len)
 
 }
 
-int ft_handel_input(char **av)
+int ft_handel_input(t_map	*map, char **av)
 {
-	t_map	*map;
-	int		len_map;
+	int	len_map;
 
-	map = malloc(sizeof(t_map));
-	if (!map)
-	{
-		printf("malloc failed !!\n");
-		exit(EXIT_FAILURE);
-	}
 	map->tex_so = NULL;
 	map->tex_ea = NULL;
 	map->tex_we = NULL;

@@ -206,6 +206,6 @@ char	*premier_ligne(char *ptr_of_bfr2);
 char	*found_line(int fd, char **s_ptr);
 void	*mem_cpy(void *dst, void *src, size_t n);
 size_t	str_len(const char *s, char c);
-int 	ft_handel_input(char **av);
+int 	ft_handel_input(t_map *map,char **av);
 
 #endif
