@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
+#    By: hdriouch <hdriouch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/08/21 11:11:22 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/09/06 14:21:34 by hdriouch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ utils = utils/mlx_hook.c utils/mlx_init.c utils/init_textures.c utils/rendering.
 ray_casting = ray_casting/ray_casting.c ray_casting/find_intersection.c
 
 handel_input = handel_cub3d/ft_strncmp.c handel_cub3d/get_next_line_utils.c\
-	 handel_cub3d/get_next_line.c handel_cub3d/handel_Cub3.c
+	handel_cub3d/get_next_line.c handel_cub3d/ft_lenmap.c handel_cub3d/handel_Cub3.c\
+	handel_cub3d/ft_utils.c handel_cub3d/ft_checkColours.c handel_cub3d/ft_handelline.c\
+	handel_Cub3d/read_lines.c handel_Cub3d/ft_spand0.c
 
 GREEN = \033[1;32m
 RED = \033[1;31m
