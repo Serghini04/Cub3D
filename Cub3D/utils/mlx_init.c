@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:13:52 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:43:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:54:28 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	my_free(t_data *data)
 {
 	free(data->mlx);
-	free(data);
 	exit(1);
 }
 
@@ -49,15 +48,8 @@ int	get_long_line(char **arr)
 	return (long_line);
 }
 
-t_data	*start_init_mlx(char **arr)
+void start_init_mlx(t_data *data)
 {
-	t_data	*data;
-
-	data = malloc(sizeof(t_data));
-	if (!data)
-		exit(1);
-	data->height = get_height(arr) * CUBE_SIZE;
-	data->width = get_long_line(arr) * CUBE_SIZE;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		(perror("mlx: "), free(data), exit(1));
@@ -79,5 +71,34 @@ t_data	*start_init_mlx(char **arr)
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		my_free(data);
 	}
-	return (data);
+}
+
+void fill_data(t_map *map, t_data *data)
+{
+	data->map = map->tab_map;
+	data->num_rays = W;
+	data->tex = malloc(sizeof(t_textures) * 5);
+	if (!data->tex)
+		exit(1);
+	data->tex[North].path = map->tex_no;
+	data->tex[West].path = map->tex_we;
+	data->tex[South].path = map->tex_so;
+	data->tex[East].path = map->tex_ea;
+	// data->c = map->ceil;
+	// data->f = map->floor;
+	data->c = TEAL;
+	data->f = SILVER;
+	data->height = get_height(data->map) * CUBE_SIZE;
+	data->width = get_long_line(data->map) * CUBE_SIZE;
+	data->p.pos.x = map->pos_x * CUBE_SIZE;
+	data->p.pos.y = map->pos_y * CUBE_SIZE;
+	data->p.pos.x += (CUBE_SIZE / 2);
+	data->p.pos.y += (CUBE_SIZE / 2);
+	data->p.angle = M_PI_2;
+	data->p.rotation_speed = 0.03;
+	data->p.move_speed = 8;
+	data->p.turn_dir = 0;
+	data->p.up_down = 0;
+	data->p.key_weopan = 0;
+	data->p.left_right = 0;
 }

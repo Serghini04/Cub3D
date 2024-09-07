@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/31 15:23:27 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/07 15:45:31 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ t_vec_int   set_vec_int(t_vec_int data, int x, int y)
 
 void	init_minimap(t_data *d, t_vec_int *start_draw, t_vec_int *player_pos)
 {
-	start_draw->x = max(0, (d->p.pos.x / CUBE_SIZE) - MINIMAP_SIZE / 2);
-	start_draw->y = max(0, (d->p.pos.y / CUBE_SIZE) - MINIMAP_SIZE / 2);
+	start_draw->x = max(0, floor(d->p.pos.x / CUBE_SIZE) - MINIMAP_SIZE / 2);
+	start_draw->y = max(0, floor(d->p.pos.y / CUBE_SIZE) - MINIMAP_SIZE / 2);
 	player_pos->x = ((int)(d->p.pos.x / CUBE_SIZE) - start_draw->x) * CUBE_SIZE;
 	player_pos->y = ((int)(d->p.pos.y / CUBE_SIZE) - start_draw->y) * CUBE_SIZE;
 }
@@ -129,7 +129,7 @@ void render_minimap(t_data *data)
 		while(incr.x < MINIMAP_SIZE)
 		{
 			map_pos = set_vec_int(map_pos, start_draw.x + incr.x, start_draw.y + incr.y);
-			if (map_pos.y < data->height &&
+			if (map_pos.y < (int)floor(data->height /CUBE_SIZE) &&
 			    map_pos.x < ft_strlen(data->map[map_pos.y]) &&
 			    data->map[map_pos.y][map_pos.x] == '1')
 			    put_color(data, incr.x * CUBE_SIZE, incr.y * CUBE_SIZE, WHEAT, CUBE_SIZE);

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/31 14:48:26 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:00:54 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	onpress(int k, t_data *data)
 		mlx_destroy_image(data->mlx, data->img.p_img);
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		free(data->rays);
-		free(data);
 		exit(1);
 	}
 	if (k == KEY_Q)

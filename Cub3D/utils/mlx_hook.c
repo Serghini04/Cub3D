@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:43:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:58:30 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	onpress(int k, t_data *data)
 		mlx_destroy_image(data->mlx, data->img.p_img);
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		free(data->rays);
-		free(data);
 		exit(1);
 	}
 	if (k == KEY_W)
@@ -65,6 +64,11 @@ bool	is_wall_mandatory(float x, float y, t_data *data)
 	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
 		return (true);
 	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
+		return (true);
+	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1' || \
+	data->map[(int)floor(data->p.pos.y / CUBE_SIZE)][(int)floor(new_x)] == '1' \
+	|| data->map[(int)floor(new_y)][(int)floor(data->p.pos.x / \
+	CUBE_SIZE)] == '1')
 		return (true);
 	return (false);
 }

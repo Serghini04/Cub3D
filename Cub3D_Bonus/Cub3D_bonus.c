@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/31 14:46:03 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:13:48 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	init_game(t_data *data, char **arr)
 	{
 		mlx_destroy_image(data->mlx, data->img.p_img);
 		mlx_destroy_window(data->mlx, data->mlx_win);
-		free(data);
 		exit(1);
 	}
 	data->map = arr;
@@ -60,7 +59,7 @@ void	init_game(t_data *data, char **arr)
 	data->f = SILVER;
 	init_weapon(data);
 	init_textures(data);
-	while (i < data->height / CUBE_SIZE)
+	while (i < data->height)
 	{
 		j = 0;
 		len = ft_strlen(arr[i]);
@@ -82,37 +81,6 @@ void	init_game(t_data *data, char **arr)
 		i++;
 	}
 }
-
-// void	draw_line(float x1, float y1, t_data *data)
-// {
-// 	int x0 = data->p.pos.x + (PLAYER_SIZE / 2);
-// 	int y0 = data->p.pos.y + (PLAYER_SIZE / 2);
-// 	x0 *= SIZE_MINI_MAP;
-// 	y0 *= SIZE_MINI_MAP;
-//     int dx = fabs(round(x1) - x0);
-//     int dy = fabs(round(y1) - y0);
-//     int sx = x0 < round(x1) ? 1 : -1;
-//     int sy = y0 < round(y1) ? 1 : -1;
-//     int err = dx - dy;
-
-//     while (1)
-// 	{
-//         my_pixel_put(&data->img, x0, y0, CORN_SILK);
-//         if (x0 == round(x1) && y0 == round(y1))
-//             break;
-//         int e2 = 2 * err;
-//         if (e2 > -dy)
-//         {
-//             err -= dy;
-//             x0 += sx;
-//         }
-//         if (e2 < dx)
-//         {
-//             err += dx;
-//             y0 += sy;
-//         }
-//     }
-// }
 
 float	max(float a, float b)
 {
@@ -179,8 +147,13 @@ int	main(void)
 		"   1111111111111111111111111111",
 		NULL
 	};
+	// char *arr[]={
+	// 	"111111",
+	// 	"1000N1",
+	// 	"111111",
+	// 	NULL
+	// };
 	t_data	*data;
-
 	// atexit(f);
 	data = start_init_mlx(arr);
 	mlx_mouse_move(data->mlx_win, 0, 0);

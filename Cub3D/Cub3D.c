@@ -6,58 +6,22 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/08/31 09:04:03 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:53:06 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3D.h"
 
-void	init_game(t_data *data, char **arr)
+void	init_game(t_data *data)
 {
-	int	i;
-	int	j;
-	int	len;
-
-	i = 0;
-	data->num_rays = W / WALL_STRIP_WIDTH;
 	data->rays = malloc(sizeof(t_ray) * data->num_rays);
 	if (!data->rays)
 	{
 		mlx_destroy_image(data->mlx, data->img.p_img);
 		mlx_destroy_window(data->mlx, data->mlx_win);
-		free(data);
 		exit(1);
 	}
-	data->map = arr;
-	data->p.move_speed = 10;
-	data->p.turn_dir = 0;
-	data->p.up_down = 0;
-	data->p.key_weopan = 0;
-	data->p.left_right = 0;
-	data->index_weapon = 0;
-	data->c = TEAL;
-	data->f = SILVER;
 	init_textures(data);
-	while (i < data->height / CUBE_SIZE)
-	{
-		j = 0;
-		len = ft_strlen(arr[i]);
-		while (j < len)
-		{
-			if (arr[i][j] == 'N')
-			{
-				data->p.pos.x = (j * CUBE_SIZE);
-				data->p.pos.y = (i * CUBE_SIZE);
-				data->p.pos.x += (CUBE_SIZE / 2);
-				data->p.pos.y += (CUBE_SIZE / 2);
-				data->p.angle = M_PI_2;
-				data->p.rotation_speed = 0.03;
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
 }
 
 float	max(float a, float b)
@@ -73,71 +37,30 @@ void	set_vec(t_vec *vec, float x, float y)
 	vec->y = y;
 }
 
-void	f(void)
+void f()
 {
-	system("leaks Cub3D");
+	system("leaks cub3D");
 }
 
-// char	*arr[] = {
-// 	"1111111111111111111111111111111111",
-// 	"1000000000000000000000000000000001",
-// 	"1000000000000000000000000000000001",
-// 	"1000101010101010000000000000001001",
-// 	"100000N00000000000000000000000001",
-// 	"1000000000000000000000000000001001",
-// 	"1000000000000000000000000000001001",
-// 	"1000011000000000000000000000001001",
-// 	"1000100001111111111111111111111001",
-// 	"1000000001111000000000000000000001",
-// 	"1000000001111000000000000000000001",
-// 	"1000000000000000000000000000000001",
-// 	"1111111111111111111111111111111111",
-// 	NULL
-// };
-
-int	main(void)
+int	main(int ac, char *av[])
 {
-	t_data	*data;
-	char	*arr[] = {
-		"           1111111111111111111111",
-		"11100011111110000000000001",
-		"   111100000111000000001111111111",
-		" 1111000000000000000000001000000011",
-		"111111111011000001110000011111111",
-		"100000000011000001110111111111111",
-		"1111111111110101111110010001",
-		"      1111110111     1100011",
-		"11111111111101011101010010001",
-		"110000001101010111000000100011111111111111111111",
-		"101000N00000000001100000000000000000000000000001",
-		"101000000001000001100000000000000000000000000001",
-		"1010000000100000011000000000000000000000000000011111111",
-		"1010000000000000011P00000000000000000000000000000000001",
-		"1010000000000000011000000000000000000000000000011111111",
-		"101000000000000001100000000000000000000000000001",
-		"110000001101010111000000100011111111111111111111",
-		"101000000000000001100000000001",
-		"10000000000000000000010010001",
-		"110000011101111111110111100111",
-		"10000000110101011100000010001",
-		"100000000000000001100000000001",
-		"10000000000000000000010010001",
-		"110000011101111111110111100111",
-		"11110001011        101101010111",
-		"   1000111111111111111111111111",
-		"   1000111111111111111111111111",
-		"   1000111111111111111111111111",
-		"   1000111111111111111111111111",
-		"   1000111111111111111111111111",
-		"   1111111111111111111111111111",
-		NULL
-	};
+	t_data	data;
+	t_map	map;
+	int  i;
+
+	i = 0;
 	atexit(f);
-	data = start_init_mlx(arr);
-	init_game(data, arr);
-	mlx_loop_hook(data->mlx, loopfunc, data);
-	mlx_hook(data->mlx_win, 2, 1, onpress, data);
-	mlx_hook(data->mlx_win, 3, 2, onrelease, data);
-	mlx_loop(data->mlx);
+	if (ac != 2)
+	{
+		printf("Number of argummet not valid !!\n");
+		return (1);
+	}
+	ft_handel_input(&map, &data, av);
+	start_init_mlx(&data);
+	init_game(&data);
+	mlx_loop_hook(data.mlx, loopfunc, &data);
+	mlx_hook(data.mlx_win, 2, 1, onpress, &data);
+	mlx_hook(data.mlx_win, 3, 2, onrelease, &data);
+	mlx_loop(data.mlx);
 	return (0);
 }

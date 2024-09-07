@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:28:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:43:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:37:37 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,13 @@ int	*convert_xpm_to_arr(t_data *data, char *path_img, int i)
 		return (NULL);
 	res.p_img = mlx_xpm_file_to_image(data->mlx, path_img, \
 							&data->tex[i].width, &data->tex[i].height);
+	//////////check this and free all allocation /////////
 	if (!res.p_img)
+	{
+		printf("%s\n", path_img);
+		printf("invalid PNGPATH !!\n");
 		exit (1);
+	}
 	res.p_pixel = mlx_get_data_addr(res.p_img, &res.bit_pixel, \
 												&res.len, &res.endian);
 	if (!res.p_pixel)
@@ -56,26 +61,15 @@ int	*convert_xpm_to_arr(t_data *data, char *path_img, int i)
 	return (copy_img(data, res, i, bytes_per_pixel));
 }
 
-// you need to free data textures.
+// you need to free data textures./////
 void	init_textures(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	data->path_imgs = malloc(sizeof(char *) * 5);
-	if (!data->path_imgs)
-		exit(1);
-	data->path_imgs[South] = ft_strdup("textures/SO.xpm");
-	data->path_imgs[East] = ft_strdup("textures/new.xpm");
-	data->path_imgs[North] = ft_strdup("textures/new1.xpm");
-	data->path_imgs[West] = ft_strdup("textures/wall.xpm");
-	data->path_imgs[4] = NULL;
-	data->tex = malloc(sizeof(t_textures) * 5);
-	if (!data->tex)
-		exit(1);
 	while (i < 5)
 	{
-		data->tex[i].add = convert_xpm_to_arr(data, data->path_imgs[i], i);
+		data->tex[i].add = convert_xpm_to_arr(data, data->tex[i].path, i);
 		i++;
 	}
 }

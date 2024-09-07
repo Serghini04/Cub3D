@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:13:52 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:40:37 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:54:46 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	my_free(t_data *data)
 {
 	free(data->mlx);
-	free(data);
 	exit(1);
 }
 
