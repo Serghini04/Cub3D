@@ -30,6 +30,7 @@ void	ft_check(t_map *map, char **arr, int i, int j)
 	}
 
 }
+
 void	check_line(t_map *map, char **arr, int i, int j)
 {
 	while (arr[i][j])
@@ -76,7 +77,7 @@ void	check_arrmap(t_map *map, int len)
 
 }
 
-int ft_handel_input(t_map	*map, char **av)
+int	ft_handel_input(t_map *map, char **av)
 {
 	int	len_map;
 

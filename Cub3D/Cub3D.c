@@ -100,7 +100,7 @@ void	kkk()
 }
 int	main(int ac, char *av[])
 {
-	// atexit(kkk);
+	atexit(kkk);
 	t_data	*data;
 	t_map	map;
 	int  i;

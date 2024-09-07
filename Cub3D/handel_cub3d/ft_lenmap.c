@@ -6,11 +6,11 @@ void	ft_map(int flag)
 {
 	if (!flag)
 	{
-		printf("The map not exist in the file_map!!\n");
+		printf("The map is not exist in the file_map!!\n");
 		exit(EXIT_FAILURE);
 	}
 }
-int ft_readline(t_map *map, char *line, int fd, int *flag)
+int	ft_readline(t_map *map, char *line, int fd, int *flag)
 {
 	int	len;
 	int	index_line;
@@ -62,7 +62,7 @@ int ft_lenmap(t_map *map , const char *path_map)
 	len = ft_readline(map, line, fd, &flag);
 	if (!flag)
 	{
-		printf("The player Not existance in the map !\n");
+		printf("The player is Not existance in the map !\n");
 		exit(EXIT_FAILURE);
 	}
 	return (len);

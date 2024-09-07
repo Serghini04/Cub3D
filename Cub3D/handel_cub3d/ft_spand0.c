@@ -4,8 +4,8 @@
 
 void	check_spand0(char **arr, int *flag, int i, int j)
 {
-	if((arr[i][j] == '0' && ( arr[i + 1][j] == ' ' ||\
-		arr[i][j + 1] == ' ' || arr[i][j + 1] == '\0')) || arr[i][0] == '0') 
+	if ((arr[i][j] == '0' && ( arr[i + 1][j] == ' ' ||\
+		arr[i][j + 1] == ' ' || arr[i][j + 1] == '\0')) || arr[i][0] == '0')
 		*flag = 0;
 	else if (arr[i][j] == ' ' && (arr[i + 1][j] == '0' ||\
 		arr[i][j + 1] == '0' || is_player(arr[i + 1][j])))
@@ -19,9 +19,10 @@ void	check_spand0(char **arr, int *flag, int i, int j)
 
 void	check_player(char **arr, int *flag, int i, int j)
 {
-	if (is_player(arr[i][j]) && (j == 0 || arr[i][j + 1] == ' ' || arr[i + 1][j] == ' ' ||\
-		arr[i][j + 1] == '\0'))
+	if (is_player(arr[i][j]) && (j == 0 || arr[i][j + 1] == ' ' ||\
+		arr[i + 1][j] == ' ' || arr[i][j + 1] == '\0'))
 		*flag = -1;
-	else if ((is_player(arr[i][j + 1])) && (arr[i][j] == ' ' || arr[i + 1][j + 1] == ' '))
+	else if ((is_player(arr[i][j + 1])) && (arr[i][j] == ' ' ||\
+		arr[i + 1][j + 1] == ' '))
 		*flag = -1;
 }

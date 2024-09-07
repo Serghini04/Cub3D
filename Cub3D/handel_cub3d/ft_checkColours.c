@@ -32,21 +32,13 @@ void	check_syntax(t_map *map, char *line, int index_line)
 	}
 }
 
-int chift_coolor(unsigned int R, unsigned int G, unsigned int B)
+int	chift_coolor(unsigned int R, unsigned int G, unsigned int B)
 {
 	return (R << 24 | G << 16 | B << 8 | (unsigned int)255);
 }
 void	is_validRGB(t_map *map, int index_line, char **ptr)
 {
 		if (!ptr || !*ptr || !*(ptr + 1) || !*(ptr + 2))
-	{
-		free_arr(ptr);
-		free_myallocation(map, -1);
-		printf ("Unvalide line : %d\n", index_line);
-		printf ("EXE :(F or C) 255,255,255\n");
-		exit(EXIT_FAILURE);
-	}
-	else if (ptr[0][0] == '\n' || ptr[1][0] == '\n' || ptr[2][0] == '\n')
 	{
 		free_arr(ptr);
 		free_myallocation(map, -1);

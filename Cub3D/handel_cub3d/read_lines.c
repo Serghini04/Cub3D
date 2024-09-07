@@ -18,8 +18,8 @@ void	read_lines(t_map *map, int fd, int len_map)
 
 	i = 0;
 	j = -1;
-	index_line = 0;
-	while ((line = get_next_line(fd)) && ++index_line)
+	index_line = 1;
+	while ((line = get_next_line(fd)))
 	{
 		if (i < 6 && line[0] != '\n')
 		{
@@ -34,6 +34,7 @@ void	read_lines(t_map *map, int fd, int len_map)
 		else if (j >= 0 && i < len_map + 6 && line[0]== '\n')
 			run_Error(map, j);
 		free (line);
+		++index_line;
 	}
 }
 
@@ -47,7 +48,7 @@ int	check_input(char **av, t_map *map)
 	fd = open(av[1],  O_RDONLY , 0644);
 	if (fd == -1)
 	{
-		printf ("open() failed ! maby Pathfile_map {%s}not existed!\n", av[1]);
+		printf ("open() failed ! maby Pathfile_map'%s' not existed!\n", av[1]);
 		free_arr(map->tab_map);
 		exit(EXIT_FAILURE);
 	}
@@ -65,7 +66,7 @@ void	check_firstlastline(t_map *map,char **arr, int len)
 	while (i < len)
 	{
 		j = 0;
-		while(arr[i] && arr[i][j])
+		while (arr[i] && arr[i][j])
 		{
 			if (arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')
 			{

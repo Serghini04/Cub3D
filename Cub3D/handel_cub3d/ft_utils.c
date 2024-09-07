@@ -2,7 +2,7 @@
 
 #include "../Cub3D.h"
 
-int is_avalidchar(char c)
+int	is_avalidchar(char c)
 {
 	if (c == ' ' || c == '0' || c == '1' || c == '\n')
 		return (1);
@@ -12,7 +12,7 @@ int is_avalidchar(char c)
 void	free_myallocation(t_map *map, int index)
 {
 	char	**arr;
-	int	 i;
+	int		i;
 
 	i = -1;
 	arr = map->tab_map;
@@ -36,7 +36,7 @@ void	free_myallocation(t_map *map, int index)
 	map->tab_map = NULL;
 }
 
-int is_player(char c)
+int	is_player(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
 		return (1);
@@ -45,14 +45,12 @@ int is_player(char c)
 
 void	check_namefile(char *name_map)
 {
-	int		i;
-	char	*ptr;
+	int	i;
 
 	i = 0;
 	while (name_map[i])
 		i++;
-	ptr = &name_map[i - 4];
-	if (ft_strncmp(ptr, ".cub", 4))
+	if (ft_strncmp(&name_map[i - 4], ".cub", 4))
 	{
 		printf("Name of file_map Unvalide!\n");
 		printf("EXE : PATH/filename.cub\n");

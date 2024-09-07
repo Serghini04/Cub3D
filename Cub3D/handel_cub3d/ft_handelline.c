@@ -8,7 +8,7 @@ int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 	{
 		map->tex_so = ft_strdup(line);
 		if (!map->tex_so)
-		return (0);  
+			return (0);  
 	}
 	else if (ret == 3)
 	{
@@ -44,7 +44,7 @@ int ft_stor_line(char *line, t_map *map, int ret, int index_line)
 	return (1);
 }
 
-void ft_check_line(char *line, int index_line, t_map *map)
+void	ft_check_line(char *line, int index_line, t_map *map)
 {
 	int i;
 	int ret;
@@ -84,7 +84,7 @@ void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 		}
 		if (!is_player(line[i]) && !is_avalidchar(line[i]))
 		{
-			printf("Invalide character in the map line : %d\n", index_line);
+			printf("Unvalid Line in the map line : %d\n", index_line);
 			exit(EXIT_SUCCESS);
 		}
 	}

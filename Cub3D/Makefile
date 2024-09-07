@@ -33,7 +33,7 @@ FILE = ${lib} ${utils} ${ray_casting} ${handel_input} Cub3D.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -O3 #-fsanitize=address -g
 
 # Linux :
 # FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm
