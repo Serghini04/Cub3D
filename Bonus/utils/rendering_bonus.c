@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/07 15:45:31 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:21:39 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void render_minimap(t_data *data)
 		{
 			map_pos = set_vec_int(map_pos, start_draw.x + incr.x, start_draw.y + incr.y);
 			if (map_pos.y < (int)floor(data->height /CUBE_SIZE) &&
-			    map_pos.x < ft_strlen(data->map[map_pos.y]) &&
+			    map_pos.x < (int)ft_strlen(data->map[map_pos.y]) &&
 			    data->map[map_pos.y][map_pos.x] == '1')
 			    put_color(data, incr.x * CUBE_SIZE, incr.y * CUBE_SIZE, WHEAT, CUBE_SIZE);
 			else
