@@ -67,7 +67,7 @@ void	init_textures(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 4)
 	{
 		data->tex[i].add = convert_xpm_to_arr(data, data->tex[i].path, i);
 		i++;

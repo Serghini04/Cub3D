@@ -106,14 +106,21 @@ void	check_firstlastline(t_map *map,char **arr, int len)
 			}
 			if (arr[y][j] == ' ')
 			{
+				y++;
 				while (y <= len - 1)
 				{
-					if (arr[y][j] == ' ')
+					if (((int)ft_strlen(arr[y]) > j && arr[y][j] == ' '))
 						y++;
+					else if ((int)ft_strlen(arr[y]) - 2 < j)
+					{
+						printf("The map must be closed by character '1'! \n");
+						free_myallocation(map, 0);
+						exit(EXIT_SUCCESS);
+					}
 					else
 						break ;
 				}
-				if (y >= len - 1)
+				if (y > len - 1 )
 				{
 					printf("The map must be closed by character '1'! \n");
 					free_myallocation(map, 0);
