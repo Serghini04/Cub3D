@@ -1,11 +1,10 @@
-SO textures/SO.xpm
-WE textures/new1.xpm
-NO textures/egy.xpm
-EA textures/wall1.xpm
+SO Mandatory/textures/SO.xpm
+WE Mandatory/textures/new1.xpm
+NO Mandatory/textures/egy.xpm
+EA Mandatory/textures/wall1.xpm
 
-C 45,5,21
-
-F 0,1,90
+C 51,153,255
+F 160,160,160
 
    1111111111111111111111
 11100011111110000000000001

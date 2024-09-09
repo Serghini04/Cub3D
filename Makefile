@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/09/07 18:22:15 by meserghi         ###   ########.fr        #
+#    Updated: 2024/09/09 10:07:00 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,18 @@ handel_input = Mandatory/handel_cub3d/ft_strncmp.c Mandatory/handel_cub3d/get_ne
 	Mandatory/handel_cub3d/read_lines.c Mandatory/handel_cub3d/ft_spand0.c
 
 lib_bonus = Bonus/lib/ft_strdup.c Bonus/lib/ft_strlen.c Bonus/lib/free_arr.c Bonus/lib/ft_memset.c \
-	Bonus/lib/ft_strjoin.c Bonus/lib/ft_itoa.c
+	Bonus/lib/ft_strjoin.c Bonus/lib/ft_itoa.c Mandatory/lib/ft_split.c\
+	Mandatory/lib/ft_atoi.c
 
 utils_bonus = bonus/utils/mlx_hook_bonus.c bonus/utils/mlx_init_bonus.c bonus/utils/init_textures_bonus.c \
 	bonus/utils/rendering_bonus.c bonus/utils/get_color_bonus.c
 
 ray_casting_bonus = bonus/ray_casting/ray_casting_bonus.c bonus/ray_casting/find_intersection_bonus.c
+
+handel_input_bonus = Mandatory/handel_cub3d/ft_strncmp.c Mandatory/handel_cub3d/get_next_line_utils.c\
+	Mandatory/handel_cub3d/get_next_line.c Mandatory/handel_cub3d/ft_lenmap.c Mandatory/handel_cub3d/handel_Cub3.c\
+	Mandatory/handel_cub3d/ft_utils.c Mandatory/handel_cub3d/ft_checkColours.c Mandatory/handel_cub3d/ft_handelline.c\
+	Mandatory/handel_cub3d/read_lines.c Mandatory/handel_cub3d/ft_spand0.c
 
 GREEN = \033[1;32m
 RED = \033[1;31m
@@ -39,14 +45,14 @@ STOP_C = \033[0m
 
 FILE = ${lib} ${utils} ${ray_casting} ${handel_input} Mandatory/Cub3D.c
 
-FILE_BONUS = ${lib_bonus} ${utils_bonus} ${ray_casting_bonus} bonus/Cub3D_bonus.c
+FILE_BONUS = ${lib_bonus} ${utils_bonus} ${ray_casting_bonus} ${handel_input_bonus} bonus/Cub3D_bonus.c
 
 
 FILE_OBJ = ${FILE:.c=.o}
 
 FILE_OBJ_BONUS = ${FILE_BONUS:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror -O3 #-fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address -g
 
 # Linux :
 # FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm

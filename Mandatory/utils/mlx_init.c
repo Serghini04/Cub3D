@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:13:52 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/07 16:54:28 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/09 09:59:40 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,8 @@ void fill_data(t_map *map, t_data *data)
 	data->tex[West].path = map->tex_we;
 	data->tex[South].path = map->tex_so;
 	data->tex[East].path = map->tex_ea;
-	// data->c = map->ceil;
-	// data->f = map->floor;
-	data->c = TEAL;
-	data->f = SILVER;
+	data->c = map->ceil;
+	data->f = map->floor;
 	data->height = get_height(data->map) * CUBE_SIZE;
 	data->width = get_long_line(data->map) * CUBE_SIZE;
 	data->p.pos.x = map->pos_x * CUBE_SIZE;
