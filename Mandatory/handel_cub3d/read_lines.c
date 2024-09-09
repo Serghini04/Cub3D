@@ -66,18 +66,33 @@ int	check_input(char **av, t_map *map)
 	close(fd);
 	return (len_map);
 }
+int	ft_isaspaces(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] != ' ' && line[i] != '\n')
+			return (0);
+	}
+	return (1);
+	
+}
 
 void	check_firstlastline(t_map *map,char **arr, int len)
 {
 	int i;
 	int j;
+	int y;
 
-	i = 0;
-	while (i < len)
+	i = -1;
+	while (++i < len)
 	{
-		j = 0;
-		while (arr[i] && arr[i][j])
+		j = -1;
+		while (arr[i] && arr[i][++j])
 		{
+			y = i;
 			if (arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')
 			{
 				if (is_player(arr[i][j]))
@@ -89,7 +104,23 @@ void	check_firstlastline(t_map *map,char **arr, int len)
 				free_myallocation(map, 0);
 				exit(EXIT_SUCCESS);
 			}
-			j++;
+			if (arr[y][j] == ' ')
+			{
+				while (y <= len - 1)
+				{
+					if (arr[y][j] == ' ')
+						y++;
+					else
+						break ;
+				}
+				if (y >= len - 1)
+				{
+					printf("The map must be closed by character '1'! \n");
+					free_myallocation(map, 0);
+					exit(EXIT_SUCCESS);
+				}
+			
+			}
 		}
 		i += len - 1;
 	}

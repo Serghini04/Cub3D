@@ -23,6 +23,8 @@ void	ft_check(t_map *map, char **arr, int i, int j)
 	{
 		if (flag == -1)
 			printf("Invalid position of player !\n");
+		else if (flag == -2)
+			printf("Invalid position of the Door !\n");
 		else
 			printf ("Invalid map !!\n check line N: %d in the map\n", i + 1);
 		free_myallocation(map, 0);

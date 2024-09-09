@@ -18,13 +18,18 @@ void	check_spand0(char **arr, int *flag, int i, int j)
 		arr[i][j + 1] == ' ' || arr[i][j + 1] == '\0')) || arr[i][0] == '0')
 		*flag = 0;
 	else if (arr[i][j] == ' ' && (arr[i + 1][j] == '0' ||\
-		arr[i][j + 1] == '0' || is_player(arr[i + 1][j])))
+		arr[i][j + 1] == '0' || arr[i][j + 1] == 'D' || is_player(arr[i + 1][j])))
 	{
 		if (is_player(arr[i + 1][j]))
 			*flag = -1;
+		else if (arr[i][j] == 'D')
+			*flag = -2;
 		else
 			*flag = 0;
 	}
+	else if ((arr[i][j] == 'D' &&  ( arr[i + 1][j] == ' ' ||\
+		arr[i][j + 1] == ' ' || arr[i][j + 1] == '\0')) || arr[i][0] == 'D')
+		*flag = -2;
 }
 
 void	check_player(char **arr, int *flag, int i, int j)

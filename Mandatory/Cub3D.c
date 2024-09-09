@@ -46,10 +46,8 @@ int	main(int ac, char *av[])
 {
 	t_data	data;
 	t_map	map;
-	int  i;
 
-	i = 0;
-	atexit(f);
+	// atexit(f);
 	if (ac != 2)
 	{
 		printf("Number of argummet not valid !!\n");

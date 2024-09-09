@@ -14,7 +14,7 @@
 
 int	is_avalidchar(char c)
 {
-	if (c == ' ' || c == '0' || c == '1' || c == '\n')
+	if (c == 'D' || c == ' ' || c == '0' || c == '1' || c == '\n')
 		return (1);
 	return (0);
 }
