@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handelline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:48:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:36:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 {
@@ -18,19 +18,19 @@ int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 	{
 		map->tex_so = ft_strdup(line);
 		if (!map->tex_so)
-			return (0);  
+			return (0);
 	}
 	else if (ret == 3)
 	{
 		map->tex_we = ft_strdup(line);
 		if (!map->tex_we)
-			return (0);  
+			return (0);
 	}
 	else if (ret == 4)
 	{
 		map->tex_ea = ft_strdup(line);
 		if (!map->tex_ea)
-			return (0);  
+			return (0);
 	}
 	else
 		check_colloers(line, map, ret, index_line);
@@ -78,6 +78,7 @@ void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 
 	i = -1;
 	line_y++;
+	(void)index_line;
 	while (line && line[++i])
 	{
 		if (is_player(line[i]) && !*flag)
@@ -92,10 +93,10 @@ void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 			printf ("At least one player must exist in the map\n");
 			exit(EXIT_SUCCESS);
 		}
-		if (!is_player(line[i]) && !is_avalidchar(line[i]))
-		{
-			printf("Unvalid Line in the map line : %d\n", index_line);
-			exit(EXIT_SUCCESS);
-		}
+		// if (!is_player(line[i]) && !is_avalidchar(line[i]))
+		// {
+		// 	printf("Unvalid Line in the map line : %d\n", index_line);
+		// 	exit(EXIT_SUCCESS);
+		// }
 	}
 }

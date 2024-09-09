@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:00 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:50:04 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:28:40 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 char	*ft_strchr(char *s, int c)
 {

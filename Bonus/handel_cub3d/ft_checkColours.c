@@ -6,11 +6,11 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:19 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/09 09:51:16 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:30:55 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 int	ft_check_maxcollor(int R, int G, int B)
 {

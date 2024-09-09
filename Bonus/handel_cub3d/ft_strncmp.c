@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:49:05 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:49:08 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:28:23 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

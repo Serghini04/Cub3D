@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:49:38 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:49:45 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:28:30 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 size_t	str_len(const char *s, char c)
 {

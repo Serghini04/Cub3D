@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:49:16 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:49:23 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:31:11 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 int	is_avalidchar(char c)
 {
@@ -82,5 +82,5 @@ int check_beginning(char *line)
 		return (5);
 	else if (!ft_strncmp(line, "F ", 2))
 		return (6);
-	return (0); 
+	return (0);
 }

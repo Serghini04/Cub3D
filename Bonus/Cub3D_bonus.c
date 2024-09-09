@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/09 10:37:33 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:55:17 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ int	main(int ac, char **av)
 	}
 	ft_handel_input(&map, &data, av);
 	start_init_mlx(&data);
-	mlx_mouse_move(data.mlx_win, 0, 0);
 	init_game(&data);
+	mlx_mouse_move(data.mlx_win, 0, 0);
+	mlx_hook(data.mlx_win, 6, 0, mouse, &data);
 	mlx_loop_hook(data.mlx, loopfunc, &data);
 	mlx_hook(data.mlx_win, 2, 1, onpress, &data);
 	mlx_hook(data.mlx_win, 3, 2, onrelease, &data);

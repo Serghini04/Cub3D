@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_spand0.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:55 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:48:57 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:31:04 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 void	check_spand0(char **arr, int *flag, int i, int j)
 {

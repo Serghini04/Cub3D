@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/09/09 10:07:00 by meserghi         ###   ########.fr        #
+#    Updated: 2024/09/09 12:28:03 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,10 @@ utils_bonus = bonus/utils/mlx_hook_bonus.c bonus/utils/mlx_init_bonus.c bonus/ut
 
 ray_casting_bonus = bonus/ray_casting/ray_casting_bonus.c bonus/ray_casting/find_intersection_bonus.c
 
-handel_input_bonus = Mandatory/handel_cub3d/ft_strncmp.c Mandatory/handel_cub3d/get_next_line_utils.c\
-	Mandatory/handel_cub3d/get_next_line.c Mandatory/handel_cub3d/ft_lenmap.c Mandatory/handel_cub3d/handel_Cub3.c\
-	Mandatory/handel_cub3d/ft_utils.c Mandatory/handel_cub3d/ft_checkColours.c Mandatory/handel_cub3d/ft_handelline.c\
-	Mandatory/handel_cub3d/read_lines.c Mandatory/handel_cub3d/ft_spand0.c
+handel_input_bonus = Bonus/handel_cub3d/ft_strncmp.c Bonus/handel_cub3d/get_next_line_utils.c\
+	Bonus/handel_cub3d/get_next_line.c Bonus/handel_cub3d/ft_lenmap.c Bonus/handel_cub3d/handel_Cub3.c\
+	Bonus/handel_cub3d/ft_utils.c Bonus/handel_cub3d/ft_checkColours.c Bonus/handel_cub3d/ft_handelline.c\
+	Bonus/handel_cub3d/read_lines.c Bonus/handel_cub3d/ft_spand0.c
 
 GREEN = \033[1;32m
 RED = \033[1;31m

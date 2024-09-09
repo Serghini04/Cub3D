@@ -15,13 +15,13 @@
 t_ray	side_of_ray(t_ray res)
 {
 	if (res.is_down && !res.is_ver)
-		res.dir = North;
-	else if (res.is_up && !res.is_ver)
 		res.dir = South;
+	else if (res.is_up && !res.is_ver)
+		res.dir = North;
 	else if (res.is_left && res.is_ver)
-		res.dir = East;
-	else
 		res.dir = West;
+	else
+		res.dir = East;
 	return (res);
 }
 

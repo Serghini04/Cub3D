@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_lines.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:50:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:34:19 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 void	run_Error(t_map *map, int j)
 {

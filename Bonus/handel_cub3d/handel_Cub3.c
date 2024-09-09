@@ -6,11 +6,11 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 12:42:42 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:29:51 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 void	ft_check(t_map *map, char **arr, int i, int j)
 {

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/09 10:03:13 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:35:21 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define PLAYER_SIZE 5
 # define FOV 1.04
 # define MINIMAP_SIZE 7
+# define BUFFER_SIZE 10
 
 # define KEY_ECH 53
 # define KEY_A 	0
@@ -78,6 +79,7 @@ enum e_direction
 	West,
 	East,
 	South,
+	Door,
 };
 // Point 2D
 typedef struct s_vec
@@ -172,11 +174,14 @@ typedef struct s_map
 
 // lib:
 char	*ft_itoa(int n);
+int		ft_atoi(const char *str);
 size_t	ft_strlen(char *s);
-void	free_arr(char **res);
 char	*ft_strdup(char *s1);
-char	*ft_strjoin(char *s1, char *s2);
+void	free_arr(char **res);
 void	*ft_memset(void *b, int c, size_t len);
+char	*ft_strjoin(char *s1, char *s2);
+char	**ft_split(char const *s, char c);
+char	*ft_strchr(char *s, int c);
 
 // utils:
 float	max(float a, float b);
