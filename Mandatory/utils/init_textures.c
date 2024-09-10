@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:28:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/07 16:37:37 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/09 10:34:40 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ int	*convert_xpm_to_arr(t_data *data, char *path_img, int i)
 		return (NULL);
 	res.p_img = mlx_xpm_file_to_image(data->mlx, path_img, \
 							&data->tex[i].width, &data->tex[i].height);
-	//////////check this and free all allocation /////////
 	if (!res.p_img)
 	{
-		printf("%s\n", path_img);
-		printf("invalid PNGPATH !!\n");
+		printf("%s : invalid path\n", path_img);
 		exit (1);
 	}
 	res.p_pixel = mlx_get_data_addr(res.p_img, &res.bit_pixel, \
@@ -61,7 +59,6 @@ int	*convert_xpm_to_arr(t_data *data, char *path_img, int i)
 	return (copy_img(data, res, i, bytes_per_pixel));
 }
 
-// you need to free data textures./////
 void	init_textures(t_data *data)
 {
 	int	i;

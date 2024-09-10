@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/07 17:00:54 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:04:20 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ int	loopfunc(t_data	*data)
 	float	move_step;
 
 	if (data->mouse_enable)
-		mlx_mouse_show();
-	else
 		mlx_mouse_hide();
+	else
+		mlx_mouse_show();
 	move_step = data->p.up_down * data->p.move_speed;
 	data->p.angle += data->p.turn_dir * data->p.rotation_speed;
 	x = data->p.pos.x + cos(data->p.angle) * move_step;

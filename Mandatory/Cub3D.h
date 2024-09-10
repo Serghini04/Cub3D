@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/07 15:17:09 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/09 09:57:32 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,21 +132,20 @@ typedef struct s_textures
 
 typedef struct s_data
 {
-	int			width;
-	int			height;
-	void		*weapon[37];
-	int			index_weapon;
-	int			f;
-	int			c;
-	int			num_rays;
-	t_ray		*rays;
-	char		**map;
-	void		*mlx;		// mlx_init();
-	void		*mlx_win;	//mlx_new_window()
-	t_img		img;		//mlx_new_image()
-	t_player	p;			//data player
-	// char		**path_imgs;
-	t_textures	*tex;
+	int				width;
+	int				height;
+	void			*weapon[37];
+	int				index_weapon;
+	unsigned int	f;
+	unsigned int	c;
+	int				num_rays;
+	t_ray			*rays;
+	char			**map;
+	void			*mlx;		// mlx_init();
+	void			*mlx_win;	//mlx_new_window()
+	t_img			img;		//mlx_new_image()
+	t_player		p;			//data player
+	t_textures		*tex;
 }	t_data;
 
 typedef struct s_map

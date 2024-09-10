@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:50:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:52:50 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,12 @@ void	check_firstlastline(t_map *map,char **arr, int len)
 				y++;
 				while (y <= len - 1)
 				{
-					if (((int)ft_strlen(arr[y]) > j && arr[y][j] == ' '))
+					if (arr[y + 1 ] && ((int)ft_strlen(arr[y]) > j && arr[y + 1 ][j] == ' '))
 						y++;
+					else if (((int)ft_strlen(arr[y]) > j + 1 && arr[y][j + 1] == ' '))
+					{
+						j++;
+					}
 					else if ((int)ft_strlen(arr[y]) - 2 < j)
 					{
 						printf("The map must be closed by character '1'! \n");
@@ -120,7 +124,7 @@ void	check_firstlastline(t_map *map,char **arr, int len)
 					else
 						break ;
 				}
-				if (y > len - 1 )
+				if (y >= len - 1 )
 				{
 					printf("The map must be closed by character '1'! \n");
 					free_myallocation(map, 0);

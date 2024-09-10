@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:48:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:17:55 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ void	ft_check_line(char *line, int index_line, t_map *map)
 
 	i = 2;
 	ret = check_beginning(line);
+	if (!ret)
+	{
+		printf("pppppp\n");
+		exit(EXIT_FAILURE);
+	}
 	while (line && line[i] && line[i] == ' ')
 		i++;
 	if (!ft_stor_line(&line[i], map, ret, index_line))

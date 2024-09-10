@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/07 14:30:09 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:35:21 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define PLAYER_SIZE 5
 # define FOV 1.04
 # define MINIMAP_SIZE 7
+# define BUFFER_SIZE 10
 
 # define KEY_ECH 53
 # define KEY_A 	0
@@ -78,6 +79,7 @@ enum e_direction
 	West,
 	East,
 	South,
+	Door,
 };
 // Point 2D
 typedef struct s_vec
@@ -129,38 +131,57 @@ typedef struct s_ray
 
 typedef struct s_textures
 {
-	int	*add;
-	int	width;
-	int	height;
+	char	*path;
+	int		*add;
+	int		width;
+	int		height;
 }	t_textures;
 
 typedef struct s_data
 {
-	int			width;
-	void		*weapon[43];
-	int			index_weapon;
-	int			f;
-	int			c;
-	bool		mouse_enable;
-	int			height;
-	int			num_rays;
-	t_ray		*rays;
-	char		**map;
-	void		*mlx;		// mlx_init();
-	void		*mlx_win;	//mlx_new_window()
-	t_img		img;		//mlx_new_image()
-	t_player	p;			//data player
-	char		**path_imgs;
-	t_textures	*tex;
+	int				width;
+	void			*weapon[43];
+	int				index_weapon;
+	unsigned int	f;
+	unsigned int	c;
+	bool			mouse_enable;
+	int				height;
+	int				num_rays;
+	t_ray			*rays;
+	char			**map;
+	void			*mlx;		// mlx_init();
+	void			*mlx_win;	//mlx_new_window()
+	t_img			img;		//mlx_new_image()
+	t_player		p;			//data player
+	t_textures		*tex;
 }	t_data;
+
+typedef struct s_map
+{
+	unsigned int	floor;
+	unsigned int	ceil;
+	int				pos_x;
+	int				pos_y;
+	int				h;
+	int				w;
+	char			angle_view;
+	char			*tex_no;
+	char			*tex_so;
+	char			*tex_we;
+	char			*tex_ea;
+	char			**tab_map;
+}	t_map;
 
 // lib:
 char	*ft_itoa(int n);
+int		ft_atoi(const char *str);
 size_t	ft_strlen(char *s);
-void	free_arr(char **res);
 char	*ft_strdup(char *s1);
-char	*ft_strjoin(char *s1, char *s2);
+void	free_arr(char **res);
 void	*ft_memset(void *b, int c, size_t len);
+char	*ft_strjoin(char *s1, char *s2);
+char	**ft_split(char const *s, char c);
+char	*ft_strchr(char *s, int c);
 
 // utils:
 float	max(float a, float b);
@@ -185,8 +206,36 @@ t_ray	ray_casting(float ray_angle, t_data *data);
 t_vec	find_hor_intersection(t_ray	res, t_data *data);
 t_vec	find_ver_intersection(t_ray res, t_data *data);
 
+// parce
+void	fill_data(t_map *map, t_data *data);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*get_next_line(int fd);
+char	*str_dup(char *s1);
+char	*str_chr(char *s, int c);
+char	*str_join(char *s1, char *s2);
+char	*premier_ligne(char *ptr_of_bfr2);
+char	*found_line(int fd, char **s_ptr);
+void	*mem_cpy(void *dst, void *src, size_t n);
+size_t	str_len(const char *s, char c);
+int		ft_handel_input(t_map *map, t_data *data, char **av);
+int		is_avalidchar(char c);
+void	free_myallocation(t_map *map, int index);
+int		is_player(char c);
+void	check_namefile(char *name_map);
+int		check_beginning(char *line);
+void	check_colloers(char *line, t_map *map, int ret, int index_line);
+void	ft_check_line(char *line, int index_line, t_map *map);
+void	check_firstlastline(t_map *map,char **arr, int len);
+void	check_linemap(t_map *map, char *line, int index_line, int *flag);
+int		ft_allocmap(t_map *map, char **av);
+int		check_input(char **av, t_map *map);
+void	check_arrmap(t_map *map, int len);
+void	check_spand0(char **arr, int *flag, int i, int j);
+void	check_player(char **arr, int *flag, int i, int j);
+void fill_data(t_map *map, t_data *data);
+
 // main
-t_data	*start_init_mlx(char **arr);
+void	start_init_mlx(t_data *data);
 int		start_rendering(t_data *data);
 
 #endif

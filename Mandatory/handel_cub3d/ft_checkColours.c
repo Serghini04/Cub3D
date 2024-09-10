@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkColours.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:19 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/07 11:48:39 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/09 09:51:16 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	check_syntax(t_map *map, char *line, int index_line)
 	}
 }
 
-int	chift_coolor(unsigned int R, unsigned int G, unsigned int B)
+unsigned int	chift_coolor(unsigned int R, unsigned int G, unsigned int B)
 {
-	return (R << 24 | G << 16 | B << 8 | (unsigned int)255);
+	return (R << 16 | G << 8 | B);
 }
 void	is_validRGB(t_map *map, int index_line, char **ptr)
 {
