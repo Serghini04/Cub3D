@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/11 12:20:46 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:21:23 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,58 +50,31 @@ void	check_line(t_map *map, char **arr, int i, int j)
 		j++;
 	}
 }
-int	is_spaces(char *line)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i] && line[i] != '\n')
-	{
-		if (line[i] != ' ')
-			return (0);
-	}
-	return(1);
-}
 void	check_arrmap(t_map *map, int len)
 {
 	int		i;
 	int		j;
 	char	*posnew_line;
 	char	**arr;
-	int		flag;
 
 	i = -1;
 	arr = map->tab_map;
-	map->len = len;
 	check_firstlastline(map, arr, len);
 	while (++i <= len - 1)
 	{
 		j = 0;
-		flag = 0;
 		posnew_line = ft_strchr(arr[i], '\n');
 		if(posnew_line)
 			*(--posnew_line) = '\0';
 		while (arr[i][j] && arr[i +1] && arr[i + 1][j])
 		{
-			if (arr[i][j] != ' ')
-				flag = 1;
-			if (!flag && (int)ft_strlen(arr[i +1]) - 2 > j && arr[i +1][j] == ' ')
-				check_devided(map,map->len, i+1,j);
 			ft_check(map, arr, i, j);
 			j++;
 		}
-		if (is_spaces(arr[i]))
-			check_devided(map,map->len, len - 1,j);
 		if (arr[i][j])
-		{
 			check_line(map, arr, i, j);
-		}
 		else if (arr[i + 1][j] )
-		{
-			if (arr[i + 1][j] == ' ' && i + 1 < len - 1)
-				check_devided(map,map->len, i + 1, j);
 			check_line(map, arr, i + 1, j);
-		}
 	}
 
 }
