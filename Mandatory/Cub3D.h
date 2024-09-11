@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/09 09:57:32 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:06:12 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ typedef struct s_map
 	char			*tex_we;
 	char			*tex_ea;
 	char			**tab_map;
+	int				len;
 }	t_map;
 
 // lib:
@@ -224,5 +225,7 @@ int		check_input(char **av, t_map *map);
 void	check_arrmap(t_map *map, int len);
 void	check_spand0(char **arr, int *flag, int i, int j);
 void	check_player(char **arr, int *flag, int i, int j);
+void	check_devided(t_map *map,int len, int i, int j);
+int		is_spaces(char *line);
 
 #endif
