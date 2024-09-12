@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:27:01 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/09 10:35:34 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:10:48 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	init_textures(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		data->tex[i].add = convert_xpm_to_arr(data, data->tex[i].path, i);
 		i++;

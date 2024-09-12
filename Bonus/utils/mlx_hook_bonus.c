@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/09 12:04:20 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:03:08 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ int	onpress(int k, t_data *data)
 		data->p.left_right = -1;
 	if (k == KEY_M)
 		data->mouse_enable = (data->mouse_enable == 0) * 1;
+	if (k == KEY_O)
+	{
+		if (!is_door(data->p.pos.x, data->p.pos.y, data))
+			data->door = (data->door == 0) * 1;
+	}
 	return (0);
 }
 
@@ -70,7 +75,7 @@ int	mouse(int x, int y, t_data *data)
     return (0);
 }
 
-bool	is_wall(float x, float y, t_data *data)
+bool	is_wall(float x, float y, t_data *data, t_ray *res)
 {
 	int	new_x;
 	int	new_y;
@@ -81,7 +86,28 @@ bool	is_wall(float x, float y, t_data *data)
 		return (true);
 	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
 		return (true);
+	if (data->door && data->map[(int)floor(new_y)][(int)floor(new_x)] == 'D')
+	{
+		res->dir = Door;
+		return (true);
+	}
 	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == '1')
+		return (true);
+	return (false);
+}
+
+bool	is_door(float x, float y, t_data *data)
+{
+	int	new_x;
+	int	new_y;
+
+	new_x = x / CUBE_SIZE;
+	new_y = y / CUBE_SIZE;
+	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
+		return (false);
+	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
+		return (false);
+	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == 'D')
 		return (true);
 	return (false);
 }
@@ -101,6 +127,11 @@ bool	is_wall2(float x, float y, t_data *data)
 	data->map[(int)floor(data->p.pos.y / CUBE_SIZE)][(int)floor(new_x)] == '1' \
 	|| data->map[(int)floor(new_y)][(int)floor(data->p.pos.x / \
 	CUBE_SIZE)] == '1')
+		return (true);
+	if (data->door && (data->map[(int)floor(new_y)][(int)floor(new_x)] == 'D' || \
+	data->map[(int)floor(data->p.pos.y / CUBE_SIZE)][(int)floor(new_x)] == 'D' \
+	|| data->map[(int)floor(new_y)][(int)floor(data->p.pos.x / \
+	CUBE_SIZE)] == 'D'))
 		return (true);
 	return (false);
 }
