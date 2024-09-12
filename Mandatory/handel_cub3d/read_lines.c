@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/11 14:27:09 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:58:53 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,22 @@ void check_devided(t_map *map,int len, int i, int j)
 	}
 	return ;
 }
+void	runError(t_map *map, char **arr, int i, int j)
+{
+		if (is_player(arr[i][j]))
+			printf("Unvalid posotin of player !\n");
+		else if (i)
+			printf("Last line in the map is Invalid !\n");
+		else
+			printf("First line in the map is Invalid !\n");
+		free_myallocation(map, 0);
+		exit(EXIT_SUCCESS);
+}
 
 void	check_firstlastline(t_map *map,char **arr, int len)
 {
 	int i;
 	int j;
-	int y;
 
 	i = -1;
 	while (++i < len)
@@ -118,29 +128,11 @@ void	check_firstlastline(t_map *map,char **arr, int len)
 		j = -1;
 		while (arr[i] && arr[i][++j])
 		{
-			y = i;
 			if (arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')
-			{
-				if (is_player(arr[i][j]))
-					printf("Invalid posotin of player !\n");
-				else if (i)
-					printf("Last line in the map is Invalid !\n");
-				else
-					printf("First line in the map is Invalid !\n");
-				free_myallocation(map, 0);
-				exit(EXIT_SUCCESS);
-			}
+				runError(map, arr, i, j);
 			if (!i && arr[i][j] == ' ' && arr[i + 1])
 				check_devided(map, len, i + 1, j);
-			if (y >= len - 1 )
-				{
-					printf("The map must be closed by character '1'! \n");
-					free_myallocation(map, 0);
-					exit(EXIT_SUCCESS);
-				}
-			
-			
 		}
-		i += len - 1;
+		i += len - 2;
 	}
 }

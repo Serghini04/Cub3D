@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/09 11:55:17 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:13:18 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int ac, char **av)
 	int  i;
 
 	i = 0;
-	atexit(f);
+	// atexit(f);
 	if (ac != 2)
 	{
 		printf("Number of argummet not valid !!\n");

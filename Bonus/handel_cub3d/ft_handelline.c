@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handelline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/09 12:36:57 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/12 09:59:35 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ void	ft_check_line(char *line, int index_line, t_map *map)
 
 	i = 2;
 	ret = check_beginning(line);
+	if (!ret)
+	{
+		printf("Unvalid Line : %d\n", index_line);
+		free_myallocation(map, -1);
+		exit(EXIT_FAILURE);
+	}
 	while (line && line[i] && line[i] == ' ')
 		i++;
 	if (!ft_stor_line(&line[i], map, ret, index_line))

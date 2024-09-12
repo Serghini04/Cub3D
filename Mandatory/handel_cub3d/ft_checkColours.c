@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkColours.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:19 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/09 09:51:16 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:33:45 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,16 @@ void	check_syntax(t_map *map, char *line, int index_line)
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == ',')
+		{
 			counter++;
+			if(line[i + 1] && line[i + 1] == ' ')
+				i++;
+			while (line[i] && line[i] == ' ')
+				i++;
+		}
 		if ((!(line[i] >= '0' && line[i] <= '9') && line[i] != ',') || counter > 2)
 		{
 			printf ("Error: \nInvalid Syntax in the line %d\n", index_line);
-			printf ("EXE : (F or C) 255,255,255\n");
 			free_myallocation(map, -1);
 			exit(EXIT_FAILURE);
 		}
