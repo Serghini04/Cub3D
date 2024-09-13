@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:16:54 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:16:57 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:35:27 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,25 @@ t_ray	get_redirection_ray(float angle)
 	return (res);
 }
 
-t_vec	find_hor_intersection(t_ray	res, t_data *data)
+t_vec	find_hor_intersection(t_ray	*res, t_data *data)
 {
 	t_vec	hor;
 	t_vec	step;
 
 	hor.y = floor(data->p.pos.y / CUBE_SIZE) * CUBE_SIZE;
-	hor.y += (res.is_down == 1) * CUBE_SIZE;
-	hor.x = data->p.pos.x + (hor.y - data->p.pos.y) / tan(res.angle);
+	hor.y += (res->is_down == 1) * CUBE_SIZE;
+	hor.x = data->p.pos.x + (hor.y - data->p.pos.y) / tan(res->angle);
 	step.y = CUBE_SIZE;
-	if (res.is_up)
+	if (res->is_up)
 		step.y *= -1;
-	step.x = step.y / tan(res.angle);
-	if (res.is_left && step.x > 0)
+	step.x = step.y / tan(res->angle);
+	if (res->is_left && step.x > 0)
 		step.x *= -1;
-	if (res.is_right && step.x < 0)
+	if (res->is_right && step.x < 0)
 		step.x *= -1;
 	while (1)
 	{
-		if (is_wall(hor.x, hor.y - (res.is_up == 1), data))
+		if (is_wall(hor.x, hor.y - (res->is_up == 1), data, res))
 			break ;
 		else
 		{
@@ -70,25 +70,25 @@ t_vec	find_hor_intersection(t_ray	res, t_data *data)
 	return (hor);
 }
 
-t_vec	find_ver_intersection(t_ray res, t_data *data)
+t_vec	find_ver_intersection(t_ray *res, t_data *data)
 {
 	t_vec	ver;
 	t_vec	step;
 
 	ver.x = floor(data->p.pos.x / CUBE_SIZE) * CUBE_SIZE;
-	ver.x += (res.is_right == 1) * CUBE_SIZE;
-	ver.y = data->p.pos.y + (ver.x - data->p.pos.x) * tan(res.angle);
+	ver.x += (res->is_right == 1) * CUBE_SIZE;
+	ver.y = data->p.pos.y + (ver.x - data->p.pos.x) * tan(res->angle);
 	step.x = CUBE_SIZE;
-	if (res.is_left)
+	if (res->is_left)
 		step.x *= -1;
-	step.y = CUBE_SIZE * tan(res.angle);
-	if (res.is_up && step.y > 0)
+	step.y = CUBE_SIZE * tan(res->angle);
+	if (res->is_up && step.y > 0)
 		step.y *= -1;
-	if (res.is_down && step.y < 0)
+	if (res->is_down && step.y < 0)
 		step.y *= -1;
 	while (1)
 	{
-		if (is_wall(ver.x - (res.is_left == 1), ver.y, data))
+		if (is_wall(ver.x - (res->is_left == 1), ver.y, data, res))
 			break ;
 		else
 		{

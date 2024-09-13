@@ -6,11 +6,24 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:55 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/12 12:01:24 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:04:23 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
+
+int		is_spaces(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line && line[++i] && line[i] != '\n')
+	{
+		if (line[i] != ' ')
+			return (0);
+	}
+	return(1);
+}
 
 void	check_spand0(char **arr, int *flag, int i, int j)
 {

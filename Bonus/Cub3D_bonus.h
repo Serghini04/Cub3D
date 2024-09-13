@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/09 12:35:21 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:47:10 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define KEY_D	2
 # define KEY_S	1
 # define KEY_Q	12
+# define KEY_O	31
 # define KEY_M 46
 
 # define KEY_LEFT 	123
@@ -81,6 +82,7 @@ enum e_direction
 	South,
 	Door,
 };
+
 // Point 2D
 typedef struct s_vec
 {
@@ -144,6 +146,7 @@ typedef struct s_data
 	int				index_weapon;
 	unsigned int	f;
 	unsigned int	c;
+	int				door;
 	bool			mouse_enable;
 	int				height;
 	int				num_rays;
@@ -191,20 +194,21 @@ int		mouse(int x, int y, t_data *data);
 int		onpress(int keycode, t_data *data);
 int		onrelease(int keycode, t_data *data);
 void	set_vec(t_vec *vec, float x, float y);
-bool	is_wall(float x, float y, t_data *data);
+bool	is_wall(float x, float y, t_data *data, t_ray *res);
 void	draw_line(float x1, float y1, t_data *data);
 int 	get_color(t_data *data, int type, t_vec *pos);
 void	my_pixel_put(t_img *img, int x, int y, int color);
 
 // ray casting
 float	check_angle(float angle);
-void	fill_field_of_view(t_data *data);
 t_ray	get_redirection_ray(float angle);
+void	fill_field_of_view(t_data *data);
 float	distance_two_points(t_vec a, t_vec b);
+bool	is_door(float x, float y, t_data *data);
 bool	is_wall2(float x, float y, t_data *data);
 t_ray	ray_casting(float ray_angle, t_data *data);
-t_vec	find_hor_intersection(t_ray	res, t_data *data);
-t_vec	find_ver_intersection(t_ray res, t_data *data);
+t_vec	find_hor_intersection(t_ray	*res, t_data *data);
+t_vec	find_ver_intersection(t_ray *res, t_data *data);
 
 // parce
 void	fill_data(t_map *map, t_data *data);

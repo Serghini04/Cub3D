@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:13:52 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/09 12:01:21 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:44:20 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void fill_data(t_map *map, t_data *data)
 	data->tex[West].path = map->tex_we;
 	data->tex[South].path = map->tex_so;
 	data->tex[East].path = map->tex_ea;
+	data->tex[Door].path = "textures/door.xpm";
 	data->c = map->ceil;
 	data->f = map->floor;
 	data->height = get_height(data->map) * CUBE_SIZE;
@@ -100,4 +101,5 @@ void fill_data(t_map *map, t_data *data)
 	data->p.key_weopan = 0;
 	data->p.left_right = 0;
 	data->mouse_enable = 1;
+	data->door = 1;
 }
