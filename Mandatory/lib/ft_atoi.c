@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:11:48 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/08/26 10:33:58 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:50:32 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	scap_spaces(const char *str, size_t *i, int *sign)
 		(*i)++;
 	}
 }
+
 int	ft_atoi(const char *str)
 {
 	unsigned long	i_num;
@@ -32,7 +33,7 @@ int	ft_atoi(const char *str)
 	i = 0;
 	i_num = 0;
 	sign = 1;
-	if(!str || !*str)
+	if (!str || !*str)
 	{
 		return (-19);
 	}

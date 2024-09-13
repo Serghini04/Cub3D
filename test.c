@@ -1,20 +1,16 @@
-void check_devided(char **arr,int len, int i, int j)
-{
-	if ( i == len - 1)
-	{
-		printf ("oooooooooo\n");
-		exit(1);
-	}
-	while (arr[i][j] && arr[i][j] == ' ')
-		j++;
-	while (j >= 0 && arr[i][j] == ' ')
-	{
-		if (arr[i + 1] && arr[i + 1][j] == ' ')
-			check_devided(arr,i + 1, j);
-		if (arr[i][j - 1] == ' ')
-			j--;
-		else
-			break ;
-	}
-	return (i);
+#include <stdio.h>
+
+#include <math.h>
+#include <stdio.h>
+
+int main() {
+    double result;
+    double num1 = 10.5;
+    double num2 = 3.0;
+
+    result = fmod(num1, num2);
+
+    printf("The remainder of %f divided by %f is %f", num1, num2, result);
+
+    return 0;
 }

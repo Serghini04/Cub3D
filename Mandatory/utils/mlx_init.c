@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:13:52 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/12 17:43:24 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:51:08 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	get_long_line(char **arr)
 	return (long_line);
 }
 
-void start_init_mlx(t_data *data)
+void	start_init_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
@@ -73,7 +73,7 @@ void start_init_mlx(t_data *data)
 	}
 }
 
-void fill_data(t_map *map, t_data *data)
+void	fill_data(t_map *map, t_data *data)
 {
 	data->map = map->tab_map;
 	data->num_rays = W;

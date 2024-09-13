@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/13 12:21:33 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:49:00 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,7 @@ void	set_vec(t_vec *vec, float x, float y)
 	vec->y = y;
 }
 
-void f()
-{
-	system("leaks cub3D");
-}
-
-void intro()
+void	intro(void)
 {
 	printf("\033[94m   ____      _    _____ ____    ____\n");
 	printf("  / ___|   _| |__|___ /|  _ \\  | __ )  ___  _ __  _   _ ___\n");
@@ -50,7 +45,7 @@ void intro()
 	printf(" | / __|\n | |__| |_|");
 	printf(" | |_) |__) | |_| | | |_) | (_) | | | | |_| \\__ \\\n  \\___");
 	printf("_\\__,_|_.__/____/|____/  |____/ \\___/|_| |_|\\__,_|___/\n");
-    printf("  👹Welcome, player! Let's start the game👹.\n");
+	printf("  👹Welcome, player! Let's start the game👹.\n");
 }
 
 int	main(int ac, char *av[])
@@ -58,7 +53,6 @@ int	main(int ac, char *av[])
 	t_data	data;
 	t_map	map;
 
-	// atexit(f);
 	if (ac != 2)
 	{
 		printf("Number of argummet not valid !!\n");

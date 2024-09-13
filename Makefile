@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/09/09 12:28:03 by meserghi         ###   ########.fr        #
+#    Updated: 2024/09/13 21:03:23 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address -g
 # Linux :
 # FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm
 # MacOS :
-FMLX = Mandatory/mlx/libmlx.a  -framework OpenGL -framework AppKit
+FMLX = mlx/libmlx.a  -framework OpenGL -framework AppKit
 
 NAME = cub3D
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/11 12:06:12 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:02:36 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include "mlx/mlx.h"
+# include "../mlx/mlx.h"
 # include <limits.h>
 # include <math.h>
 # include <stdbool.h>
@@ -148,6 +148,12 @@ typedef struct s_data
 	t_textures		*tex;
 }	t_data;
 
+typedef struct s_vec_int
+{
+	int	x;
+	int	y;
+}	t_vec_int;
+
 typedef struct s_map
 {
 	unsigned int	floor;
@@ -218,14 +224,14 @@ void	check_namefile(char *name_map);
 int		check_beginning(char *line);
 void	check_colloers(char *line, t_map *map, int ret, int index_line);
 void	ft_check_line(char *line, int index_line, t_map *map);
-void	check_firstlastline(t_map *map,char **arr, int len);
+void	check_firstlastline(t_map *map, char **arr, int len);
 void	check_linemap(t_map *map, char *line, int index_line, int *flag);
 int		ft_allocmap(t_map *map, char **av);
 int		check_input(char **av, t_map *map);
 void	check_arrmap(t_map *map, int len);
 void	check_spand0(char **arr, int *flag, int i, int j);
 void	check_player(char **arr, int *flag, int i, int j);
-void	check_devided(t_map *map,int len, int i, int j);
+void	check_devided(t_map *map, int len, int i, int j);
 int		is_spaces(char *line);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/13 11:18:56 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:02:47 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include "mlx/mlx.h"
+# include "../mlx/mlx.h"
 # include <math.h>
 # include <stdbool.h>
 # include <string.h>
