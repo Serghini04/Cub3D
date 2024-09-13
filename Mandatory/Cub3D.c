@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/07 16:53:06 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:21:33 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,17 @@ void f()
 	system("leaks cub3D");
 }
 
+void intro()
+{
+	printf("\033[94m   ____      _    _____ ____    ____\n");
+	printf("  / ___|   _| |__|___ /|  _ \\  | __ )  ___  _ __  _   _ ___\n");
+	printf(" | |  | | | | '_ \\ |_ \\| | | | |  _ \\ / _ \\| '_ \\| |");
+	printf(" | / __|\n | |__| |_|");
+	printf(" | |_) |__) | |_| | | |_) | (_) | | | | |_| \\__ \\\n  \\___");
+	printf("_\\__,_|_.__/____/|____/  |____/ \\___/|_| |_|\\__,_|___/\n");
+    printf("  👹Welcome, player! Let's start the game👹.\n");
+}
+
 int	main(int ac, char *av[])
 {
 	t_data	data;
@@ -53,6 +64,7 @@ int	main(int ac, char *av[])
 		printf("Number of argummet not valid !!\n");
 		return (1);
 	}
+	intro();
 	ft_handel_input(&map, &data, av);
 	start_init_mlx(&data);
 	init_game(&data);

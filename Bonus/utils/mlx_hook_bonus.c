@@ -6,11 +6,56 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/12 18:03:08 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:21:34 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D_bonus.h"
+
+bool	is_valid_pos(int x, int y, t_data *data)
+{
+	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
+		return (false);
+	if ((int)ft_strlen(data->map[y]) < x)
+		return (false);
+	return (true);
+}
+
+void open_door(t_data *data)
+{
+    int x, y;
+
+    x = (int)floor(data->p.pos.x / CUBE_SIZE);
+    y = (int)floor(data->p.pos.y / CUBE_SIZE);
+
+    t_ray res = get_redirection_ray(data->p.angle);
+    if (res.is_down && is_valid_pos(x, y + 1, data) && data->map[y + 1][x] == 'D')
+		data->map[y + 1][x] = 'd';
+	else if (res.is_up && is_valid_pos(x, y - 1, data) && data->map[y - 1][x] == 'D')
+		data->map[y - 1][x] = 'd';
+	else if (res.is_left && is_valid_pos(x + 1, y, data) && data->map[y][x + 1] == 'D')
+		data->map[y][x + 1] = 'd';
+	else if (res.is_left && is_valid_pos(x - 1, y, data) && data->map[y][x - 1] == 'D')
+		data->map[y][x - 1] = 'd';
+}
+
+void close_door(t_data *data)
+{
+    int x, y;
+
+    x = (int)floor(data->p.pos.x / CUBE_SIZE);
+    y = (int)floor(data->p.pos.y / CUBE_SIZE);
+
+    t_ray res = get_redirection_ray(data->p.angle);
+    if (res.is_down && is_valid_pos(x, y + 1, data) && data->map[y + 1][x] == 'd')
+		data->map[y + 1][x] = 'D';
+	else if (res.is_up && is_valid_pos(x, y - 1, data) && data->map[y - 1][x] == 'd')
+		data->map[y - 1][x] = 'D';
+	else if (res.is_left && is_valid_pos(x + 1, y, data) && data->map[y][x + 1] == 'd')
+		data->map[y][x + 1] = 'D';
+	else if (res.is_left && is_valid_pos(x - 1, y, data) && data->map[y][x - 1] == 'd')
+		data->map[y][x - 1] = 'D';
+}
 
 int	onpress(int k, t_data *data)
 {
@@ -38,10 +83,9 @@ int	onpress(int k, t_data *data)
 	if (k == KEY_M)
 		data->mouse_enable = (data->mouse_enable == 0) * 1;
 	if (k == KEY_O)
-	{
-		if (!is_door(data->p.pos.x, data->p.pos.y, data))
-			data->door = (data->door == 0) * 1;
-	}
+		open_door(data);
+	else if (k == KEY_C)
+		close_door(data);
 	return (0);
 }
 
@@ -103,7 +147,7 @@ bool	is_door(float x, float y, t_data *data)
 
 	new_x = x / CUBE_SIZE;
 	new_y = y / CUBE_SIZE;
-	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
+	if (new_x < 0 || new_x >= data->width || new_y < 0 || new_y >= data->height)
 		return (false);
 	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
 		return (false);
@@ -119,7 +163,7 @@ bool	is_wall2(float x, float y, t_data *data)
 
 	new_x = x / CUBE_SIZE;
 	new_y = y / CUBE_SIZE;
-	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
+	if (new_x < 0 || new_x >= data->width || new_y < 0 || new_y >= data->height)
 		return (true);
 	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
 		return (true);

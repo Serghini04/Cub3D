@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/12 17:47:10 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:18:56 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define KEY_Q	12
 # define KEY_O	31
 # define KEY_M 46
+# define KEY_C 8
 
 # define KEY_LEFT 	123
 # define KEY_RIGHT	124
