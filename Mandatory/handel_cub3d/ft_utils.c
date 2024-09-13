@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:49:16 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/12 10:08:54 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:07:09 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ void	free_myallocation(t_map *map, int index)
 	if (index > 0)
 	{
 		while (++i < index && arr[i])
-		free(arr[i]);
+			free(arr[i]);
 	}
 	else if (!index)
+	{
 		while (arr[++i])
 			free(arr[i]);
+	}
 	free(arr);
 	map->tab_map = NULL;
 }
@@ -68,7 +70,7 @@ void	check_namefile(char *name_map)
 	}
 }
 
-int check_beginning(char *line)
+int	check_beginning(char *line)
 {
 	if (!ft_strncmp(line, "NO ", 3))
 		return (1);
@@ -82,5 +84,5 @@ int check_beginning(char *line)
 		return (5);
 	else if (!ft_strncmp(line, "F ", 2))
 		return (6);
-	return (0); 
+	return (0);
 }

@@ -6,11 +6,22 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/13 11:31:14 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:40:21 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
+
+int	chek_alllines(char **arr, int i, int j, int len)
+{
+	while (i < len)
+	{
+		if ((int)ft_strlen(arr[i]) > j && !is_sp(&arr[i][j]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 {
@@ -18,25 +29,26 @@ int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 	{
 		map->tex_so = ft_strdup(line);
 		if (!map->tex_so)
-			return (0);  
+			return (0);
 	}
 	else if (ret == 3)
 	{
 		map->tex_we = ft_strdup(line);
 		if (!map->tex_we)
-			return (0);  
+			return (0);
 	}
 	else if (ret == 4)
 	{
 		map->tex_ea = ft_strdup(line);
 		if (!map->tex_ea)
-			return (0);  
+			return (0);
 	}
 	else
 		check_colloers(line, map, ret, index_line);
 	return (1);
 }
-int ft_stor_line(char *line, t_map *map, int ret, int index_line)
+
+int	ft_stor_line(char *line, t_map *map, int ret, int index_line)
 {
 	char	*tmp;
 
@@ -56,14 +68,14 @@ int ft_stor_line(char *line, t_map *map, int ret, int index_line)
 			return (0);
 	}
 	else if (!ft_checknext(map, line, ret, index_line))
-			return (0);
+		return (0);
 	return (1);
 }
 
 void	ft_check_line(char *line, int index_line, t_map *map)
 {
-	int i;
-	int ret;
+	int	i;
+	int	ret;
 
 	i = 2;
 	ret = check_beginning(line);
@@ -85,7 +97,7 @@ void	ft_check_line(char *line, int index_line, t_map *map)
 
 void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 {
-	int i;
+	int			i;
 	static int	line_y;
 
 	i = -1;

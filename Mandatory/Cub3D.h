@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/11 12:06:12 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:37:48 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void	*ft_memset(void *b, int c, size_t len);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(char *s, int c);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // utils:
 float	max(float a, float b);
@@ -200,6 +201,10 @@ void	start_init_mlx(t_data *data);
 int		start_rendering(t_data *data);
 
 // parce
+int		chek_alllines(char **arr, int i, int j, int len);
+void	run_error(t_map *map, char *line, int j);
+void	ft_check_(t_map *map, char *line, int i, int j);
+void	runerror(t_map *map, char **arr, int i, int j);
 void	fill_data(t_map *map, t_data *data);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*get_next_line(int fd);
@@ -226,6 +231,6 @@ void	check_arrmap(t_map *map, int len);
 void	check_spand0(char **arr, int *flag, int i, int j);
 void	check_player(char **arr, int *flag, int i, int j);
 void	check_devided(t_map *map,int len, int i, int j);
-int		is_spaces(char *line);
+int		is_sp(char *line);
 
 #endif

@@ -6,15 +6,15 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/13 11:19:06 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:55:14 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-void	run_Error(t_map *map, char *line, int j)
+void	run_error(t_map *map, char *line, int j)
 {
-	if (is_spaces(line))
+	if (is_sp(line))
 		printf ("The map must be closed by character '1'! \n");
 	else
 		printf ("Empty line in the map !\n");
@@ -24,30 +24,30 @@ void	run_Error(t_map *map, char *line, int j)
 
 void	read_lines(t_map *map, int fd, int len_map)
 {
-	char	*line;
-	int		index_line;
-	int		i;
-	int		j;
+	char		*line;
+	static int	index_line;
+	int			i;
+	int			j;
 
 	i = 0;
 	j = -1;
-	index_line = 1;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line && ++index_line)
 	{
 		if (i < 6 && line[0] != '\n')
 		{
 			ft_check_line(line, index_line, map);
 			i++;
 		}
-		else if (i >= 6 && line[0] != '\n' && !is_spaces(line))
+		else if (i >= 6 && line[0] != '\n' && !is_sp(line))
 		{
 			map->tab_map[++j] = ft_strdup(line);
 			i++;
 		}
-		else if (j >= 0 && i < len_map + 6 && (line[0]== '\n' || is_spaces(line)))
-			run_Error(map,line, j);
+		else if (j >= 0 && i < len_map + 6 && (line[0] == '\n' || is_sp(line)))
+			run_error(map, line, j);
 		free (line);
-		++index_line;
+		line = get_next_line(fd);
 	}
 }
 
@@ -58,7 +58,7 @@ int	check_input(char **av, t_map *map)
 
 	check_namefile(av[1]);
 	len_map = ft_allocmap(map, av);
-	fd = open(av[1],  O_RDONLY , 0644);
+	fd = open(av[1], O_RDONLY, 0644);
 	if (fd == -1)
 	{
 		printf ("open() failed ! maby Pathfile_map'%s' not existed!\n", av[1]);
@@ -70,24 +70,24 @@ int	check_input(char **av, t_map *map)
 	return (len_map);
 }
 
-void check_devided(t_map *map,int len, int i, int j)
+void	check_devided(t_map *map, int len, int i, int j)
 {
-	char **arr;
+	char	**arr;
 
 	arr = map->tab_map;
-	if ( i == len - 1 || (int)ft_strlen(arr[i + 1]) - 2 < j)
+	if (i == len - 1 || (int)ft_strlen(arr[i + 1]) - 2 < j)
 	{
 		printf("The map must be closed by character '1'! \n");
 		free_myallocation(map, 0);
 		exit(EXIT_SUCCESS);
 	}
 	while (arr[i][j] && arr[i][j] == ' ')
-			j++;
+		j++;
 	--j;
 	while (j >= 0 && arr[i][j] == ' ')
 	{
 		if (arr[i + 1] && arr[i + 1][j] == ' ')
-			check_devided(map,len, i + 1, j);
+			check_devided(map, len, i + 1, j);
 		if (arr[i][j - 1] == ' ')
 			j--;
 		else
@@ -95,31 +95,11 @@ void check_devided(t_map *map,int len, int i, int j)
 	}
 	return ;
 }
-void	runError(t_map *map, char **arr, int i, int j)
+
+void	check_firstlastline(t_map *map, char **arr, int len)
 {
-		if (is_player(arr[i][j]))
-			printf("Unvalid posotin of player !\n");
-		else if (i)
-			printf("Last line in the map is Invalid !\n");
-		else
-			printf("First line in the map is Invalid !\n");
-		free_myallocation(map, 0);
-		exit(EXIT_SUCCESS);
-}
-int chek_alllines(char **arr, int i, int j, int len)
-{
-	while(i < len )
-	{
-		if ((int)ft_strlen(arr[i]) > j && !is_spaces(&arr[i][j]))
-			return (1);
-		i++;
-	}
-	return(0);
-}
-void	check_firstlastline(t_map *map,char **arr, int len)
-{
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < len)
@@ -130,8 +110,7 @@ void	check_firstlastline(t_map *map,char **arr, int len)
 			if (!i || i == len -1)
 			{
 				if (arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')
-					runError(map, arr, i, j);
-				
+					runerror(map, arr, i, j);
 			}
 			if (arr[i][j] == ' ')
 			{
