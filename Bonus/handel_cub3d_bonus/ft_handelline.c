@@ -6,11 +6,22 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/12 09:59:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:07:29 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D_bonus.h"
+
+int	chek_alllines(char **arr, int i, int j, int len)
+{
+	while (i < len)
+	{
+		if ((int)ft_strlen(arr[i]) > j && !is_sp(&arr[i][j]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 {
@@ -36,13 +47,20 @@ int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 		check_colloers(line, map, ret, index_line);
 	return (1);
 }
-int ft_stor_line(char *line, t_map *map, int ret, int index_line)
+
+int	ft_stor_line(char *line, t_map *map, int ret, int index_line)
 {
 	char	*tmp;
 
 	tmp = ft_strchr(line, '\n');
 	if (tmp)
 		*(--tmp) = '\0';
+	if (!line[0])
+	{
+		printf("Unvalid Line : %d\n", index_line);
+		free_myallocation(map, -1);
+		exit(EXIT_FAILURE);
+	}
 	if (ret == 1)
 	{
 		map->tex_no = ft_strdup(line);
@@ -50,20 +68,20 @@ int ft_stor_line(char *line, t_map *map, int ret, int index_line)
 			return (0);
 	}
 	else if (!ft_checknext(map, line, ret, index_line))
-			return (0);
+		return (0);
 	return (1);
 }
 
 void	ft_check_line(char *line, int index_line, t_map *map)
 {
-	int i;
-	int ret;
+	int	i;
+	int	ret;
 
 	i = 2;
 	ret = check_beginning(line);
 	if (!ret)
 	{
-		printf("Unvalid Line : %d\n", index_line);
+		printf("Unvalid Input in the line : %d\n", index_line);
 		free_myallocation(map, -1);
 		exit(EXIT_FAILURE);
 	}
@@ -79,12 +97,11 @@ void	ft_check_line(char *line, int index_line, t_map *map)
 
 void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 {
-	int i;
+	int			i;
 	static int	line_y;
 
 	i = -1;
 	line_y++;
-	(void)index_line;
 	while (line && line[++i])
 	{
 		if (is_player(line[i]) && !*flag)
@@ -99,10 +116,10 @@ void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 			printf ("At least one player must exist in the map\n");
 			exit(EXIT_SUCCESS);
 		}
-		// if (!is_player(line[i]) && !is_avalidchar(line[i]))
-		// {
-		// 	printf("Unvalid Line in the map line : %d\n", index_line);
-		// 	exit(EXIT_SUCCESS);
-		// }
+		if (!is_player(line[i]) && !is_avalidchar(line[i]))
+		{
+			printf("Unvalid Line in the map line : %d\n", index_line);
+			exit(EXIT_SUCCESS);
+		}
 	}
 }

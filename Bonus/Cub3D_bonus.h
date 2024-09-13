@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/12 17:47:10 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:13:15 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ typedef struct s_map
 	unsigned int	ceil;
 	int				pos_x;
 	int				pos_y;
+	int				len;
 	int				h;
 	int				w;
 	char			angle_view;
@@ -178,6 +179,7 @@ typedef struct s_map
 // lib:
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(char *s);
 char	*ft_strdup(char *s1);
 void	free_arr(char **res);
@@ -211,6 +213,10 @@ t_vec	find_hor_intersection(t_ray	*res, t_data *data);
 t_vec	find_ver_intersection(t_ray *res, t_data *data);
 
 // parce
+int		chek_alllines(char **arr, int i, int j, int len);
+void	run_error(t_map *map, char *line, int j);
+void	ft_check_(t_map *map, char *line, int i, int j);
+void	runerror(t_map *map, char **arr, int i, int j);
 void	fill_data(t_map *map, t_data *data);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*get_next_line(int fd);
@@ -236,7 +242,8 @@ int		check_input(char **av, t_map *map);
 void	check_arrmap(t_map *map, int len);
 void	check_spand0(char **arr, int *flag, int i, int j);
 void	check_player(char **arr, int *flag, int i, int j);
-void fill_data(t_map *map, t_data *data);
+void	check_devided(t_map *map,int len, int i, int j);
+int		is_sp(char *line);
 
 // main
 void	start_init_mlx(t_data *data);

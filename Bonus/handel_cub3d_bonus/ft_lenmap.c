@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lenmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:47 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/09 12:29:39 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:07:35 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,19 @@ void	ft_map(int flag)
 		exit(EXIT_FAILURE);
 	}
 }
+
+void	runerror(t_map *map, char **arr, int i, int j)
+{
+	if (is_player(arr[i][j]))
+		printf("Unvalid posotin of player !\n");
+	else if (i)
+		printf("Last line in the map is Invalid !\n");
+	else
+		printf("First line in the map is Invalid !\n");
+	free_myallocation(map, 0);
+	exit(EXIT_SUCCESS);
+}
+
 int	ft_readline(t_map *map, char *line, int fd, int *flag)
 {
 	int	len;
@@ -49,37 +62,37 @@ int	ft_readline(t_map *map, char *line, int fd, int *flag)
 	return (len);
 }
 
-int ft_lenmap(t_map *map , const char *path_map)
+int	ft_lenmap(t_map *map, const char *path_map)
 {
-	int		len;
 	int		fd;
 	int		flag;
 	char	*line;
 
-	len = 0;
 	flag = 0;
-	fd = open(path_map,  O_RDONLY , 0644);
+	fd = open(path_map, O_RDONLY, 0644);
 	if (fd == -1)
 	{
 		printf ("open() failed{check path_filemap, ..!}\n");
 		exit(EXIT_FAILURE);
 	}
-	if (!(line = get_next_line(fd)))
+	line = get_next_line(fd);
+	if (!line)
 	{
 		printf("Empty file_map !!\n");
 		exit(EXIT_SUCCESS);
 	}
-	len = ft_readline(map, line, fd, &flag);
+	map->len = ft_readline(map, line, fd, &flag);
 	if (!flag)
 	{
 		printf("The player is Not existance in the map !\n");
 		exit(EXIT_FAILURE);
 	}
-	return (len);
+	return (map->len);
 }
+
 int	ft_allocmap(t_map *map, char **av)
 {
-	int len_map;
+	int	len_map;
 
 	len_map = ft_lenmap(map, av[1]) - 6;
 	map->tab_map = malloc((len_map + 1) * sizeof(char *));

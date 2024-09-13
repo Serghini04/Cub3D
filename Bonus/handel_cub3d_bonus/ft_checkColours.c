@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:19 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/12 10:33:32 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:07:17 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_check_maxcollor(int R, int G, int B)
 {
-	if (R > 255 || R < 0 || G > 255 || G < 0 ||  B > 255 || B < 0)
+	if (R > 255 || R < 0 || G > 255 || G < 0 || B > 255 || B < 0)
 		return (1);
 	return (0);
 }
@@ -22,23 +22,23 @@ int	ft_check_maxcollor(int R, int G, int B)
 void	check_syntax(t_map *map, char *line, int index_line)
 {
 	int	i;
-	int	counter;
+	int	c;
 
 	i = 1;
-	counter = 0;
+	c = 0;
 	while (line[i] && line[i] == ' ')
 		i++;
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == ',')
 		{
-			counter++;
-			if(line[i + 1] && line[i + 1] == ' ')
+			c++;
+			if (line[i + 1] && line[i + 1] == ' ')
 				i++;
 			while (line[i] && line[i] == ' ')
 				i++;
 		}
-		if ((!(line[i] >= '0' && line[i] <= '9') && line[i] != ',') || counter > 2)
+		if ((!(line[i] >= '0' && line[i] <= '9') && line[i] != ',') || c > 2)
 		{
 			printf ("Error: \nInvalid Syntax in the line %d\n", index_line);
 			free_myallocation(map, -1);
@@ -52,9 +52,10 @@ unsigned int	chift_coolor(unsigned int R, unsigned int G, unsigned int B)
 {
 	return (R << 16 | G << 8 | B);
 }
-void	is_validRGB(t_map *map, int index_line, char **ptr)
+
+void	is_validrgb(t_map *map, int index_line, char **ptr)
 {
-		if (!ptr || !*ptr || !*(ptr + 1) || !*(ptr + 2))
+	if (!ptr || !*ptr || !*(ptr + 1) || !*(ptr + 2))
 	{
 		free_arr(ptr);
 		free_myallocation(map, -1);
@@ -63,21 +64,22 @@ void	is_validRGB(t_map *map, int index_line, char **ptr)
 		exit(EXIT_FAILURE);
 	}
 }
+
 void	check_colloers(char *line, t_map *map, int ret, int index_line)
 {
 	char			**ptr;
-	unsigned int	R;
-	unsigned int	G;
-	unsigned int	B;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
 
 	ptr = NULL;
 	check_syntax(map, line, index_line);
 	ptr = ft_split(line, ',');
-	is_validRGB(map, index_line, ptr);
-	R = ft_atoi(ptr[0]);
-	G = ft_atoi(ptr[1]);
-	B = ft_atoi(ptr[2]);
-	if (ft_check_maxcollor(R, G, B))
+	is_validrgb(map, index_line, ptr);
+	r = ft_atoi(ptr[0]);
+	g = ft_atoi(ptr[1]);
+	b = ft_atoi(ptr[2]);
+	if (ft_check_maxcollor(r, g, b))
 	{
 		free_arr(ptr);
 		free_myallocation(map, -1);
@@ -86,8 +88,8 @@ void	check_colloers(char *line, t_map *map, int ret, int index_line)
 		exit(EXIT_FAILURE);
 	}
 	if (ret == 5)
-		map->ceil = chift_coolor(R, G, B);
+		map->ceil = chift_coolor(r, g, b);
 	else if (ret == 6)
-		map->floor = chift_coolor(R, G, B);
+		map->floor = chift_coolor(r, g, b);
 	free_arr(ptr);
 }
