@@ -6,15 +6,16 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/09/13 21:03:23 by meserghi         ###   ########.fr        #
+#    Updated: 2024/09/14 12:30:10 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-lib = Mandatory/lib/ft_strdup.c Mandatory/lib/ft_strlen.c Mandatory/lib/free_arr.c Mandatory/lib/ft_strjoin.c Mandatory/lib/ft_split.c\
-	Mandatory/lib/ft_atoi.c
+lib = Mandatory/lib/ft_strdup.c Mandatory/lib/ft_strlen.c Mandatory/lib/free_arr.c\
+		Mandatory/lib/ft_strjoin.c Mandatory/lib/ft_split.c\
+		Mandatory/lib/ft_atoi.c
 
-utils = Mandatory/utils/mlx_hook.c Mandatory/utils/mlx_init.c Mandatory/utils/init_textures.c Mandatory/utils/rendering.c\
-		Mandatory/utils/get_color.c
+utils = Mandatory/utils/mlx_hook.c Mandatory/utils/mlx_init.c Mandatory/utils/init_textures.c\
+		Mandatory/utils/rendering.c Mandatory/utils/get_color.c
 
 ray_casting = Mandatory/ray_casting/ray_casting.c Mandatory/ray_casting/find_intersection.c
 
@@ -28,7 +29,8 @@ lib_bonus = Bonus/lib/ft_strdup.c Bonus/lib/ft_strlen.c Bonus/lib/free_arr.c Bon
 	Mandatory/lib/ft_atoi.c
 
 utils_bonus = bonus/utils/mlx_hook_bonus.c bonus/utils/mlx_init_bonus.c bonus/utils/init_textures_bonus.c \
-	bonus/utils/rendering_bonus.c bonus/utils/get_color_bonus.c
+	bonus/utils/rendring_bonus.c bonus/utils/get_color_bonus.c bonus/utils/math_utils_bonus.c\
+	bonus/utils/is_wall_bonus.c bonus/utils/rendring_utils_bonus.c
 
 ray_casting_bonus = bonus/ray_casting/ray_casting_bonus.c bonus/ray_casting/find_intersection_bonus.c
 
@@ -52,7 +54,7 @@ FILE_OBJ = ${FILE:.c=.o}
 
 FILE_OBJ_BONUS = ${FILE_BONUS:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -O3 #-fsanitize=address -g
 
 # Linux :
 # FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm

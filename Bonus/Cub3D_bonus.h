@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/13 21:02:47 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:39:13 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,70 +177,77 @@ typedef struct s_map
 }	t_map;
 
 // lib:
-char	*ft_itoa(int n);
-int		ft_atoi(const char *str);
-size_t	ft_strlen(char *s);
-char	*ft_strdup(char *s1);
-void	free_arr(char **res);
-void	*ft_memset(void *b, int c, size_t len);
-char	*ft_strjoin(char *s1, char *s2);
-char	**ft_split(char const *s, char c);
-char	*ft_strchr(char *s, int c);
+char		*ft_itoa(int n);
+int			ft_atoi(const char *str);
+size_t		ft_strlen(char *s);
+char		*ft_strdup(char *s1);
+void		free_arr(char **res);
+void		*ft_memset(void *b, int c, size_t len);
+char		*ft_strjoin(char *s1, char *s2);
+char		**ft_split(char const *s, char c);
+char		*ft_strchr(char *s, int c);
 
 // utils:
-float	max(float a, float b);
-int		loopfunc(t_data	*data);
-void	init_textures(t_data *data);
-int		mouse(int x, int y, t_data *data);
-int		onpress(int keycode, t_data *data);
-int		onrelease(int keycode, t_data *data);
-void	set_vec(t_vec *vec, float x, float y);
-bool	is_wall(float x, float y, t_data *data, t_ray *res);
-void	draw_line(float x1, float y1, t_data *data);
-int 	get_color(t_data *data, int type, t_vec *pos);
-void	my_pixel_put(t_img *img, int x, int y, int color);
+float		max(float a, float b);
+int			loopfunc(t_data	*data);
+void		init_textures(t_data *data);
+int			mouse(int x, int y, t_data *data);
+int			onpress(int keycode, t_data *data);
+int			onrelease(int keycode, t_data *data);
+void		put_color(t_data *data, t_vec_int pos, int color, int pow);
+void		draw_player(t_data *data, int color, int player_x, int player_y);
+void		init_drawing_floor(t_data *data, int i, t_vec *pos, \
+														float *wall_height);
+void		set_vec(t_vec *vec, float x, float y);
+bool		is_wall(float x, float y, t_data *data, t_ray *res);
+bool		is_valid_pos(int x, int y, t_data *data, char find);
+int			get_color(t_data *data, int type, t_vec *pos);
+void		init_minimap(t_data *d, t_vec_int *start_draw, \
+													t_vec_int *player_pos);
+void		my_pixel_put(t_img *img, int x, int y, int color);
+t_vec_int	set_vec_int(t_vec_int data, int x, int y);
 
 // ray casting
-float	check_angle(float angle);
-t_ray	get_redirection_ray(float angle);
-void	fill_field_of_view(t_data *data);
-float	distance_two_points(t_vec a, t_vec b);
-bool	is_door(float x, float y, t_data *data);
-bool	is_wall2(float x, float y, t_data *data);
-t_ray	ray_casting(float ray_angle, t_data *data);
-t_vec	find_hor_intersection(t_ray	*res, t_data *data);
-t_vec	find_ver_intersection(t_ray *res, t_data *data);
+float		check_angle(float angle);
+t_ray		get_redirection_ray(float angle);
+void		fill_field_of_view(t_data *data);
+float		distance_two_points(t_vec a, t_vec b);
+bool		is_door(float x, float y, t_data *data);
+bool		is_wall2(float x, float y, t_data *data);
+t_ray		ray_casting(float ray_angle, t_data *data);
+t_vec		find_hor_intersection(t_ray	*res, t_data *data);
+t_vec		find_ver_intersection(t_ray *res, t_data *data);
 
 // parce
-void	fill_data(t_map *map, t_data *data);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*get_next_line(int fd);
-char	*str_dup(char *s1);
-char	*str_chr(char *s, int c);
-char	*str_join(char *s1, char *s2);
-char	*premier_ligne(char *ptr_of_bfr2);
-char	*found_line(int fd, char **s_ptr);
-void	*mem_cpy(void *dst, void *src, size_t n);
-size_t	str_len(const char *s, char c);
-int		ft_handel_input(t_map *map, t_data *data, char **av);
-int		is_avalidchar(char c);
-void	free_myallocation(t_map *map, int index);
-int		is_player(char c);
-void	check_namefile(char *name_map);
-int		check_beginning(char *line);
-void	check_colloers(char *line, t_map *map, int ret, int index_line);
-void	ft_check_line(char *line, int index_line, t_map *map);
-void	check_firstlastline(t_map *map,char **arr, int len);
-void	check_linemap(t_map *map, char *line, int index_line, int *flag);
-int		ft_allocmap(t_map *map, char **av);
-int		check_input(char **av, t_map *map);
-void	check_arrmap(t_map *map, int len);
-void	check_spand0(char **arr, int *flag, int i, int j);
-void	check_player(char **arr, int *flag, int i, int j);
-void fill_data(t_map *map, t_data *data);
+void		fill_data(t_map *map, t_data *data);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+char		*get_next_line(int fd);
+char		*str_dup(char *s1);
+char		*str_chr(char *s, int c);
+char		*str_join(char *s1, char *s2);
+char		*premier_ligne(char *ptr_of_bfr2);
+char		*found_line(int fd, char **s_ptr);
+void		*mem_cpy(void *dst, void *src, size_t n);
+size_t		str_len(const char *s, char c);
+int			ft_handel_input(t_map *map, t_data *data, char **av);
+int			is_avalidchar(char c);
+void		free_myallocation(t_map *map, int index);
+int			is_player(char c);
+void		check_namefile(char *name_map);
+int			check_beginning(char *line);
+void		check_colloers(char *line, t_map *map, int ret, int index_line);
+void		ft_check_line(char *line, int index_line, t_map *map);
+void		check_firstlastline(t_map *map, char **arr, int len);
+void		check_linemap(t_map *map, char *line, int index_line, int *flag);
+int			ft_allocmap(t_map *map, char **av);
+int			check_input(char **av, t_map *map);
+void		check_arrmap(t_map *map, int len);
+void		check_spand0(char **arr, int *flag, int i, int j);
+void		check_player(char **arr, int *flag, int i, int j);
+void		fill_data(t_map *map, t_data *data);
 
 // main
-void	start_init_mlx(t_data *data);
-int		start_rendering(t_data *data);
+void		start_init_mlx(t_data *data);
+int			start_rendering(t_data *data);
 
 #endif

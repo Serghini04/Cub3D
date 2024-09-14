@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:13:52 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/13 19:51:08 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:06:50 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	fill_data(t_map *map, t_data *data)
 	data->p.pos.y = map->pos_y * CUBE_SIZE;
 	data->p.pos.x += (CUBE_SIZE / 2);
 	data->p.pos.y += (CUBE_SIZE / 2);
-	data->p.angle = M_PI_2;
 	data->p.rotation_speed = 0.03;
 	data->p.move_speed = 8;
 	data->p.turn_dir = 0;

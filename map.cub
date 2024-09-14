@@ -1,5 +1,5 @@
 SO textures/SO.xpm
-WE textures/new1.xpm
+WE textures/new.xpm
 NO textures/egy.xpm
 EA textures/wall1.xpm
 
@@ -8,6 +8,7 @@ C 45,5,9
 F 0,1,90
 
 
-111
-1N01
-111
+111111111
+111111001
+1DDDDD0W1
+111111111

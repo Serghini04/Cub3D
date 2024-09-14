@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handel_Cub3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/11 14:21:23 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:04:33 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,13 @@ int	ft_handel_input(t_map *map, t_data *data, char **av)
 	len_map = check_input(av, map);
 	check_arrmap(map, len_map);
 	fill_data(map, data);
+	if (map->angle_view == 'N')
+		data->p.angle = 3 * M_PI / 2;
+	else if (map->angle_view == 'S')
+		data->p.angle =  M_PI_2;
+	else if (map->angle_view == 'E')
+		data->p.angle = 0;
+	else if (map->angle_view == 'W')
+		data->p.angle = M_PI;
 	return (1);
 }

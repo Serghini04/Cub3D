@@ -6,13 +6,13 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/13 12:23:42 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:16:52 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3D_bonus.h"
 
-void intro()
+void	intro(void)
 {
 	printf("\033[94m   ____      _    _____ ____    ____\n");
 	printf("  / ___|   _| |__|___ /|  _ \\  | __ )  ___  _ __  _   _ ___\n");
@@ -24,27 +24,27 @@ void intro()
 
 void	init_weapon(t_data *data)
 {
-	int	i;
-	int	x;
-	int	y;
+	int		i;
+	int		x;
+	int		y;
+	char	*name;
+	char	*tmp;
 
 	i = 0;
+	tmp = NULL;
+	name = NULL;
 	while (i < 42)
 	{
-		char *res= ft_strjoin("textures/cs2/", ft_strjoin(ft_itoa(i), ".xpm"));
-		if (!res)
-		{
-			printf("Malloc failing !!!\n");
-			exit(1);
-		}
-		printf("Loading Texture : %s , Please Wait...", res);
-		data->weapon[i] = mlx_xpm_file_to_image(data->mlx, res, &x, &y);
+		tmp = ft_strjoin(ft_itoa(i), ".xpm");
+		if (!tmp)
+			(printf("malloc failing.\n"), exit(1));
+		name = ft_strjoin("textures/cs2/", tmp);
+		if (!name)
+			(printf("malloc failing.\n"), exit(1));
+		printf("Loading Texture : %s ✅, Please Wait...\n", name);
+		data->weapon[i] = mlx_xpm_file_to_image(data->mlx, name, &x, &y);
 		if (!data->weapon[i])
-		{
-			printf("Issue in converting image : %s\n", res);
-			exit(1);
-		}
-		printf("✅\n");
+			(printf("Issue in converting image : %s\n", name), exit(1));
 		i++;
 	}
 }
@@ -61,37 +61,15 @@ void	init_game(t_data *data)
 	}
 	system("clear");
 	intro();
-    printf("  👹Welcome, player! Let's start the game👹.\n");
+	printf("  👹Welcome, player! Let's start the game👹.\n");
 	init_textures(data);
-}
-
-float	max(float a, float b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-void	set_vec(t_vec *vec, float x, float y)
-{
-	vec->x = x;
-	vec->y = y;
-}
-
-
-void	f(void)
-{
-	system("leaks cub3D_bonus");
 }
 
 int	main(int ac, char **av)
 {
 	t_data	data;
 	t_map	map;
-	int  i;
 
-	i = 0;
-	atexit(f);
 	if (ac != 2)
 	{
 		printf("Number of argummet not valid !!\n");
