@@ -6,22 +6,11 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/13 16:07:29 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/15 10:33:18 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D_bonus.h"
-
-int	chek_alllines(char **arr, int i, int j, int len)
-{
-	while (i < len)
-	{
-		if ((int)ft_strlen(arr[i]) > j && !is_sp(&arr[i][j]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 {
@@ -81,7 +70,8 @@ void	ft_check_line(char *line, int index_line, t_map *map)
 	ret = check_beginning(line);
 	if (!ret)
 	{
-		printf("Unvalid Input in the line : %d\n", index_line);
+		printf("Unvalid Input in the line : %d \n", index_line);
+		printf("OR Missing some elemments of input file\n");
 		free_myallocation(map, -1);
 		exit(EXIT_FAILURE);
 	}

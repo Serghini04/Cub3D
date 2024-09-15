@@ -6,22 +6,36 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:55 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/13 15:37:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:32:36 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-int	is_sp(char *line)
+int	is_sp(char *line, int index)
 {
 	int	i;
 
-	i = -1;
-	while (line && line[++i] && line[i] != '\n')
+	i = 0;
+if (index)
+{
+	while (line && line[i] && line[i] != '\n' && i < index)
 	{
 		if (line[i] != ' ')
 			return (0);
+			i++;
 	}
+}
+else
+{
+	while (line && line[i] && line[i] != '\n')
+	{
+		if (line[i] != ' ')
+			return (0);
+			i++;
+	}
+
+}
 	return (1);
 }
 

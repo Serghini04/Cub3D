@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:19 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/13 15:56:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:06:10 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ void	check_syntax(t_map *map, char *line, int index_line)
 	int	i;
 	int	c;
 
-	i = 1;
+	i = 0;
 	c = 0;
-	while (line[i] && line[i] == ' ')
-		i++;
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == ',')

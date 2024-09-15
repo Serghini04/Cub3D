@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/13 15:37:48 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/15 10:47:59 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void	*ft_memset(void *b, int c, size_t len);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(char *s, int c);
+char	*ft_strtrim(char *s1, char *set);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // utils:
@@ -231,6 +232,6 @@ void	check_arrmap(t_map *map, int len);
 void	check_spand0(char **arr, int *flag, int i, int j);
 void	check_player(char **arr, int *flag, int i, int j);
 void	check_devided(t_map *map,int len, int i, int j);
-int		is_sp(char *line);
+int		is_sp(char *line, int index);
 
 #endif

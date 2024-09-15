@@ -6,12 +6,12 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/09/13 16:14:03 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/09/15 11:53:12 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 lib = Mandatory/lib/ft_strdup.c Mandatory/lib/ft_strlen.c Mandatory/lib/free_arr.c Mandatory/lib/ft_strjoin.c Mandatory/lib/ft_split.c\
-	Mandatory/lib/ft_atoi.c Mandatory/lib/ft_strncmp.c
+	Mandatory/lib/ft_atoi.c Mandatory/lib/ft_strncmp.c Mandatory/lib/ft_strtrim.c
 
 utils = Mandatory/utils/mlx_hook.c Mandatory/utils/mlx_init.c Mandatory/utils/init_textures.c Mandatory/utils/rendering.c\
 		Mandatory/utils/get_color.c
