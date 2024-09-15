@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:55 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/15 15:32:36 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:19:20 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ else
 
 void	check_spand0(char **arr, int *flag, int i, int j)
 {
-	if ((arr[i][j] == '0' && (arr[i + 1][j] == ' ' || \
+	if ((arr[i][j] == '0' && ((int)ft_strlen(arr[i + 1]) - 1 <= j|| arr[i + 1][j] == ' ' || \
 		arr[i][j + 1] == ' ' || arr[i][j + 1] == '\0')) || arr[i][0] == '0')
 		*flag = 0;
 	else if (arr[i][j] == ' ' && (arr[i + 1][j] == '0' || \
@@ -58,7 +58,7 @@ void	check_spand0(char **arr, int *flag, int i, int j)
 
 void	check_player(char **arr, int *flag, int i, int j)
 {
-	if (is_player(arr[i][j]) && (j == 0 || arr[i][j + 1] == ' ' || \
+	if (is_player(arr[i][j]) && ((int)ft_strlen(arr[i + 1]) - 1 <= j || j == 0 || arr[i][j + 1] == ' ' || \
 		arr[i + 1][j] == ' ' || arr[i][j + 1] == '\0'))
 		*flag = -1;
 	else if ((is_player(arr[i][j + 1])) && (arr[i][j] == ' ' || \

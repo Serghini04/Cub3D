@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/15 16:22:19 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:11:20 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,19 @@ void	check_devided(t_map *map, int len, int i, int j)
 	int		lent;
 
 	arr = map->tab_map;
-	while (i <= len - 1 && arr[i][j] == ' ')
+	lent = (int)ft_strlen(arr[i]);
+	while (i <= len - 1 && lent > j && arr[i][j] == ' ')
 	{
-		if (i == len - 1 || (int)ft_strlen(arr[i]) <= j)
+		if (i == len - 1 || (int)ft_strlen(arr[i]) <= j || is_sp(arr[i], j))
 		{
-			printf("The map must closed bu character '1' !\n");
-			exit(1);
+				printf("The map must be closed by character '1'! \n");
+				free_myallocation(map, 0);
+				exit(EXIT_SUCCESS);
 		}
 		while(j && arr[i][j]== ' ')
 			j--;
 		j++;
-		while (arr[i][j] && arr[i][j] == ' ')
+		while (arr[i][j] && arr[i][j + 1] == ' ')
 		{
 			lent = (int)ft_strlen(arr[i + 1]);
 			if (i + 1 < len && lent > j && arr[i + 1][j] == ' ')
@@ -144,12 +146,23 @@ void	check_firstlastline(t_map *map, char **arr, int len)
 			{
 				if (((int)ft_strlen(arr[i + 1]) - 1 < j || is_sp(&arr[i + 1][j], 0)))
 				{
-					printf("@The map must closed bu character '1' !\n");
-					exit(1);
+					printf("The map must be closed by character '1'! \n");
+					free_myallocation(map, 0);
+					exit(EXIT_SUCCESS);
 				}
 				if (i < len - 1 && arr[i + 1][j] == ' ' && chek_previews(arr, i + 1, j))
 				{
 					check_devided(map, len, i + 1, j);
+				}
+			}
+			if (i == len - 1 && arr[i][j] == ' ' && !is_sp(&arr[i][j], 0) && !is_sp(arr[i], j + 1))
+			{
+				if (arr[i-1][j]== ' ' && chek_previews(arr, i -1 , j))
+				{
+					printf("The map must be closed by character '1'! \n");
+					free_myallocation(map, 0);
+					exit(EXIT_SUCCESS);
+					
 				}
 			}
 		}
