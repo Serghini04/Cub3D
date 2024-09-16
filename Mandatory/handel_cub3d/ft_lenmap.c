@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:47 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/14 09:30:12 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:14:44 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int	ft_allocmap(t_map *map, char **av)
 		exit(EXIT_FAILURE);
 	}
 	map->tab_map[len_map] = NULL;
+	map->len = len_map;
 	return (len_map);
 }

@@ -59,3 +59,9 @@ void check_devided(char **arr,int len, int i, int j)
         11111111111111     
        10000000E0000001    
         111111111111111
+
+
+SO       textures/SO.xpm
+WE       textures/new1.xpm
+NO       textures/egy.xpm
+EA      textures/wall1.xpm

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/15 20:57:36 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:57:02 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	main(int ac, char *av[])
 		return (1);
 	}
 	ft_handel_input(&map, &data, av);
-	printf("===========\n");
-	for (int i =0;  data.map[i];i++)
-		printf("%s\n", data.map[i]);
-	printf("(%d,%d)\n", map.pos_x, map.pos_y);
+	// printf("===========\n");
+	// for (int i =0;  data.map[i];i++)
+	// 	printf("%s\n", data.map[i]);
+	// printf("(%d,%d)\n", map.pos_x, map.pos_y);
 	start_init_mlx(&data);
 	init_game(&data);
 	mlx_loop_hook(data.mlx, loopfunc, &data);

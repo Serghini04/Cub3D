@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/15 21:14:00 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:07:14 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	check_arrmap(t_map *map, int len)
 		}
 		if (arr[i][j])
 			check_line(map, arr, i, j);
-		else if (arr[i + 1][j] )
+		else if ((int)ft_strlen(arr[i + 1]) > j && arr[i + 1][j])
 			check_line(map, arr, i + 1, j);
 	}
 
@@ -91,7 +91,7 @@ void	ft_handelsps(t_map *map)
 		while (map->tab_map[i][j] && map->tab_map[i][j] ==' ')
 			j++;
 		if (min_index > j)
-				min_index = j;
+			min_index = j;
 		i++;
 	}
 	i = 0;
