@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/15 18:13:22 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/15 21:14:00 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,10 @@ void	ft_handelsps(t_map *map)
 		free(tmp);
 		i++;
 	}
-	// i = 0;
-	// while (map->tab_map[i])
-	// 	printf("%s", map->tab_map[i++]);
+	map->pos_x -= min_index;
+	i = 0;
+	while (map->tab_map[i])
+		printf("%s", map->tab_map[i++]);
 }
 int	ft_handel_input(t_map *map, t_data *data, char **av)
 {

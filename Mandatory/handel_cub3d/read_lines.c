@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/15 18:11:20 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:01:55 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,28 +77,25 @@ void	check_devided(t_map *map, int len, int i, int j)
 
 	arr = map->tab_map;
 	lent = (int)ft_strlen(arr[i]);
-	while (i <= len - 1 && lent > j && arr[i][j] == ' ')
+	if (i == len - 1 || (int)ft_strlen(arr[i]) <= j || is_sp(arr[i], j))
 	{
-		if (i == len - 1 || (int)ft_strlen(arr[i]) <= j || is_sp(arr[i], j))
-		{
-				printf("The map must be closed by character '1'! \n");
-				free_myallocation(map, 0);
-				exit(EXIT_SUCCESS);
-		}
-		while(j && arr[i][j]== ' ')
-			j--;
-		j++;
-		while (arr[i][j] && arr[i][j + 1] == ' ')
-		{
-			lent = (int)ft_strlen(arr[i + 1]);
-			if (i + 1 < len && lent > j && arr[i + 1][j] == ' ')
-			{
-				check_devided(map, len, i + 1, j);
-			}
-			j++;
-		}
-		i++;
+		printf("The map must be closed by character '1'! \n");
+		free_myallocation(map, 0);
+		exit(EXIT_SUCCESS);
 	}
+	while(j && arr[i][j]== ' ')
+		j--;
+	j++;
+	while (arr[i][j] && arr[i][j] == ' ')
+	{
+		lent = (int)ft_strlen(arr[i + 1]);
+		if (i < len && lent > j && arr[i + 1][j] == ' ')
+		{
+			check_devided(map, len, i + 1, j);
+		}
+		j++;
+	}
+
 }
 
 int	chek_previews(char **arr, int i, int j)
@@ -112,7 +109,7 @@ int	chek_previews(char **arr, int i, int j)
 		j++;
 		while (arr[i][j] && arr[i][j] == ' ')
 		{
-			if ((int)ft_strlen(arr[i - 1]) -1 < j || is_sp(&arr[i - 1][j], 0) || is_sp(arr[i - 1], j + 1))
+			if ((int)ft_strlen(arr[i - 1]) - 1 < j || is_sp(&arr[i - 1][j], 0) || is_sp(arr[i - 1], j + 1))
 				return (1);
 			if (arr[i - 1][j] == ' ')
 			{
@@ -142,15 +139,16 @@ void	check_firstlastline(t_map *map, char **arr, int len)
 				if (arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')
 					runerror(map, arr, i, j);
 			}
-			if (arr[i][j] == ' ' && !is_sp(&arr[i][j], 0) && !is_sp(arr[i], j + 1) && i < len - 1)
-			{
+			
+			if (arr[i][j] == ' ' && !is_sp(&arr[i][j], 0) && !is_sp(arr[i], j + 1) && i + 1 < len - 1)
+			{		
 				if (((int)ft_strlen(arr[i + 1]) - 1 < j || is_sp(&arr[i + 1][j], 0)))
 				{
 					printf("The map must be closed by character '1'! \n");
 					free_myallocation(map, 0);
 					exit(EXIT_SUCCESS);
 				}
-				if (i < len - 1 && arr[i + 1][j] == ' ' && chek_previews(arr, i + 1, j))
+				if (arr[i + 1][j] == ' ' && chek_previews(arr, i, j))
 				{
 					check_devided(map, len, i + 1, j);
 				}

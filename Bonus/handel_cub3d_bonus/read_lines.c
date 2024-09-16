@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/14 15:28:22 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/15 20:52:44 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ void	check_firstlastline(t_map *map, char **arr, int len)
 			// if (arr[i][j] == ' ')
 			// {
 			// 	if (chek_alllines(arr, i, j, len))
-					check_devided(map, len, i + 1, j);
-			}
+			// 		check_devided(map, len, i + 1, j);
+			// }
 		}
 	}
 }
