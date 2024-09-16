@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:27:01 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/14 12:17:33 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:02:36 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	*convert_xpm_to_arr(t_data *data, char *path_img, int i)
 	res.p_img = mlx_xpm_file_to_image(data->mlx, path_img, \
 							&data->tex[i].width, &data->tex[i].height);
 	if (!res.p_img)
-		(puts(path_img), exit(1));
+		(printf("Invalid Tex : %s\n", path_img), exit(1));
 	res.p_pixel = mlx_get_data_addr(res.p_img, &res.bit_pixel, \
 												&res.len, &res.endian);
 	if (!res.p_pixel)

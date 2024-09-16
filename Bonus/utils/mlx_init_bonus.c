@@ -6,17 +6,12 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:13:52 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/14 10:50:58 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:39:48 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D_bonus.h"
 
-void	my_free(t_data *data)
-{
-	free(data->mlx);
-	exit(1);
-}
 
 int	get_height(char	**arr)
 {
@@ -55,22 +50,15 @@ void	start_init_mlx(t_data *data)
 		(perror("mlx: "), free(data), exit(1));
 	data->mlx_win = mlx_new_window(data->mlx, W, H, "Cub3D");
 	if (!data->mlx_win)
-		(perror("mlx: "), my_free(data));
+		(perror("mlx: "), free(data), exit(1));
 	data->img.p_img = mlx_new_image(data->mlx, W, H);
 	if (!data->img.p_img)
-	{
-		(perror("mlx: "), mlx_destroy_window(data->mlx, data->mlx_win));
-		my_free(data);
-	}
+		(perror("mlx: "), free(data), exit(1));
 	data->img.p_pixel = mlx_get_data_addr(data->img.p_img, \
 						&data->img.bit_pixel, \
 						&data->img.len, &data->img.endian);
 	if (!data->img.p_pixel)
-	{
-		(perror("mlx "), mlx_destroy_image(data->mlx, data->img.p_img));
-		mlx_destroy_window(data->mlx, data->mlx_win);
-		my_free(data);
-	}
+		(perror("mlx: "), free(data), exit(1));
 }
 
 void	fill_data(t_map *map, t_data *data)

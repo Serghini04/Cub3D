@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/13 21:02:36 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:09:26 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <math.h>
 # include <stdbool.h>
 # include <string.h>
+
 // Size :
 # define W 1776
 # define H 1032
@@ -182,7 +183,9 @@ char	**ft_split(char const *s, char c);
 char	*ft_strchr(char *s, int c);
 
 // utils:
+int		on_destroy(t_data *data);
 float	max(float a, float b);
+int		my_free(t_data *data);
 int		loopfunc(t_data	*data);
 void	init_textures(t_data *data);
 int		onpress(int keycode, t_data *data);

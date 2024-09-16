@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/13 21:01:25 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:13:46 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_drawing_floor(t_data *data, int i, t_vec *pos, float *wall_height)
 	int		texture_width;
 
 	texture_width = data->tex[data->rays[i].dir].width;
-	dist_to_wall = (data->width / 2) / tan(FOV / 2) * 10;
+	dist_to_wall = (data->width / 2) / tan(FOV / 2);
 	*wall_height = (float)CUBE_SIZE * dist_to_wall / data->rays[i].distance;
 	set_vec(&pos[1], i, max(0, H / 2 - *wall_height / 2));
 	if (data->rays[i].is_ver)

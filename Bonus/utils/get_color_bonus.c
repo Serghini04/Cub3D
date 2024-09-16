@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:35:20 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/14 13:03:00 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:57:48 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,9 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 		return ;
 	pos = (img->len * y) + (x * (img->bit_pixel / 8));
 	*(int *)(img->p_pixel + pos) = color;
+}
+
+float	distance_two_points(t_vec a, t_vec b)
+{
+	return (sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2)));
 }

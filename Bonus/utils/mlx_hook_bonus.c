@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:25:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/14 11:51:10 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:35:35 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	close_door(t_data *data)
 int	onpress(int k, t_data *data)
 {
 	if (k == KEY_ECH)
-		exit(1);
+		my_free(data);
 	if (k == KEY_Q)
 		data->p.key_weopan = 1;
 	if (k == KEY_W)

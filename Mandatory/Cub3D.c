@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/14 13:06:14 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:15:42 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 void	init_game(t_data *data)
 {
+	init_textures(data);
 	data->rays = malloc(sizeof(t_ray) * data->num_rays);
 	if (!data->rays)
-	{
-		mlx_destroy_image(data->mlx, data->img.p_img);
-		mlx_destroy_window(data->mlx, data->mlx_win);
-		exit(1);
-	}
-	init_textures(data);
+		my_free(data);
 }
 
 float	max(float a, float b)
@@ -65,6 +61,7 @@ int	main(int ac, char *av[])
 	mlx_loop_hook(data.mlx, loopfunc, &data);
 	mlx_hook(data.mlx_win, 2, 1, onpress, &data);
 	mlx_hook(data.mlx_win, 3, 2, onrelease, &data);
+	mlx_hook(data.mlx_win, 17, 0, my_free, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }

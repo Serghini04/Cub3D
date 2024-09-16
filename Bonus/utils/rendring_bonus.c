@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 09:42:31 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/14 12:06:46 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:06:49 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,13 @@ void	put_door(t_data *data, t_vec_int pos)
 	while (i < CUBE_SIZE)
 	{
 		j = 0;
-		if (i < CUBE_SIZE / 2)
+		while (j < CUBE_SIZE)
 		{
-			while (j < CUBE_SIZE)
-			{
+			if (j < CUBE_SIZE / 2)
 				my_pixel_put(&data->img, pos.x + i, pos.y + j, CYAN);
-				j++;
-			}
-		}
-		else
-		{
-			while (j < CUBE_SIZE)
-			{
+			else
 				my_pixel_put(&data->img, pos.x + i, pos.y + j, BLACK);
-				j++;
-			}
+			j++;
 		}
 		i++;
 	}

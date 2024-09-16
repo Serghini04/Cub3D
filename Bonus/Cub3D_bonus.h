@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/14 11:39:13 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:58:35 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,8 @@ char		**ft_split(char const *s, char c);
 char		*ft_strchr(char *s, int c);
 
 // utils:
+int			my_free(t_data *data);
+int			on_destroy(t_data *data);
 float		max(float a, float b);
 int			loopfunc(t_data	*data);
 void		init_textures(t_data *data);
@@ -217,6 +219,10 @@ bool		is_wall2(float x, float y, t_data *data);
 t_ray		ray_casting(float ray_angle, t_data *data);
 t_vec		find_hor_intersection(t_ray	*res, t_data *data);
 t_vec		find_ver_intersection(t_ray *res, t_data *data);
+void		init_first_intersection_hor(t_data *data, t_vec *hor, t_vec *step, \
+																	t_ray *res);
+void		init_first_intersection_ver(t_data *data, t_vec *ver, t_vec *step, \
+																	t_ray *res);
 
 // parce
 void		fill_data(t_map *map, t_data *data);

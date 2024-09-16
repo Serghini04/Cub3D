@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/09/14 12:30:10 by meserghi         ###   ########.fr        #
+#    Updated: 2024/09/16 18:08:02 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ lib = Mandatory/lib/ft_strdup.c Mandatory/lib/ft_strlen.c Mandatory/lib/free_arr
 		Mandatory/lib/ft_atoi.c
 
 utils = Mandatory/utils/mlx_hook.c Mandatory/utils/mlx_init.c Mandatory/utils/init_textures.c\
-		Mandatory/utils/rendering.c Mandatory/utils/get_color.c
+		Mandatory/utils/rendering.c Mandatory/utils/get_color.c Mandatory/utils/my_free.c
 
 ray_casting = Mandatory/ray_casting/ray_casting.c Mandatory/ray_casting/find_intersection.c
 
@@ -30,9 +30,10 @@ lib_bonus = Bonus/lib/ft_strdup.c Bonus/lib/ft_strlen.c Bonus/lib/free_arr.c Bon
 
 utils_bonus = bonus/utils/mlx_hook_bonus.c bonus/utils/mlx_init_bonus.c bonus/utils/init_textures_bonus.c \
 	bonus/utils/rendring_bonus.c bonus/utils/get_color_bonus.c bonus/utils/math_utils_bonus.c\
-	bonus/utils/is_wall_bonus.c bonus/utils/rendring_utils_bonus.c
+	bonus/utils/is_wall_bonus.c bonus/utils/rendring_utils_bonus.c bonus/utils/my_free_bonus.c
 
-ray_casting_bonus = bonus/ray_casting/ray_casting_bonus.c bonus/ray_casting/find_intersection_bonus.c
+ray_casting_bonus = bonus/ray_casting/ray_casting_bonus.c bonus/ray_casting/find_intersection_bonus.c\
+					bonus/ray_casting/first_intersection_bonus.c
 
 handel_input_bonus = Bonus/handel_cub3d/ft_strncmp.c Bonus/handel_cub3d/get_next_line_utils.c\
 	Bonus/handel_cub3d/get_next_line.c Bonus/handel_cub3d/ft_lenmap.c Bonus/handel_cub3d/handel_Cub3.c\
@@ -58,6 +59,7 @@ FLAGS = -Wall -Wextra -Werror -O3 #-fsanitize=address -g
 
 # Linux :
 # FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm
+
 # MacOS :
 FMLX = mlx/libmlx.a  -framework OpenGL -framework AppKit
 

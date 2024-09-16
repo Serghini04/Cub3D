@@ -14,6 +14,8 @@
 
 t_ray	side_of_ray(t_ray res)
 {
+	if (res.dir == 5)
+		res.dir = Door;
 	if (res.dir == 4)
 		return (res);
 	if (res.is_down && !res.is_ver)
@@ -35,23 +37,24 @@ t_ray	ray_casting(float ray_angle, t_data *data)
 	t_vec	next_ver;
 	t_vec	next_hor;
 
-	res.dir = -1;
 	res = get_redirection_ray(ray_angle);
-	next_hor = find_hor_intersection(&res, data);
 	next_ver = find_ver_intersection(&res, data);
+	next_hor = find_hor_intersection(&res, data);
 	horzdist = distance_two_points(data->p.pos, next_hor);
 	vertdist = distance_two_points(data->p.pos, next_ver);
 	if (vertdist < horzdist)
 	{
 		res.distance = vertdist * cos(res.angle - data->p.angle);
-		res.to_hit_wall = next_ver;
-		res.is_ver = 1;
+		(res.to_hit_wall = next_ver, res.is_ver = 1);
+		if (res.dir == 5)
+			res.dir = -1;
 	}
 	else
 	{
 		res.distance = horzdist * cos(res.angle - data->p.angle);
-		res.to_hit_wall = next_hor;
-		res.is_ver = 0;
+		(res.to_hit_wall = next_hor, res.is_ver = 0);
+		if (res.dir == Door)
+			res.dir = -1;
 	}
 	return (side_of_ray(res));
 }
