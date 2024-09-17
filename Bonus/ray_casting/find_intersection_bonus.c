@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:16:54 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/16 17:19:35 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:00:56 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_ray	get_redirection_ray(float angle)
 	res.is_right = (res.angle < 0.5 * M_PI || res.angle > 1.5 * M_PI);
 	res.is_left = !res.is_right;
 	res.dir = -1;
+	res.door_hor = -1;
+	res.door_ver = -1;
 	return (res);
 }
 
@@ -45,7 +47,7 @@ t_vec	find_hor_intersection(t_ray	*res, t_data *data)
 	{
 		if (is_door(hor.x, hor.y - (res->is_up == 1), data))
 		{
-			res->dir = 5;
+			res->door_hor = Door;
 			break ;
 		}
 		else if (is_wall(hor.x, hor.y - (res->is_up == 1), data, res))
@@ -69,7 +71,7 @@ t_vec	find_ver_intersection(t_ray *res, t_data *data)
 	{
 		if (is_door(ver.x - (res->is_left == 1), ver.y, data))
 		{
-			res->dir = Door;
+			res->door_ver = Door;
 			break ;
 		}
 		else if (is_wall(ver.x - (res->is_left == 1), ver.y, data, res))

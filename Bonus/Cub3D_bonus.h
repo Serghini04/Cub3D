@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/17 14:24:32 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:58:06 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ enum e_direction
 	Door,
 };
 
+//ver = 4;
+//hor = 5
 // Point 2D
 typedef struct s_vec
 {
@@ -128,6 +130,8 @@ typedef struct s_ray
 	bool	is_down;
 	bool	is_left;
 	bool	is_right;
+	int		door_ver;
+	int		door_hor;
 	int		dir;
 	float	distance;
 	t_vec	to_hit_wall;

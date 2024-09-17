@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/17 14:34:44 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:41:20 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	main(int ac, char *av[])
 		printf("Number of argummet not valid !!\n");
 		return (1);
 	}
-	intro();
 	ft_handel_input(&map, &data, av);
+	intro();
 	start_init_mlx(&data);
 	init_game(&data);
 	mlx_loop_hook(data.mlx, loopfunc, &data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handelline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/17 12:55:43 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:12:33 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_door(char **arr, int *flag, int i, int j)
 {
-	if (arr[i][j] == 'D' && (!i || !j || ((arr[i][j + 1] != '1' || \
+	if (arr[i][j] == 'D' && (!i || !j ||!arr[i][j + 1]  || ((arr[i][j + 1] != '1' || \
 		arr[i][j - 1] != '1' ) && \
 			(arr[i + 1][j] != '1' || arr[i - 1][j] != '1'))))
 		*flag = -2;

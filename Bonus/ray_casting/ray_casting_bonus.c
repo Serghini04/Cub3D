@@ -41,15 +41,13 @@ void	get_younger_ray(t_data *data, t_vec next_ver, t_vec next_hor, \
 	{
 		res->distance = vertdist * cos(res->angle - data->p.angle);
 		(1) && (res->to_hit_wall = next_ver, res->is_ver = 1);
-		if (res->dir == 5)
-			res->dir = -1;
+		res->dir = res->door_ver;
 	}
 	else
 	{
 		res->distance = horzdist * cos(res->angle - data->p.angle);
 		(1) && (res->to_hit_wall = next_hor, res->is_ver = 0);
-		if (res->dir == Door)
-			res->dir = -1;
+		res->dir = res->door_hor;
 	}
 }
 

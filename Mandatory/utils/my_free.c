@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:07:12 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/16 18:09:09 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:51:08 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	my_free(t_data *data)
 
 	i = 0;
 	free_arr(data->map);
-	while (i < 5)
+	while (i < 4)
 	{
 		free(data->tex[i].add);
 		i++;
