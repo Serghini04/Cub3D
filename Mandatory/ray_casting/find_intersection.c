@@ -6,14 +6,12 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:01:42 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/07 16:03:30 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:36:25 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
 
-//=>The normalizeAngle function is used to keep the rayAngle within
-// a predictable and standard range.
 float	check_angle(float angle)
 {
 	float	valid_angle;
