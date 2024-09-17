@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:54:16 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/16 18:09:58 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:01:50 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,3 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 	pos = (img->len * y) + (x * (img->bit_pixel / 8));
 	*(int *)(img->p_pixel + pos) = color;
 }
-

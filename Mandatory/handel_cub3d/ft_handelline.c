@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/10 12:17:55 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:47:27 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,38 @@ int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 	{
 		map->tex_so = ft_strdup(line);
 		if (!map->tex_so)
-			return (0);  
+			return (0);
 	}
 	else if (ret == 3)
 	{
 		map->tex_we = ft_strdup(line);
 		if (!map->tex_we)
-			return (0);  
+			return (0);
 	}
 	else if (ret == 4)
 	{
 		map->tex_ea = ft_strdup(line);
 		if (!map->tex_ea)
-			return (0);  
+			return (0);
 	}
 	else
 		check_colloers(line, map, ret, index_line);
 	return (1);
 }
-int ft_stor_line(char *line, t_map *map, int ret, int index_line)
+
+int	ft_stor_line(char *line, t_map *map, int ret, int index_line)
 {
 	char	*tmp;
 
 	tmp = ft_strchr(line, '\n');
 	if (tmp)
 		*(--tmp) = '\0';
+	if (!line[0])
+	{
+		printf("Unvalid Line : %d\n", index_line);
+		free_myallocation(map, -1);
+		exit(EXIT_FAILURE);
+	}
 	if (ret == 1)
 	{
 		map->tex_no = ft_strdup(line);
@@ -50,20 +57,22 @@ int ft_stor_line(char *line, t_map *map, int ret, int index_line)
 			return (0);
 	}
 	else if (!ft_checknext(map, line, ret, index_line))
-			return (0);
+		return (0);
 	return (1);
 }
 
 void	ft_check_line(char *line, int index_line, t_map *map)
 {
-	int i;
-	int ret;
+	int	i;
+	int	ret;
 
 	i = 2;
 	ret = check_beginning(line);
 	if (!ret)
 	{
-		printf("pppppp\n");
+		printf("Unvalid Input in the line : %d \n", index_line);
+		printf("OR Missing some elemments of input file\n");
+		free_myallocation(map, -1);
 		exit(EXIT_FAILURE);
 	}
 	while (line && line[i] && line[i] == ' ')
@@ -78,7 +87,7 @@ void	ft_check_line(char *line, int index_line, t_map *map)
 
 void	check_linemap(t_map *map, char *line, int index_line, int *flag)
 {
-	int i;
+	int			i;
 	static int	line_y;
 
 	i = -1;

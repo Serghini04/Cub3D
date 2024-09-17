@@ -29,33 +29,40 @@ t_ray	side_of_ray(t_ray res)
 	return (res);
 }
 
+void	get_younger_ray(t_data *data, t_vec next_ver, t_vec next_hor, \
+															t_ray *res)
+{
+	float	horzdist;
+	float	vertdist;
+
+	horzdist = distance_two_points(data->p.pos, next_hor);
+	vertdist = distance_two_points(data->p.pos, next_ver);
+	if (vertdist < horzdist)
+	{
+		res->distance = vertdist * cos(res->angle - data->p.angle);
+		(1) && (res->to_hit_wall = next_ver, res->is_ver = 1);
+		if (res->dir == 5)
+			res->dir = -1;
+	}
+	else
+	{
+		res->distance = horzdist * cos(res->angle - data->p.angle);
+		(1) && (res->to_hit_wall = next_hor, res->is_ver = 0);
+		if (res->dir == Door)
+			res->dir = -1;
+	}
+}
+
 t_ray	ray_casting(float ray_angle, t_data *data)
 {
 	t_ray	res;
-	float	horzdist;
-	float	vertdist;
 	t_vec	next_ver;
 	t_vec	next_hor;
 
 	res = get_redirection_ray(ray_angle);
 	next_ver = find_ver_intersection(&res, data);
 	next_hor = find_hor_intersection(&res, data);
-	horzdist = distance_two_points(data->p.pos, next_hor);
-	vertdist = distance_two_points(data->p.pos, next_ver);
-	if (vertdist < horzdist)
-	{
-		res.distance = vertdist * cos(res.angle - data->p.angle);
-		(res.to_hit_wall = next_ver, res.is_ver = 1);
-		if (res.dir == 5)
-			res.dir = -1;
-	}
-	else
-	{
-		res.distance = horzdist * cos(res.angle - data->p.angle);
-		(res.to_hit_wall = next_hor, res.is_ver = 0);
-		if (res.dir == Door)
-			res.dir = -1;
-	}
+	get_younger_ray(data, next_ver, next_hor, &res);
 	return (side_of_ray(res));
 }
 

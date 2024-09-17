@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_lines.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/17 11:38:31 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:55:04 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3D.h"
+#include "../Cub3D_bonus.h"
 
 void	run_error(t_map *map, char *line, int j)
 {
@@ -75,7 +75,7 @@ void	check_devided(t_map *map, int len, int i, int j)
 
 	arr = map->tab_map;
 	lent = ft_strlen(arr[i]);
-	if (i == len - 1 || ft_strlen(arr[i]) <= j || is_sp(arr[i], j))
+	if (i == len - 1 || (int)ft_strlen(arr[i]) <= j || is_sp(arr[i], j))
 	{
 		printf("*The map must be closed by character '1'! \n");
 		free_myallocation(map, 0);

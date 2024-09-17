@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/16 17:58:35 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:24:32 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_BONUS_H
 # include <stdio.h>
 # include <unistd.h>
+# include <limits.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include "../mlx/mlx.h"
@@ -166,6 +167,7 @@ typedef struct s_map
 	unsigned int	ceil;
 	int				pos_x;
 	int				pos_y;
+	int				len;
 	int				h;
 	int				w;
 	char			angle_view;
@@ -177,6 +179,7 @@ typedef struct s_map
 }	t_map;
 
 // lib:
+int			ft_str_len(char *s);
 char		*ft_itoa(int n);
 int			ft_atoi(const char *str);
 size_t		ft_strlen(char *s);
@@ -198,6 +201,7 @@ int			onpress(int keycode, t_data *data);
 int			onrelease(int keycode, t_data *data);
 void		put_color(t_data *data, t_vec_int pos, int color, int pow);
 void		draw_player(t_data *data, int color, int player_x, int player_y);
+void		put_door(t_data *data, t_vec_int pos);
 void		init_drawing_floor(t_data *data, int i, t_vec *pos, \
 														float *wall_height);
 void		set_vec(t_vec *vec, float x, float y);
@@ -225,6 +229,8 @@ void		init_first_intersection_ver(t_data *data, t_vec *ver, t_vec *step, \
 																	t_ray *res);
 
 // parce
+void		run_error(t_map *map, char *line, int j);
+void		runerror(t_map *map, char **arr, int i, int j);
 void		fill_data(t_map *map, t_data *data);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*get_next_line(int fd);
@@ -250,7 +256,11 @@ int			check_input(char **av, t_map *map);
 void		check_arrmap(t_map *map, int len);
 void		check_spand0(char **arr, int *flag, int i, int j);
 void		check_player(char **arr, int *flag, int i, int j);
-void		fill_data(t_map *map, t_data *data);
+void		check_devided(t_map *map, int len, int i, int j);
+int			is_sp(char *line, int index);
+int			check_previous(char **arr, int i, int j);
+void		seconde_part(t_map *map, int i, int j);
+void		check_door(char **arr, int *flag, int i, int j);
 
 // main
 void		start_init_mlx(t_data *data);

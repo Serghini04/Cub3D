@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:06:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/16 17:21:49 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:07:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,8 @@ bool	is_door(float x, float y, t_data *data)
 	if (x < 0 || x > data->width || y < 0 || y > data->height)
 		return (false);
 	if ((int)ft_strlen(data->map[(int)floor(new_y)]) < (int)floor(new_x))
-    	return (false);
+		return (false);
 	if (data->map[(int)floor(new_y)][(int)floor(new_x)] == 'D')
-	{
-		// printf("%d,%d\n", (int)floor(new_y), (int)floor(new_x));
 		return (true);
-	}
 	return (false);
 }
