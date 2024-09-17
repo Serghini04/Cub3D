@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/15 20:52:44 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:32:23 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	run_error(t_map *map, char *line, int j)
 {
-	if (is_sp(line))
+	if (is_sp(line, 0))
 		printf ("The map must be closed by character '1'! \n");
 	else
 		printf ("Empty line in the map !\n");
@@ -34,17 +34,15 @@ void	read_lines(t_map *map, int fd, int len_map)
 	line = get_next_line(fd);
 	while (line && ++index_line)
 	{
-		if (i < 6 && line[0] != '\n')
+		if (line[0] != '\n')
 		{
-			ft_check_line(line, index_line, map);
+			if (i < 6)
+				ft_check_line(line, index_line, map);
+			else if (i >= 6)
+				map->tab_map[++j] = ft_strdup(line);
 			i++;
 		}
-		else if (i >= 6 && line[0] != '\n' && !is_sp(line))
-		{
-			map->tab_map[++j] = ft_strdup(line);
-			i++;
-		}
-		else if (j >= 0 && i < len_map + 6 && (line[0] == '\n' || is_sp(line)))
+		else if (j >= 0 && i < len_map + 6 && is_sp(line, 0))
 			run_error(map, line, j);
 		free (line);
 		line = get_next_line(fd);
@@ -73,27 +71,28 @@ int	check_input(char **av, t_map *map)
 void	check_devided(t_map *map, int len, int i, int j)
 {
 	char	**arr;
+	int		lent;
 
 	arr = map->tab_map;
-	if (i == len - 1 || (int)ft_strlen(arr[i + 1]) - 2 < j)
+	lent = ft_strlen(arr[i]);
+	if (i == len - 1 || ft_strlen(arr[i]) <= j || is_sp(arr[i], j))
 	{
-		printf("The map must be closed by character '1'! \n");
+		printf("*The map must be closed by character '1'! \n");
 		free_myallocation(map, 0);
 		exit(EXIT_SUCCESS);
 	}
+	while (j && arr[i][j] == ' ')
+		j--;
+	j++;
 	while (arr[i][j] && arr[i][j] == ' ')
-		j++;
-	--j;
-	while (j >= 0 && arr[i][j] == ' ')
 	{
-		if (arr[i + 1] && arr[i + 1][j] == ' ')
+		lent = ft_strlen(arr[i + 1]);
+		if (i < len && lent > j && arr[i + 1][j] == ' ')
+		{
 			check_devided(map, len, i + 1, j);
-		if (arr[i][j - 1] == ' ')
-			j--;
-		else
-			break ;
+		}
+		j++;
 	}
-	return ;
 }
 
 void	check_firstlastline(t_map *map, char **arr, int len)
@@ -112,11 +111,13 @@ void	check_firstlastline(t_map *map, char **arr, int len)
 				if (arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')
 					runerror(map, arr, i, j);
 			}
-			// if (arr[i][j] == ' ')
-			// {
-			// 	if (chek_alllines(arr, i, j, len))
-			// 		check_devided(map, len, i + 1, j);
-			// }
+			if (is_sp(arr[i], 0))
+			{
+				printf("Unbvalide Line in the map : %d! \n", i + 1);
+				free_myallocation(map, 0);
+				exit(EXIT_SUCCESS);
+			}
+			seconde_part(map, i, j);
 		}
 	}
 }

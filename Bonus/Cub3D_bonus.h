@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/16 14:33:18 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:56:59 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_BONUS_H
 # include <stdio.h>
 # include <unistd.h>
+# include <limits.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include "mlx/mlx.h"
@@ -180,7 +181,7 @@ typedef struct s_map
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-size_t	ft_strlen(char *s);
+int		ft_strlen(char *s);
 char	*ft_strdup(char *s1);
 void	free_arr(char **res);
 void	*ft_memset(void *b, int c, size_t len);
@@ -213,9 +214,7 @@ t_vec	find_hor_intersection(t_ray	*res, t_data *data);
 t_vec	find_ver_intersection(t_ray *res, t_data *data);
 
 // parce
-int		chek_alllines(char **arr, int i, int j, int len);
 void	run_error(t_map *map, char *line, int j);
-void	ft_check_(t_map *map, char *line, int i, int j);
 void	runerror(t_map *map, char **arr, int i, int j);
 void	fill_data(t_map *map, t_data *data);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -243,7 +242,10 @@ void	check_arrmap(t_map *map, int len);
 void	check_spand0(char **arr, int *flag, int i, int j);
 void	check_player(char **arr, int *flag, int i, int j);
 void	check_devided(t_map *map,int len, int i, int j);
-int		is_sp(char *line);
+int		is_sp(char *line, int index);
+int		check_previous(char **arr, int i, int j);
+void	seconde_part(t_map *map, int i, int j);
+void	check_door(char **arr,int *flag, int i, int j);
 
 // main
 void	start_init_mlx(t_data *data);

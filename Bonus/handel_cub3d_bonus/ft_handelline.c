@@ -6,11 +6,19 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/15 10:33:18 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:55:43 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D_bonus.h"
+
+void	check_door(char **arr, int *flag, int i, int j)
+{
+	if (arr[i][j] == 'D' && (!i || !j || ((arr[i][j + 1] != '1' || \
+		arr[i][j - 1] != '1' ) && \
+			(arr[i + 1][j] != '1' || arr[i - 1][j] != '1'))))
+		*flag = -2;
+}
 
 int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 {

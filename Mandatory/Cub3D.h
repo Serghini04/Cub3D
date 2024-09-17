@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/17 10:27:50 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:47:50 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,10 +202,9 @@ void	start_init_mlx(t_data *data);
 int		start_rendering(t_data *data);
 
 // parce
-int		chek_alllines(char **arr, int i, int j, int len);
 void	run_error(t_map *map, char *line, int j);
-void	ft_check_(t_map *map, char *line, int i, int j);
 void	runerror(t_map *map, char **arr, int i, int j);
+void	seconde_part(t_map *map, int i, int j);
 void	fill_data(t_map *map, t_data *data);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*get_next_line(int fd);

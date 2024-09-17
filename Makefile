@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/09/17 10:03:32 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/09/17 12:29:38 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ray_casting = Mandatory/ray_casting/ray_casting.c Mandatory/ray_casting/find_int
 handel_input = Mandatory/handel_cub3d/get_next_line_utils.c\
 	Mandatory/handel_cub3d/get_next_line.c Mandatory/handel_cub3d/ft_lenmap.c Mandatory/handel_cub3d/handel_Cub3.c\
 	Mandatory/handel_cub3d/ft_utils.c Mandatory/handel_cub3d/ft_checkColours.c Mandatory/handel_cub3d/ft_handelline.c\
-	Mandatory/handel_cub3d/read_lines.c Mandatory/handel_cub3d/ft_spand0.c
+	Mandatory/handel_cub3d/read_lines.c Mandatory/handel_cub3d/ft_spand0.c Mandatory/handel_cub3d/check_previous.c
 
 lib_bonus = Bonus/lib/ft_strdup.c Bonus/lib/ft_strlen.c Bonus/lib/free_arr.c Bonus/lib/ft_memset.c \
 	Bonus/lib/ft_strjoin.c Bonus/lib/ft_itoa.c Mandatory/lib/ft_split.c\
@@ -35,7 +35,7 @@ ray_casting_bonus = bonus/ray_casting/ray_casting_bonus.c bonus/ray_casting/find
 handel_input_bonus = Bonus/handel_cub3d_bonus/get_next_line_utils.c\
 	Bonus/handel_cub3d_bonus/get_next_line.c Bonus/handel_cub3d_bonus/ft_lenmap.c Bonus/handel_cub3d_bonus/handel_Cub3.c\
 	Bonus/handel_cub3d_bonus/ft_utils.c Bonus/handel_cub3d_bonus/ft_checkColours.c Bonus/handel_cub3d_bonus/ft_handelline.c\
-	Bonus/handel_cub3d_bonus/read_lines.c Bonus/handel_cub3d_bonus/ft_spand0.c
+	Bonus/handel_cub3d_bonus/read_lines.c Bonus/handel_cub3d_bonus/ft_spand0.c Bonus/handel_cub3d_bonus/check_previous.c
 
 GREEN = \033[1;32m
 RED = \033[1;31m

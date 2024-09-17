@@ -6,27 +6,11 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/15 10:00:49 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:47:27 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
-
-// int	chek_alllines(char **arr, int i, int j, int len)
-// {
-// 	while (i < len)
-// 	{
-// 		if ((int)ft_strlen(arr[i + 1]) < j && (int)ft_strlen(arr[i]) > j)
-// 		{
-// 			if (!is_sp(&arr[i][j]))
-// 				return (1);
-// 		}
-// 		if ((int)ft_strlen(arr[i]) > j && arr[i][j] != ' ')
-// 			return (0);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 {
