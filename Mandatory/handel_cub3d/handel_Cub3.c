@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/16 15:07:14 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:08:48 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_check(t_map *map, char **arr, int i, int j)
 {
-	int flag;
+	int	flag;
 
 	flag = 1;
 	check_spand0(arr, &flag, i, j);
@@ -22,20 +22,19 @@ void	ft_check(t_map *map, char **arr, int i, int j)
 	if (flag <= 0)
 	{
 		if (flag == -1)
-			printf("Invalid position of player !\n");
+			printf("*Invalid position of player !\n");
 		else
 			printf ("Invalid map !!\n check line N: %d in the map\n", i + 1);
 		free_myallocation(map, 0);
 		exit(EXIT_SUCCESS);
 	}
-
 }
 
 void	check_line(t_map *map, char **arr, int i, int j)
 {
 	while (arr[i][j])
 	{
-		if ((arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ')\
+		if ((arr[i][j] != '1' && arr[i][j] != '\n' && arr[i][j] != ' ') \
 		|| is_player(arr[i][j]))
 		{
 			if (is_player(arr[i][j]))
@@ -48,6 +47,7 @@ void	check_line(t_map *map, char **arr, int i, int j)
 		j++;
 	}
 }
+
 void	check_arrmap(t_map *map, int len)
 {
 	int		i;
@@ -62,7 +62,7 @@ void	check_arrmap(t_map *map, int len)
 	{
 		j = 0;
 		posnew_line = ft_strchr(arr[i], '\n');
-		if(posnew_line)
+		if (posnew_line)
 			*(--posnew_line) = '\0';
 		while (arr[i][j] && arr[i +1] && arr[i + 1][j])
 		{
@@ -74,13 +74,13 @@ void	check_arrmap(t_map *map, int len)
 		else if ((int)ft_strlen(arr[i + 1]) > j && arr[i + 1][j])
 			check_line(map, arr, i + 1, j);
 	}
-
 }
+
 void	ft_handelsps(t_map *map)
 {
-	int	i;
-	int	j;
-	int	min_index;
+	int		i;
+	int		j;
+	int		min_index;
 	char	*tmp;
 
 	i = 0;
@@ -88,7 +88,7 @@ void	ft_handelsps(t_map *map)
 	while (map->tab_map[i])
 	{
 		j = 0;
-		while (map->tab_map[i][j] && map->tab_map[i][j] ==' ')
+		while (map->tab_map[i][j] && map->tab_map[i][j] == ' ')
 			j++;
 		if (min_index > j)
 			min_index = j;
@@ -103,10 +103,8 @@ void	ft_handelsps(t_map *map)
 		i++;
 	}
 	map->pos_x -= min_index;
-	i = 0;
-	while (map->tab_map[i])
-		printf("%s", map->tab_map[i++]);
 }
+
 int	ft_handel_input(t_map *map, t_data *data, char **av)
 {
 	int	len_map;

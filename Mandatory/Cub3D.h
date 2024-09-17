@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/16 14:34:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:27:50 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ typedef struct s_map
 
 // lib:
 int		ft_atoi(const char *str);
-size_t	ft_strlen(const char *s);
+int		ft_strlen(const char *s);
 char	*ft_strdup(char *s1);
 void	free_arr(char **res);
 void	*ft_memset(void *b, int c, size_t len);

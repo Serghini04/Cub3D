@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 12:07:58 by meserghi          #+#    #+#              #
-#    Updated: 2024/09/16 15:04:01 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/09/17 10:03:32 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ FILE_OBJ = ${FILE:.c=.o}
 
 FILE_OBJ_BONUS = ${FILE_BONUS:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -O3 #-fsanitize=address -g
 
 # Linux :
 # FMLX = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm

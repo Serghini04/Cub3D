@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:10:45 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/16 11:57:02 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:03:22 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int ac, char *av[])
 	t_data	data;
 	t_map	map;
 
-	// atexit(f);
+	atexit(f);
 	if (ac != 2)
 	{
 		printf("Number of argummet not valid !!\n");
