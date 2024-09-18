@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/17 15:58:06 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:15:14 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ int			ft_atoi(const char *str);
 size_t		ft_strlen(char *s);
 char		*ft_strdup(char *s1);
 void		free_arr(char **res);
+char		*stor_line(t_map *map, char *line);
 void		*ft_memset(void *b, int c, size_t len);
 char		*ft_strjoin(char *s1, char *s2);
 char		**ft_split(char const *s, char c);
@@ -265,6 +266,7 @@ int			is_sp(char *line, int index);
 int			check_previous(char **arr, int i, int j);
 void		seconde_part(t_map *map, int i, int j);
 void		check_door(char **arr, int *flag, int i, int j);
+char		*ft_storline(t_map *map, int i, int min_index);
 
 // main
 void		start_init_mlx(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handel_Cub3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/17 14:02:12 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:57:50 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_handelsps(t_map *map)
 	while (map->tab_map[i])
 	{
 		tmp = map->tab_map[i];
-		map->tab_map[i] = ft_strdup(&map->tab_map[i][min_index]);
+		map->tab_map[i] = ft_storline(map, i, min_index);
 		free(tmp);
 		i++;
 	}

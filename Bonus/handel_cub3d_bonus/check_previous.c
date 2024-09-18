@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   check_previous.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:32:46 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/17 13:59:58 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:55:55 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D_bonus.h"
+
+char	*ft_storline(t_map *map, int i, int min_index)
+{
+	char	*ptr;
+
+	ptr = ft_strdup(&map->tab_map[i][min_index]);
+	if (!ptr)
+	{
+		free_myallocation(map, 0);
+		printf ("malloc failed! \n");
+		exit(EXIT_FAILURE);
+	}
+	return (ptr);
+}
 
 int	check_previous(char **arr, int i, int j)
 {

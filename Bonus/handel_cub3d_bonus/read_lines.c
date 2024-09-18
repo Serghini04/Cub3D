@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_lines.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:50:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/17 13:55:04 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:16:23 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	read_lines(t_map *map, int fd, int len_map)
 			if (i < 6)
 				ft_check_line(line, index_line, map);
 			else if (i >= 6)
-				map->tab_map[++j] = ft_strdup(line);
+				map->tab_map[++j] = stor_line(map, line);
 			i++;
 		}
 		else if (j >= 0 && i < len_map + 6 && is_sp(line, 0))

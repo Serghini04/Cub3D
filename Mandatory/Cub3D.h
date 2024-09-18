@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:11:21 by meserghi          #+#    #+#             */
-/*   Updated: 2024/09/17 14:03:27 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:14:28 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(char *s, int c);
 char	*ft_strtrim(char *s1, char *set);
+char	*stor_line(t_map *map, char *line);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // utils:
@@ -241,5 +242,6 @@ void	check_spand0(char **arr, int *flag, int i, int j);
 void	check_player(char **arr, int *flag, int i, int j);
 void	check_devided(t_map *map, int len, int i, int j);
 int		is_sp(char *line, int index);
+char	*ft_storline(t_map *map, int i, int min_index);
 
 #endif
