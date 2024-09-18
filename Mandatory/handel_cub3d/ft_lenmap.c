@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lenmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:47 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/16 12:14:44 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:07:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_lenmap(t_map *map, const char *path_map)
 	if (!line)
 	{
 		printf("Empty file_map !!\n");
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
 	map->len = ft_readline(map, line, fd, &flag);
 	if (!flag)

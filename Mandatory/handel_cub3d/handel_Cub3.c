@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:29:50 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/17 14:02:12 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:35:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	check_arrmap(t_map *map, int len)
 		posnew_line = ft_strchr(arr[i], '\n');
 		if (posnew_line)
 			*(--posnew_line) = '\0';
-		while (arr[i][j] && arr[i +1] && arr[i + 1][j])
+		while (arr[i][j] && arr[i + 1] && arr[i + 1][j])
 		{
 			ft_check(map, arr, i, j);
 			j++;
@@ -98,7 +98,7 @@ void	ft_handelsps(t_map *map)
 	while (map->tab_map[i])
 	{
 		tmp = map->tab_map[i];
-		map->tab_map[i] = ft_strdup(&map->tab_map[i][min_index]);
+		map->tab_map[i] = ft_storline(map, i, min_index);
 		free(tmp);
 		i++;
 	}

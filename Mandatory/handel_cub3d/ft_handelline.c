@@ -6,11 +6,25 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:31 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/17 12:47:27 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:54:55 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D.h"
+
+char	*ft_storline(t_map *map, int i, int min_index)
+{
+	char	*ptr;
+
+	ptr = ft_strdup(&map->tab_map[i][min_index]);
+	if (!ptr)
+	{
+		free_myallocation(map, 0);
+		printf ("malloc failed! \n");
+		exit(EXIT_FAILURE);
+	}
+	return (ptr);
+}
 
 int	ft_checknext(t_map *map, char *line, int ret, int index_line)
 {

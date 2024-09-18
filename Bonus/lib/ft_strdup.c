@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 10:00:47 by meserghi          #+#    #+#             */
-/*   Updated: 2024/07/17 21:08:08 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:14:54 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3D_bonus.h"
+
+char	*stor_line(t_map *map, char *line)
+{
+	char	*tmp;
+
+	tmp = ft_strdup(line);
+	if (!tmp)
+	{
+		printf ("malloc failed !\n");
+		free_myallocation(map, 0);
+		exit(EXIT_FAILURE);
+	}
+	return (tmp);
+}
 
 char	*ft_strdup(char *s1)
 {

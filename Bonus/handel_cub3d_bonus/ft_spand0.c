@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:55 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/09/17 13:59:16 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:39:04 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	is_sp(char *line, int index)
 void	check_spand0(char **arr, int *flag, int i, int j)
 {
 	if ((arr[i][j] == '0' && (arr[i + 1][j] == ' ' || \
-		arr[i][j + 1] == ' ' || arr[i][j + 1] == '\0')) || arr[i][0] == '0')
+		(int)ft_strlen(arr[i + 1]) - 1 <= j || arr[i][j + 1] == ' ' || \
+			arr[i][j + 1] == '\0')) || arr[i][0] == '0')
 		*flag = 0;
 	else if (arr[i][j] == ' ' && (arr[i + 1][j] == '0' || \
 		arr[i][j + 1] == '0' || is_player(arr[i + 1][j])))
