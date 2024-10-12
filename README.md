@@ -58,8 +58,14 @@ Replace `[map_file]` with the path to a valid map file from the `maps/` director
 - `M` : Activate/Deactivate mouse control
 - Mouse movement: Control camera
 
+## Additional Resources
+For a detailed explanation of the raycasting technique used in this project, check out our [Notion](https://innate-newsboy-cc3.notion.site/Ray-Casting-35bf6d83ea574d6e96bcc5b9104b3680) page on Ray Casting.
+
 ## License
 This project is part of the 42 Network curriculum and is subject to their academic policies.
+
+## Contributing
+While this project is primarily an academic exercise, we welcome feedback and suggestions. Please open an issue if you encounter any bugs or have ideas for improvements.
 
 ## Acknowledgments
 - 42 Network and 1337 School for the project subject and resources
