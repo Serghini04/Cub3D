@@ -2,8 +2,9 @@
 
 ## Overview
 Cub3D is a 3D game project developed as part of the 42 Network curriculum at the 1337 school. This project involves creating a basic 3D game using the raycasting technique, similar to the mechanics found in the classic game Wolfenstein 3D.
-[![Cub3D Demo Video](https://www.youtube.com/watch?v=AYjC75kCCzk)
 
+[![Cub3D Demo Video](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/AYjC75kCCzk?si=zbxT8YhsR1jSKB4s)
+Click the image above to watch the demo video!
 
 ## Project Structure
 - `Bonus/`: Additional features beyond the core requirements
