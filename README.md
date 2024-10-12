@@ -3,7 +3,7 @@
 ## Overview
 Cub3D is a 3D game project developed as part of the 42 Network curriculum at the 1337 school. This project involves creating a basic 3D game using the raycasting technique, similar to the mechanics found in the classic game Wolfenstein 3D.
 
-[![Cub3D Demo Video](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/AYjC75kCCzk?si=zbxT8YhsR1jSKB4s)
+[![Cub3D Demo Video](https://github.com/Serghini04/Cub3D/blob/master/Screen%20Shot%202024-10-12%20at%203.29.53%20PM.png)](https://youtu.be/AYjC75kCCzk?si=zbxT8YhsR1jSKB4s)
 Click the image above to watch the demo video!
 
 ## Project Structure
@@ -15,14 +15,14 @@ Click the image above to watch the demo video!
 - `Makefile`: Build automation script
 
 ## Features
-- Raycasting engine for 3D rendering
-- Texture mapping
-- Player movement and rotation
-- Map parsing and rendering
-- Weapon display and animation
-- Mouse movement for camera control
-- Interactive doors (open/close functionality)
-- Minimap
+- Raycasting engine for 3D rendering.
+- Texture mapping for immersive graphics.
+- Player movement and rotation.
+- Map parsing and rendering.
+- Weapon display and animation.
+- Mouse movement for camera control.
+- Interactive doors (open/close functionality).
+- Minimap for enhanced navigation.
 
 ## Collaboration
 This project was developed collaboratively :
