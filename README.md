@@ -68,6 +68,6 @@ This project is part of the 42 Network curriculum and is subject to their academ
 While this project is primarily an academic exercise, we welcome feedback and suggestions. Please open an issue if you encounter any bugs or have ideas for improvements.
 
 ## Acknowledgments
-- 42 Network and 1337 School for the project subject and resources
-- The creators of Wolfenstein 3D for inspiration
-- [Hicham Driouch](https://github.com/paybat) for their work on map parsing
+- 42 Network and 1337 School for the project subject and resources.
+- The creators of Wolfenstein 3D for inspiration.
+- [Hicham Driouch](https://github.com/paybat) for their work on map parsing.
